@@ -1,0 +1,18 @@
+{
+  "name": "Lista Infinita",
+  "short_name": "Lista",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f9ff",
+  "theme_color": "#0f62fe",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

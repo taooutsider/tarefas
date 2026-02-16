@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0f62fe" />
+    <title>Lista Infinita</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icons/icon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="app-header">
+        <h1>Lista Infinita</h1>
+        <p>Objetiva, limpa e sem limite.</p>
+      </header>
+
+      <section class="sync-panel">
+        <div class="sync-top">
+          <strong id="sync-status">Modo local</strong>
+          <button id="sync-now-btn" type="button">Sincronizar agora</button>
+          <button id="logout-btn" type="button">Sair</button>
+        </div>
+
+        <div class="sync-grid">
+          <input id="supabase-url" type="url" placeholder="Supabase URL (https://xxxx.supabase.co)" autocomplete="off" />
+          <input id="supabase-key" type="text" placeholder="Supabase anon key" autocomplete="off" />
+          <button id="save-cloud-btn" type="button">Salvar nuvem</button>
+        </div>
+
+        <div class="sync-grid">
+          <input id="email-input" type="email" placeholder="Seu e-mail para login" autocomplete="email" />
+          <button id="email-login-btn" type="button">Enviar link de acesso</button>
+        </div>
+      </section>
+
+      <section class="controls">
+        <input
+          id="task-input"
+          type="text"
+          placeholder="Digite uma tarefa e pressione Enter"
+          autocomplete="off"
+        />
+
+        <div class="toolbar">
+          <label for="sort-select">Ordenar</label>
+          <select id="sort-select">
+            <option value="created-desc">Data (mais nova)</option>
+            <option value="created-asc">Data (mais antiga)</option>
+            <option value="priority-desc">Cor (vermelho > amarelo > sem cor)</option>
+            <option value="priority-asc">Cor (sem cor > amarelo > vermelho)</option>
+          </select>
+
+          <button id="notify-btn" type="button">Ativar notificações</button>
+          <button id="archive-btn" type="button">Arquivar concluídas</button>
+        </div>
+      </section>
+
+      <section class="list-section">
+        <ul id="task-list" aria-live="polite"></ul>
+      </section>
+
+      <section class="archive-section">
+        <h2>Arquivadas</h2>
+        <ul id="archived-list"></ul>
+      </section>
+    </main>
+
+    <template id="task-template">
+      <li class="task-item">
+        <button class="toggle" type="button" aria-label="Marcar concluída"></button>
+
+        <div class="task-main">
+          <span class="task-text" tabindex="0"></span>
+          <div class="priority-dots">
+            <button class="dot dot-none active" data-priority="none" type="button" aria-label="Sem prioridade"></button>
+            <button class="dot dot-yellow" data-priority="yellow" type="button" aria-label="Prioridade amarela"></button>
+            <button class="dot dot-red" data-priority="red" type="button" aria-label="Prioridade vermelha"></button>
+          </div>
+        </div>
+
+        <small class="task-date"></small>
+
+        <button class="delete" type="button" aria-label="Excluir tarefa">Excluir</button>
+      </li>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
