@@ -13,39 +13,60 @@
   <body>
     <main class="app">
       <header class="app-header">
-        <h1>Lista Infinita</h1>
-        <p>Objetiva, limpa e sem limite.</p>
+        <div class="header-row">
+          <div>
+            <h1 id="app-title">Lista Infinita</h1>
+            <p id="app-subtitle">Objetiva, limpa e sem limite.</p>
+          </div>
+          <div class="language-box">
+            <label id="language-label" for="language-select">Idioma</label>
+            <select id="language-select">
+              <option value="pt-BR">Português (Brasil)</option>
+              <option value="en-US">English (US)</option>
+            </select>
+          </div>
+        </div>
       </header>
 
-      <section class="sync-panel">
+      <section id="sync-panel" class="sync-panel">
         <div class="sync-top">
           <strong id="sync-status">Modo local</strong>
+          <button id="toggle-sync-panel-btn" type="button" aria-expanded="true">Minimizar topo</button>
+          <button id="toggle-cloud-btn" type="button" aria-expanded="false">Configurar nuvem</button>
           <button id="sync-now-btn" type="button">Sincronizar agora</button>
           <button id="logout-btn" type="button">Sair</button>
         </div>
 
-        <div class="sync-grid">
-          <input id="supabase-url" type="url" placeholder="Supabase URL (https://xxxx.supabase.co)" autocomplete="off" />
-          <input id="supabase-key" type="text" placeholder="Supabase anon key" autocomplete="off" />
-          <button id="save-cloud-btn" type="button">Salvar nuvem</button>
-        </div>
+        <div id="sync-panel-body" class="sync-panel-body">
+          <div id="cloud-panel-body" class="cloud-panel-body is-collapsed">
+          <div class="sync-grid">
+            <input id="supabase-url" type="url" placeholder="Supabase URL (https://xxxx.supabase.co)" autocomplete="off" />
+            <input id="supabase-key" type="text" placeholder="Supabase anon key" autocomplete="off" />
+            <button id="save-cloud-btn" type="button">Salvar nuvem</button>
+          </div>
 
-        <div class="sync-grid">
-          <input id="email-input" type="email" placeholder="Seu e-mail para login" autocomplete="email" />
-          <button id="email-login-btn" type="button">Enviar link de acesso</button>
+          <div class="sync-grid">
+            <input id="email-input" type="email" placeholder="Seu e-mail para login" autocomplete="email" />
+            <button id="email-login-btn" type="button">Enviar link de acesso</button>
+          </div>
+          </div>
         </div>
       </section>
 
       <section class="controls">
-        <input
-          id="task-input"
-          type="text"
-          placeholder="Digite uma tarefa e pressione Enter"
-          autocomplete="off"
-        />
+        <div class="create-row">
+          <input
+            id="task-input"
+            type="text"
+            placeholder="Digite uma tarefa e pressione Enter"
+            autocomplete="off"
+          />
+          <button id="add-task-btn" type="button">Criar</button>
+        </div>
+        <p id="input-hint" class="input-hint">Pressione Enter ou clique em Criar.</p>
 
         <div class="toolbar">
-          <label for="sort-select">Ordenar</label>
+          <label id="sort-label" for="sort-select">Ordenar</label>
           <select id="sort-select">
             <option value="created-desc">Data (mais nova)</option>
             <option value="created-asc">Data (mais antiga)</option>
@@ -56,6 +77,13 @@
           <button id="notify-btn" type="button">Ativar notificações</button>
           <button id="archive-btn" type="button">Arquivar concluídas</button>
         </div>
+
+        <div class="filters-row" role="group" aria-label="Filtros">
+          <button class="filter-btn is-active" data-filter="all" type="button">Todas</button>
+          <button class="filter-btn" data-filter="pending" type="button">Pendentes</button>
+          <button class="filter-btn" data-filter="completed" type="button">Concluídas</button>
+          <span id="tasks-summary" class="tasks-summary"></span>
+        </div>
       </section>
 
       <section class="list-section">
@@ -63,7 +91,7 @@
       </section>
 
       <section class="archive-section">
-        <h2>Arquivadas</h2>
+        <h2 id="archive-title">Arquivadas</h2>
         <ul id="archived-list"></ul>
       </section>
     </main>

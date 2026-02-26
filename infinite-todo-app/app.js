@@ -1,6 +1,8 @@
 const STORAGE_KEY = "infinite.todo.v1";
 const ARCHIVE_KEY = "infinite.todo.archive.v1";
 const SORT_KEY = "infinite.todo.sort.v1";
+const FILTER_KEY = "infinite.todo.filter.v1";
+const LANGUAGE_KEY = "infinite.todo.lang.v1";
 
 const CLOUD_URL_KEY = "infinite.todo.cloud.url";
 const CLOUD_ANON_KEY = "infinite.todo.cloud.anon";
@@ -8,14 +10,29 @@ const CLOUD_EMAIL_KEY = "infinite.todo.cloud.email";
 const CLOUD_TABLE = "todo_state";
 
 const taskInput = document.querySelector("#task-input");
+const addTaskBtn = document.querySelector("#add-task-btn");
 const taskList = document.querySelector("#task-list");
 const archivedList = document.querySelector("#archived-list");
 const sortSelect = document.querySelector("#sort-select");
 const archiveBtn = document.querySelector("#archive-btn");
 const notifyBtn = document.querySelector("#notify-btn");
+const filterButtons = [...document.querySelectorAll(".filter-btn")];
+const tasksSummary = document.querySelector("#tasks-summary");
 const template = document.querySelector("#task-template");
+const appTitle = document.querySelector("#app-title");
+const appSubtitle = document.querySelector("#app-subtitle");
+const languageLabel = document.querySelector("#language-label");
+const languageSelect = document.querySelector("#language-select");
+const sortLabel = document.querySelector("#sort-label");
+const inputHint = document.querySelector("#input-hint");
+const archiveTitle = document.querySelector("#archive-title");
 
+const syncPanel = document.querySelector("#sync-panel");
+const syncPanelBody = document.querySelector("#sync-panel-body");
 const syncStatus = document.querySelector("#sync-status");
+const toggleSyncPanelBtn = document.querySelector("#toggle-sync-panel-btn");
+const toggleCloudBtn = document.querySelector("#toggle-cloud-btn");
+const cloudPanelBody = document.querySelector("#cloud-panel-body");
 const syncNowBtn = document.querySelector("#sync-now-btn");
 const logoutBtn = document.querySelector("#logout-btn");
 const saveCloudBtn = document.querySelector("#save-cloud-btn");
@@ -32,13 +49,262 @@ let authSubscription = null;
 let currentUser = null;
 let syncInFlight = false;
 let syncDebounceTimer = null;
+let cloudPanelOpen = false;
+let syncPanelOpen = false;
+let currentLanguage = localStorage.getItem(LANGUAGE_KEY) || "pt-BR";
+let currentFilter = localStorage.getItem(FILTER_KEY) || "all";
 
-sortSelect.value = localStorage.getItem(SORT_KEY) || "created-desc";
+const I18N = {
+  "pt-BR": {
+    appTitle: "Lista Infinita",
+    appSubtitle: "Objetiva, limpa e sem limite.",
+    languageLabel: "Idioma",
+    toggleSyncOpen: "Mostrar configurações",
+    toggleSyncClose: "Ocultar configurações",
+    toggleCloudOpen: "Configurar nuvem",
+    toggleCloudClose: "Fechar nuvem",
+    syncNow: "Sincronizar agora",
+    logout: "Sair",
+    saveCloud: "Salvar nuvem",
+    sendAccessLink: "Enviar link de acesso",
+    taskPlaceholder: "Digite uma tarefa e pressione Enter",
+    addTask: "Criar",
+    inputHint: "Pressione Enter ou clique em Criar.",
+    sortLabel: "Ordenar",
+    sortCreatedDesc: "Data (mais nova)",
+    sortCreatedAsc: "Data (mais antiga)",
+    sortPriorityDesc: "Cor (vermelho > amarelo > sem cor)",
+    sortPriorityAsc: "Cor (sem cor > amarelo > vermelho)",
+    notify: "Ativar notificações",
+    archiveCompleted: "Arquivar concluídas",
+    filterAll: "Todas",
+    filterPending: "Pendentes",
+    filterCompleted: "Concluídas",
+    filtersGroupLabel: "Filtros",
+    tasksSummary: (total, pending, completed) =>
+      `${total} tarefa(s) | ${pending} pendente(s) | ${completed} concluída(s)`,
+    archiveTitle: "Arquivadas",
+    archiveEmpty: "Nenhuma tarefa arquivada ainda.",
+    listEmpty: "Nenhuma tarefa ainda. Digite acima e clique em Criar.",
+    listEmptyPending: "Nenhuma tarefa pendente.",
+    listEmptyCompleted: "Nenhuma tarefa concluída.",
+    localMode: "Modo local",
+    cloudConfiguredNoAuth: "Nuvem configurada (não autenticado)",
+    cloudSessionError: "Erro de sessão da nuvem",
+    supabaseSdkUnavailable: "SDK Supabase indisponível",
+    syncing: "Sincronizando...",
+    synced: "Sincronizado",
+    syncedManual: "Sincronizado (manual)",
+    syncError: "Erro de sincronização",
+    unsupportedNotifications: "Este navegador não suporta notificações.",
+    notificationsActive: "Notificações ativas",
+    notificationsUnavailable: "Notificação indisponível",
+    priorityUpdatedTitle: "Tarefa prioritária atualizada",
+    priorityHigh: "alta",
+    priorityMedium: "média",
+    prioritySummaryTitle: "Resumo de prioridades",
+    prioritySummaryBody: (red, yellow) => `Pendentes: ${red} vermelha(s), ${yellow} amarela(s).`,
+    noTextFallback: "(sem texto)",
+    cloudConfigRequired: "Configure URL e anon key do Supabase primeiro.",
+    fillCloudConfig: "Preencha Supabase URL e anon key.",
+    fillEmail: "Digite seu e-mail.",
+    sendMagicLinkFailed: "Falha ao enviar link de acesso.",
+    magicLinkSent: "Link enviado. Abra seu e-mail neste dispositivo e confirme o login.",
+    logoutFailed: "Não foi possível sair da conta.",
+    manualSyncFailed: "Falha ao sincronizar com a nuvem. Confira sua configuração/tabela no Supabase.",
+    statusConnectedPrefix: "Conectado",
+    sortByColorDateTie: "Cor",
+    deleteLabel: "Excluir tarefa",
+    toggleLabel: "Marcar concluída",
+    priorityNoneLabel: "Sem prioridade",
+    priorityYellowLabel: "Prioridade amarela",
+    priorityRedLabel: "Prioridade vermelha",
+    supabaseUrlPlaceholder: "Supabase URL (https://xxxx.supabase.co)",
+    supabaseKeyPlaceholder: "Supabase anon key",
+    emailPlaceholder: "Seu e-mail para login"
+  },
+  "en-US": {
+    appTitle: "Infinite List",
+    appSubtitle: "Simple, clean, and endless.",
+    languageLabel: "Language",
+    toggleSyncOpen: "Show settings",
+    toggleSyncClose: "Hide settings",
+    toggleCloudOpen: "Cloud settings",
+    toggleCloudClose: "Close cloud",
+    syncNow: "Sync now",
+    logout: "Sign out",
+    saveCloud: "Save cloud",
+    sendAccessLink: "Send access link",
+    taskPlaceholder: "Type a task and press Enter",
+    addTask: "Create",
+    inputHint: "Press Enter or click Create.",
+    sortLabel: "Sort",
+    sortCreatedDesc: "Date (newest)",
+    sortCreatedAsc: "Date (oldest)",
+    sortPriorityDesc: "Color (red > yellow > none)",
+    sortPriorityAsc: "Color (none > yellow > red)",
+    notify: "Enable notifications",
+    archiveCompleted: "Archive completed",
+    filterAll: "All",
+    filterPending: "Pending",
+    filterCompleted: "Completed",
+    filtersGroupLabel: "Filters",
+    tasksSummary: (total, pending, completed) =>
+      `${total} task(s) | ${pending} pending | ${completed} completed`,
+    archiveTitle: "Archived",
+    archiveEmpty: "No archived tasks yet.",
+    listEmpty: "No tasks yet. Type above and click Create.",
+    listEmptyPending: "No pending tasks.",
+    listEmptyCompleted: "No completed tasks.",
+    localMode: "Local mode",
+    cloudConfiguredNoAuth: "Cloud configured (not signed in)",
+    cloudSessionError: "Cloud session error",
+    supabaseSdkUnavailable: "Supabase SDK unavailable",
+    syncing: "Syncing...",
+    synced: "Synced",
+    syncedManual: "Synced (manual)",
+    syncError: "Sync error",
+    unsupportedNotifications: "This browser does not support notifications.",
+    notificationsActive: "Notifications enabled",
+    notificationsUnavailable: "Notifications unavailable",
+    priorityUpdatedTitle: "Priority task updated",
+    priorityHigh: "high",
+    priorityMedium: "medium",
+    prioritySummaryTitle: "Priority summary",
+    prioritySummaryBody: (red, yellow) => `Pending: ${red} red, ${yellow} yellow.`,
+    noTextFallback: "(no text)",
+    cloudConfigRequired: "Configure Supabase URL and anon key first.",
+    fillCloudConfig: "Fill in Supabase URL and anon key.",
+    fillEmail: "Enter your email.",
+    sendMagicLinkFailed: "Failed to send access link.",
+    magicLinkSent: "Link sent. Open your email on this device and confirm login.",
+    logoutFailed: "Could not sign out.",
+    manualSyncFailed: "Cloud sync failed. Check your Supabase config/table.",
+    statusConnectedPrefix: "Connected",
+    sortByColorDateTie: "Color",
+    deleteLabel: "Delete task",
+    toggleLabel: "Mark completed",
+    priorityNoneLabel: "No priority",
+    priorityYellowLabel: "Yellow priority",
+    priorityRedLabel: "Red priority",
+    supabaseUrlPlaceholder: "Supabase URL (https://xxxx.supabase.co)",
+    supabaseKeyPlaceholder: "Supabase anon key",
+    emailPlaceholder: "Your email for login"
+  }
+};
+
+if (sortSelect) {
+  sortSelect.value = localStorage.getItem(SORT_KEY) || "created-desc";
+}
+if (languageSelect) {
+  languageSelect.value = I18N[currentLanguage] ? currentLanguage : "pt-BR";
+  currentLanguage = languageSelect.value;
+}
+if (!["all", "pending", "completed"].includes(currentFilter)) currentFilter = "all";
 hydrateCloudInputs();
+applyLanguage();
 renderAll(false);
 initNotifications();
 registerServiceWorker();
 initCloud();
+
+function t(key, ...args) {
+  const value = I18N[currentLanguage]?.[key] ?? I18N["pt-BR"][key] ?? key;
+  return typeof value === "function" ? value(...args) : value;
+}
+
+function applyLanguage() {
+  if (!appTitle || !taskInput || !sortSelect) return;
+  document.documentElement.lang = currentLanguage;
+  appTitle.textContent = t("appTitle");
+  appSubtitle.textContent = t("appSubtitle");
+  languageLabel.textContent = t("languageLabel");
+  syncNowBtn.textContent = t("syncNow");
+  logoutBtn.textContent = t("logout");
+  saveCloudBtn.textContent = t("saveCloud");
+  emailLoginBtn.textContent = t("sendAccessLink");
+  taskInput.placeholder = t("taskPlaceholder");
+  addTaskBtn.textContent = t("addTask");
+  inputHint.textContent = t("inputHint");
+  sortLabel.textContent = t("sortLabel");
+  notifyBtn.textContent =
+    "Notification" in window && Notification.permission === "granted"
+      ? t("notificationsActive")
+      : t("notify");
+  archiveBtn.textContent = t("archiveCompleted");
+  filterButtons.forEach((btn) => {
+    if (btn.dataset.filter === "all") btn.textContent = t("filterAll");
+    if (btn.dataset.filter === "pending") btn.textContent = t("filterPending");
+    if (btn.dataset.filter === "completed") btn.textContent = t("filterCompleted");
+  });
+  const filtersRow = document.querySelector(".filters-row");
+  if (filtersRow) filtersRow.setAttribute("aria-label", t("filtersGroupLabel"));
+  archiveTitle.textContent = t("archiveTitle");
+  supabaseUrlInput.placeholder = t("supabaseUrlPlaceholder");
+  supabaseKeyInput.placeholder = t("supabaseKeyPlaceholder");
+  emailInput.placeholder = t("emailPlaceholder");
+
+  const opts = sortSelect.options;
+  if (opts.length >= 4) {
+    opts[0].textContent = t("sortCreatedDesc");
+    opts[1].textContent = t("sortCreatedAsc");
+    opts[2].textContent = t("sortPriorityDesc");
+    opts[3].textContent = t("sortPriorityAsc");
+  }
+
+  setCloudPanelOpen(cloudPanelOpen);
+  setSyncPanelOpen(syncPanelOpen);
+  updateSyncPanelMode();
+  updateFilterButtons();
+  renderArchive();
+  renderTasks();
+}
+
+function setSyncPanelOpen(open) {
+  if (!syncPanelBody || !toggleSyncPanelBtn) return;
+  syncPanelOpen = open;
+  syncPanelBody.classList.toggle("is-collapsed", !open);
+  toggleSyncPanelBtn.setAttribute("aria-expanded", String(open));
+  toggleSyncPanelBtn.textContent = open ? t("toggleSyncClose") : t("toggleSyncOpen");
+  updateSyncPanelMode();
+}
+
+function setCloudPanelOpen(open) {
+  if (!cloudPanelBody || !toggleCloudBtn) return;
+  cloudPanelOpen = open;
+  cloudPanelBody.classList.toggle("is-collapsed", !open);
+  toggleCloudBtn.setAttribute("aria-expanded", String(open));
+  toggleCloudBtn.textContent = open ? t("toggleCloudClose") : t("toggleCloudOpen");
+}
+
+setCloudPanelOpen(false);
+setSyncPanelOpen(syncPanelOpen);
+
+function hasCloudConfig() {
+  return Boolean(localStorage.getItem(CLOUD_URL_KEY) && localStorage.getItem(CLOUD_ANON_KEY));
+}
+
+function updateSyncPanelMode() {
+  if (!syncPanel) return;
+  const localOnly = !hasCloudConfig();
+  syncPanel.classList.toggle("is-local-clean", localOnly);
+
+  if (localOnly) {
+    syncNowBtn.classList.add("is-hidden");
+    logoutBtn.classList.add("is-hidden");
+    toggleCloudBtn.classList.toggle("is-hidden", !syncPanelOpen);
+  } else {
+    toggleCloudBtn.classList.remove("is-hidden");
+    syncNowBtn.classList.remove("is-hidden");
+    // logout visibility still depends on auth state elsewhere
+  }
+}
+
+function updateFilterButtons() {
+  filterButtons.forEach((btn) => {
+    btn.classList.toggle("is-active", btn.dataset.filter === currentFilter);
+  });
+}
 
 function readJSON(key, fallback) {
   try {
@@ -56,7 +322,7 @@ function now() {
 function normalizeTask(task) {
   return {
     id: task.id || crypto.randomUUID(),
-    text: String(task.text || "").trim() || "(sem texto)",
+    text: String(task.text || "").trim() || t("noTextFallback"),
     completed: Boolean(task.completed),
     priority: ["none", "yellow", "red"].includes(task.priority) ? task.priority : "none",
     createdAt: Number(task.createdAt) || now(),
@@ -89,7 +355,7 @@ function createTask(text) {
 }
 
 function formatDate(ts) {
-  return new Intl.DateTimeFormat("pt-BR", {
+  return new Intl.DateTimeFormat(currentLanguage, {
     dateStyle: "short",
     timeStyle: "short"
   }).format(new Date(ts));
@@ -126,6 +392,12 @@ function getSortedTasks() {
   return copy.sort((a, b) => b.createdAt - a.createdAt);
 }
 
+function getVisibleTasks(sortedTasks) {
+  if (currentFilter === "pending") return sortedTasks.filter((task) => !task.completed);
+  if (currentFilter === "completed") return sortedTasks.filter((task) => task.completed);
+  return sortedTasks;
+}
+
 function renderAll(shouldSync = true) {
   renderTasks();
   renderArchive();
@@ -134,9 +406,30 @@ function renderAll(shouldSync = true) {
 }
 
 function renderTasks() {
+  if (!taskList) return;
   taskList.innerHTML = "";
+  updateFilterButtons();
+  const sorted = getSortedTasks();
+  const visibleTasks = getVisibleTasks(sorted);
+  const total = tasks.length;
+  const completedCount = tasks.filter((task) => task.completed).length;
+  const pendingCount = total - completedCount;
+  if (tasksSummary) {
+    tasksSummary.textContent = t("tasksSummary", total, pendingCount, completedCount);
+  }
 
-  for (const task of getSortedTasks()) {
+  if (!visibleTasks.length) {
+    const empty = document.createElement("li");
+    empty.className = "empty-list-item";
+    if (!tasks.length) empty.textContent = t("listEmpty");
+    else if (currentFilter === "pending") empty.textContent = t("listEmptyPending");
+    else if (currentFilter === "completed") empty.textContent = t("listEmptyCompleted");
+    else empty.textContent = t("listEmpty");
+    taskList.append(empty);
+    return;
+  }
+
+  for (const task of visibleTasks) {
     const node = template.content.firstElementChild.cloneNode(true);
     const toggle = node.querySelector(".toggle");
     const text = node.querySelector(".task-text");
@@ -148,9 +441,15 @@ function renderTasks() {
     date.textContent = formatDate(task.createdAt);
     node.dataset.id = task.id;
     node.classList.toggle("completed", task.completed);
+    toggle.setAttribute("aria-label", t("toggleLabel"));
+    remove.setAttribute("aria-label", t("deleteLabel"));
+    remove.textContent = currentLanguage === "en-US" ? "Delete" : "Excluir";
 
     dots.forEach((dot) => {
       dot.classList.toggle("active", dot.dataset.priority === task.priority);
+      if (dot.dataset.priority === "none") dot.setAttribute("aria-label", t("priorityNoneLabel"));
+      if (dot.dataset.priority === "yellow") dot.setAttribute("aria-label", t("priorityYellowLabel"));
+      if (dot.dataset.priority === "red") dot.setAttribute("aria-label", t("priorityRedLabel"));
     });
 
     toggle.addEventListener("click", () => {
@@ -213,11 +512,12 @@ function renderTasks() {
 }
 
 function renderArchive() {
+  if (!archivedList) return;
   archivedList.innerHTML = "";
 
   if (!archivedTasks.length) {
     const empty = document.createElement("li");
-    empty.textContent = "Nenhuma tarefa arquivada ainda.";
+    empty.textContent = t("archiveEmpty");
     archivedList.append(empty);
     return;
   }
@@ -251,13 +551,13 @@ function archiveCompleted() {
 
 function askNotificationPermission() {
   if (!("Notification" in window)) {
-    alert("Este navegador não suporta notificações.");
+    alert(t("unsupportedNotifications"));
     return;
   }
 
   Notification.requestPermission().then((permission) => {
     if (permission === "granted") {
-      notifyBtn.textContent = "Notificações ativas";
+      notifyBtn.textContent = t("notificationsActive");
       notifyPrioritySummary();
       startPriorityReminder();
     }
@@ -269,8 +569,8 @@ function maybeNotifyPriority(task) {
   if (Notification.permission !== "granted") return;
   if (task.completed || task.priority === "none") return;
 
-  const level = task.priority === "red" ? "alta" : "média";
-  new Notification("Tarefa prioritária atualizada", {
+  const level = task.priority === "red" ? t("priorityHigh") : t("priorityMedium");
+  new Notification(t("priorityUpdatedTitle"), {
     body: `${task.text} (prioridade ${level})`
   });
 }
@@ -285,8 +585,8 @@ function notifyPrioritySummary() {
   const redCount = important.filter((t) => t.priority === "red").length;
   const yellowCount = important.filter((t) => t.priority === "yellow").length;
 
-  new Notification("Resumo de prioridades", {
-    body: `Pendentes: ${redCount} vermelha(s), ${yellowCount} amarela(s).`
+  new Notification(t("prioritySummaryTitle"), {
+    body: t("prioritySummaryBody", redCount, yellowCount)
   });
 }
 
@@ -299,14 +599,15 @@ function startPriorityReminder() {
 }
 
 function initNotifications() {
+  if (!notifyBtn) return;
   if (!("Notification" in window)) {
     notifyBtn.disabled = true;
-    notifyBtn.textContent = "Notificação indisponível";
+    notifyBtn.textContent = t("notificationsUnavailable");
     return;
   }
 
   if (Notification.permission === "granted") {
-    notifyBtn.textContent = "Notificações ativas";
+    notifyBtn.textContent = t("notificationsActive");
     startPriorityReminder();
   }
 }
@@ -314,7 +615,25 @@ function initNotifications() {
 function registerServiceWorker() {
   if (!("serviceWorker" in navigator)) return;
 
-  window.addEventListener("load", () => {
+  window.addEventListener("load", async () => {
+    const host = window.location.hostname;
+    const isLocalhost = host === "localhost" || host === "127.0.0.1" || host === "::1";
+
+    if (isLocalhost) {
+      try {
+        const regs = await navigator.serviceWorker.getRegistrations();
+        await Promise.all(regs.map((reg) => reg.unregister()));
+        if ("caches" in window) {
+          const keys = await caches.keys();
+          await Promise.all(keys.map((key) => caches.delete(key)));
+        }
+        console.info("PWA cache local limpo para evitar versão antiga durante testes.");
+      } catch (error) {
+        console.warn("Falha ao limpar service workers/caches locais", error);
+      }
+      return;
+    }
+
     navigator.serviceWorker.register("./sw.js").catch((error) => {
       console.error("Erro ao registrar service worker", error);
     });
@@ -322,13 +641,26 @@ function registerServiceWorker() {
 }
 
 function hydrateCloudInputs() {
+  if (!supabaseUrlInput || !supabaseKeyInput || !emailInput) return;
   supabaseUrlInput.value = localStorage.getItem(CLOUD_URL_KEY) || "";
   supabaseKeyInput.value = localStorage.getItem(CLOUD_ANON_KEY) || "";
   emailInput.value = localStorage.getItem(CLOUD_EMAIL_KEY) || "";
 }
 
 function setStatus(message) {
+  if (!syncStatus) return;
   syncStatus.textContent = message;
+}
+
+function createTaskFromInput() {
+  const text = taskInput.value.trim();
+  if (!text) return;
+
+  const task = createTask(text);
+  tasks.push(task);
+  taskInput.value = "";
+  renderAll();
+  taskInput.focus();
 }
 
 function canUseCloud() {
@@ -340,12 +672,19 @@ async function initCloud() {
   const anonKey = localStorage.getItem(CLOUD_ANON_KEY);
 
   if (!url || !anonKey) {
-    setStatus("Modo local");
+    setStatus(t("localMode"));
+    setCloudPanelOpen(false);
+    syncPanelOpen = false;
+    setSyncPanelOpen(false);
+    updateSyncPanelMode();
     return;
   }
+  updateSyncPanelMode();
+  syncPanelOpen = true;
+  setSyncPanelOpen(true);
 
   if (!window.supabase?.createClient) {
-    setStatus("SDK Supabase indisponível");
+    setStatus(t("supabaseSdkUnavailable"));
     return;
   }
 
@@ -358,27 +697,27 @@ async function initCloud() {
   authSubscription = supabaseClient.auth.onAuthStateChange(async (_event, session) => {
     currentUser = session?.user || null;
     if (!currentUser) {
-      setStatus("Nuvem configurada (não autenticado)");
+      setStatus(t("cloudConfiguredNoAuth"));
       return;
     }
 
-    setStatus(`Conectado: ${currentUser.email || currentUser.id.slice(0, 8)}`);
+    setStatus(`${t("statusConnectedPrefix")}: ${currentUser.email || currentUser.id.slice(0, 8)}`);
     await syncWithCloud({ manual: false });
   });
 
   const { data, error } = await supabaseClient.auth.getSession();
   if (error) {
-    setStatus("Erro de sessão da nuvem");
+    setStatus(t("cloudSessionError"));
     console.error(error);
     return;
   }
 
   currentUser = data.session?.user || null;
   if (currentUser) {
-    setStatus(`Conectado: ${currentUser.email || currentUser.id.slice(0, 8)}`);
+    setStatus(`${t("statusConnectedPrefix")}: ${currentUser.email || currentUser.id.slice(0, 8)}`);
     await syncWithCloud({ manual: false });
   } else {
-    setStatus("Nuvem configurada (não autenticado)");
+    setStatus(t("cloudConfiguredNoAuth"));
   }
 }
 
@@ -387,24 +726,28 @@ function saveCloudConfig() {
   const anon = supabaseKeyInput.value.trim();
 
   if (!url || !anon) {
-    alert("Preencha Supabase URL e anon key.");
+    alert(t("fillCloudConfig"));
     return;
   }
 
   localStorage.setItem(CLOUD_URL_KEY, url);
   localStorage.setItem(CLOUD_ANON_KEY, anon);
+  syncPanelOpen = true;
+  setSyncPanelOpen(true);
+  setCloudPanelOpen(true);
+  updateSyncPanelMode();
   initCloud();
 }
 
 async function sendMagicLink() {
   if (!supabaseClient) {
-    alert("Configure URL e anon key do Supabase primeiro.");
+    alert(t("cloudConfigRequired"));
     return;
   }
 
   const email = emailInput.value.trim().toLowerCase();
   if (!email) {
-    alert("Digite seu e-mail.");
+    alert(t("fillEmail"));
     return;
   }
 
@@ -418,11 +761,11 @@ async function sendMagicLink() {
 
   if (error) {
     console.error(error);
-    alert("Falha ao enviar link de acesso.");
+    alert(t("sendMagicLinkFailed"));
     return;
   }
 
-  alert("Link enviado. Abra seu e-mail neste dispositivo e confirme o login.");
+  alert(t("magicLinkSent"));
 }
 
 async function logoutCloud() {
@@ -431,12 +774,16 @@ async function logoutCloud() {
   const { error } = await supabaseClient.auth.signOut();
   if (error) {
     console.error(error);
-    alert("Não foi possível sair da conta.");
+    alert(t("logoutFailed"));
     return;
   }
 
   currentUser = null;
-  setStatus("Nuvem configurada (não autenticado)");
+  setStatus(t("cloudConfiguredNoAuth"));
+  if (!hasCloudConfig()) {
+    syncPanelOpen = false;
+    setSyncPanelOpen(false);
+  }
 }
 
 function mergeByUpdatedAt(localItems, remoteItems, normalizer) {
@@ -517,7 +864,7 @@ async function syncWithCloud({ manual }) {
   if (syncInFlight) return;
 
   syncInFlight = true;
-  setStatus("Sincronizando...");
+  setStatus(t("syncing"));
 
   try {
     const remote = await fetchCloudState(currentUser.id);
@@ -531,13 +878,13 @@ async function syncWithCloud({ manual }) {
     renderAll(false);
     await pushCloudState(currentUser.id, merged);
 
-    const mode = manual ? "Sincronizado (manual)" : "Sincronizado";
+    const mode = manual ? t("syncedManual") : t("synced");
     setStatus(`${mode}: ${formatDate(now())}`);
   } catch (error) {
     console.error(error);
-    setStatus("Erro de sincronização");
+    setStatus(t("syncError"));
     if (manual) {
-      alert("Falha ao sincronizar com a nuvem. Confira sua configuração/tabela no Supabase.");
+      alert(t("manualSyncFailed"));
     }
   } finally {
     syncInFlight = false;
@@ -546,25 +893,36 @@ async function syncWithCloud({ manual }) {
 
 taskInput.addEventListener("keydown", (event) => {
   if (event.key !== "Enter") return;
-
-  const text = taskInput.value.trim();
-  if (!text) return;
-
-  const task = createTask(text);
-  tasks.push(task);
-  taskInput.value = "";
-  renderAll();
+  createTaskFromInput();
 });
 
-sortSelect.addEventListener("change", () => {
+sortSelect?.addEventListener("change", () => {
   localStorage.setItem(SORT_KEY, sortSelect.value);
   renderTasks();
 });
 
-archiveBtn.addEventListener("click", archiveCompleted);
-notifyBtn.addEventListener("click", askNotificationPermission);
+filterButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    currentFilter = btn.dataset.filter;
+    localStorage.setItem(FILTER_KEY, currentFilter);
+    renderTasks();
+  });
+});
 
-saveCloudBtn.addEventListener("click", saveCloudConfig);
-emailLoginBtn.addEventListener("click", sendMagicLink);
-logoutBtn.addEventListener("click", logoutCloud);
-syncNowBtn.addEventListener("click", () => syncWithCloud({ manual: true }));
+languageSelect?.addEventListener("change", () => {
+  currentLanguage = languageSelect.value;
+  localStorage.setItem(LANGUAGE_KEY, currentLanguage);
+  applyLanguage();
+  renderTasks();
+});
+
+archiveBtn?.addEventListener("click", archiveCompleted);
+notifyBtn?.addEventListener("click", askNotificationPermission);
+addTaskBtn?.addEventListener("click", createTaskFromInput);
+toggleSyncPanelBtn?.addEventListener("click", () => setSyncPanelOpen(!syncPanelOpen));
+toggleCloudBtn?.addEventListener("click", () => setCloudPanelOpen(!cloudPanelOpen));
+
+saveCloudBtn?.addEventListener("click", saveCloudConfig);
+emailLoginBtn?.addEventListener("click", sendMagicLink);
+logoutBtn?.addEventListener("click", logoutCloud);
+syncNowBtn?.addEventListener("click", () => syncWithCloud({ manual: true }));
