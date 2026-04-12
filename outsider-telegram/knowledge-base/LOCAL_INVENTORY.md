@@ -1,7 +1,7 @@
 # Local Repository Inventory
 
 ## Last Updated
-April 12, 2026
+April 12, 2026 (rev 2 — subnet clone finalized)
 
 ---
 
@@ -28,9 +28,16 @@ April 12, 2026
 | `awesome-bittensor` | Curated resource list |
 
 ### Subnet Repos (`/home/user/bittensor-repos/subnets/`)
-- **71 repos cloned** (out of 84 with known public URLs)
-- **45 subnets** have no confirmed public repo (private or unannounced)
-- **13 failed** due to GitHub rate limiting — re-run `clone_all.py` to retry
+- **87 directories** on disk (some subnets have multiple repos)
+- **57 repos newly cloned** + **15 pre-existing** = 72 managed repos
+- **10 private/gated** — repos confirmed private (return 404 unauthenticated):
+  SN11 (dippy-roleplay), SN14 (vectorstore), SN16 (bitads), SN19 (nineteen→vision),
+  SN20 (bitagent), SN27 (ni-compute/Nodexo), SN40 (chunking), SN41 (sportstensor),
+  SN58 (dippy-speech), SN90 (degenbrain)
+- **2 private/deleted** — SN18 (Corcel sunset), SN28 (meme subnet)
+- **45 subnets** have no known public repo (unannounced/internal)
+- URL corrections made: SN19 → `namoray/vision`, SN27 → `neuralinternet/ni-compute`,
+  SN100 → `PlatformNetwork/platform` (cloned as `sn100-cortexlm`)
 - Full registry: `SUBNET_REGISTRY.json`
 
 #### Notable subnets cloned

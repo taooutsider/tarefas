@@ -93,7 +93,8 @@
     "repo": "https://github.com/impel-intelligence/dippy-bittensor-subnet",
     "org": "impel-intelligence",
     "local_path": null,
-    "clone_status": "failed"
+    "clone_status": "private",
+    "notes": "Repo returned 404 \u2014 private or gated"
   },
   {
     "netuid": 12,
@@ -117,7 +118,8 @@
     "repo": "https://github.com/vector-pool/vector-store",
     "org": "vector-pool",
     "local_path": null,
-    "clone_status": "failed"
+    "clone_status": "private",
+    "notes": "Repo returned 404 \u2014 private or gated"
   },
   {
     "netuid": 15,
@@ -133,7 +135,8 @@
     "repo": "https://github.com/eseckft/BitAds.ai",
     "org": "eseckft",
     "local_path": null,
-    "clone_status": "failed"
+    "clone_status": "private",
+    "notes": "Repo returned 404 \u2014 private or gated"
   },
   {
     "netuid": 17,
@@ -149,15 +152,17 @@
     "repo": "https://github.com/corcel-api/cortex.t",
     "org": "corcel-api",
     "local_path": null,
-    "clone_status": "failed"
+    "clone_status": "private_deleted",
+    "notes": "Corcel sunset \u2014 repo taken private/deleted"
   },
   {
     "netuid": 19,
     "name": "nineteen",
-    "repo": "https://github.com/namoray/nineteen",
+    "repo": "https://github.com/namoray/vision",
     "org": "namoray",
     "local_path": null,
-    "clone_status": "failed"
+    "clone_status": "private",
+    "notes": "URL corrected: namoray/nineteen \u2192 namoray/vision; repo is private"
   },
   {
     "netuid": 20,
@@ -165,7 +170,8 @@
     "repo": "https://github.com/RogueTensor/bitagent_subnet",
     "org": "RogueTensor",
     "local_path": null,
-    "clone_status": "failed"
+    "clone_status": "private",
+    "notes": "Repo returned 404 \u2014 private or gated"
   },
   {
     "netuid": 21,
@@ -218,10 +224,11 @@
   {
     "netuid": 27,
     "name": "ni-compute",
-    "repo": "https://github.com/neuralinternet/compute-subnet",
+    "repo": "https://github.com/neuralinternet/ni-compute",
     "org": "neuralinternet",
     "local_path": null,
-    "clone_status": "failed"
+    "clone_status": "private",
+    "notes": "URL corrected: compute-subnet \u2192 ni-compute (Nodexo rebrand); repo is private"
   },
   {
     "netuid": 28,
@@ -229,7 +236,8 @@
     "repo": "https://github.com/Tao-Accumulation-Corporation/lol",
     "org": "Tao-Accumulation-Corporation",
     "local_path": null,
-    "clone_status": "failed"
+    "clone_status": "private_deleted",
+    "notes": "Meme subnet \u2014 repo taken private or deleted"
   },
   {
     "netuid": 29,
@@ -325,7 +333,8 @@
     "repo": "https://github.com/VectorChat/chunking_subnet",
     "org": "VectorChat",
     "local_path": null,
-    "clone_status": "failed"
+    "clone_status": "private",
+    "notes": "Repo returned 404 \u2014 private or gated"
   },
   {
     "netuid": 41,
@@ -333,7 +342,8 @@
     "repo": "https://github.com/sportstensor/sportstensor",
     "org": "sportstensor",
     "local_path": null,
-    "clone_status": "failed"
+    "clone_status": "private",
+    "notes": "Repo returned 404 \u2014 private or gated"
   },
   {
     "netuid": 42,
@@ -469,7 +479,8 @@
     "repo": "https://github.com/impel-intelligence/dippy-speech-subnet",
     "org": "impel-intelligence",
     "local_path": null,
-    "clone_status": "failed"
+    "clone_status": "private",
+    "notes": "Repo returned 404 \u2014 private or gated"
   },
   {
     "netuid": 59,
@@ -725,7 +736,8 @@
     "repo": "https://github.com/degenpredict/bittensor-subnet-90-brain",
     "org": "degenpredict",
     "local_path": null,
-    "clone_status": "failed"
+    "clone_status": "private",
+    "notes": "Repo returned 404 \u2014 private or gated"
   },
   {
     "netuid": 91,
@@ -802,10 +814,11 @@
   {
     "netuid": 100,
     "name": "cortexlm",
-    "repo": "https://github.com/CortexLM/subnet",
+    "repo": "https://github.com/PlatformNetwork/platform",
     "org": "CortexLM",
-    "local_path": null,
-    "clone_status": "failed"
+    "local_path": "/home/user/bittensor-repos/subnets/sn100-cortexlm",
+    "clone_status": "cloned",
+    "notes": "URL corrected: CortexLM/subnet \u2192 PlatformNetwork/platform"
   },
   {
     "netuid": 101,
