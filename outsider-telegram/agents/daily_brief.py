@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 from data.bittensor import get_snapshot
 from data.news import fetch_recent_news
 from models.router import generate
+from templates.messages import full_daily_brief
 
 
 SYSTEM_PROMPT = """You are the AI brain of Tao Outsider — the world's premier
@@ -28,34 +29,8 @@ async def build_daily_brief() -> str:
     tao = snapshot["tao"]
     top_subnets = snapshot["top_subnets"]
     movers = snapshot["dtao_movers"]
-
-    # Format price line
-    change_emoji = "🟢" if tao["change_24h"] >= 0 else "🔴"
-    price_line = (
-        f"*TAO* ${tao['price_usd']:,.2f} "
-        f"{change_emoji} {tao['change_24h']:+.2f}% | "
-        f"MCap ${tao['market_cap'] / 1e9:.2f}B"
-    )
-
-    # Format top subnets
-    subnet_lines = ""
-    for s in top_subnets[:5]:
-        subnet_lines += f"• *SN{s['netuid']}* {s['name']}: {s['emission']:.2%} emission\n"
-
-    # Format dTAO movers
-    mover_lines = ""
-    for m in movers[:4]:
-        sign = "+" if m["change_24h"] >= 0 else ""
-        mover_lines += f"• *SN{m['netuid']}* {m['name']}: {sign}{m['change_24h']:.1f}%\n"
-
-    # Format news headlines
-    news_lines = ""
-    for item in news[:4]:
-        news_lines += f"• [{item['title'][:70]}]({item['link']})\n"
-
     today = datetime.now(timezone.utc).strftime("%B %d, %Y")
 
-    # Build context for Claude to generate insights
     context = f"""
 DATA FOR TODAY ({today}):
 
@@ -82,30 +57,12 @@ Write only the insights section — no intro, no conclusion. Start directly with
 
     insights = await generate(insights_prompt, tier="medium", system=SYSTEM_PROMPT)
 
-    brief = f"""🧠 *OUTSIDER INTEL — Daily Brief*
-📅 {today} · UTC
-
-━━━━━━━━━━━━━━━━━━━━━━
-💰 *MARKET*
-{price_line}
-
-━━━━━━━━━━━━━━━━━━━━━━
-⚡ *TOP SUBNET EMISSIONS*
-{subnet_lines.strip()}
-
-━━━━━━━━━━━━━━━━━━━━━━
-📊 *dTAO ALPHA MOVERS*
-{mover_lines.strip() if mover_lines else "• No price data available"}
-
-━━━━━━━━━━━━━━━━━━━━━━
-🔍 *KEY SIGNALS*
-{insights}
-
-━━━━━━━━━━━━━━━━━━━━━━
-📰 *FILTERED NEWS*
-{news_lines.strip() if news_lines else "• No relevant news in last 24h"}
-
-━━━━━━━━━━━━━━━━━━━━━━
-💬 Discussion → @OutsiderCommunity"""
-
-    return brief
+    return full_daily_brief(
+        price=tao["price_usd"],
+        change=tao["change_24h"],
+        mcap=tao["market_cap"],
+        subnets=top_subnets,
+        movers=movers,
+        insights=insights,
+        news_items=news,
+    )
