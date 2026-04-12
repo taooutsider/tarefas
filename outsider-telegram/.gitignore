@@ -9,3 +9,8 @@ build/
 .venv/
 venv/
 *.log
+
+# Security — BTCLI
+*.key
+*.mnemonic
+wallets/
