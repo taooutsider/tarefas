@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     gemini_api_key: str = ""
     cerebras_api_key: str = ""
     openrouter_api_key: str = ""
+    together_api_key: str = ""
 
     # Data
     coingecko_api_key: str = ""
