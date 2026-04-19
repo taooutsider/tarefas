@@ -1,6 +1,6 @@
 ---
 title: "dTAO Six Months In: Which Subnets Are Actually Winning the Liquidity Game?"
-description: "Dynamic TAO changed everything. We analyzed emission flows, alpha token price action, and validator behavior across 128 subnets to find where liquidity is concentrating — and which projects are quietly eating the market."
+description: "dTAO six months in: emission flows, alpha token price action and validator analysis across 128 Bittensor subnets — where liquidity is concentrating."
 pubDate: 2026-04-11
 category: analysis
 featured: true
