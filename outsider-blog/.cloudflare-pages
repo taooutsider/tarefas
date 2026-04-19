@@ -1,0 +1,13 @@
+# Cloudflare Pages — Tao Outsider Blog
+#
+# Dashboard settings (set in Cloudflare Pages → Settings → Build):
+#   Build command:      npm run build
+#   Build output dir:   dist
+#   Root directory:     outsider-blog
+#   Node.js version:    20
+#
+# Custom domain: taooutsider.com
+#   Add in Cloudflare Pages → Custom domains → taooutsider.com
+#   DNS: Cloudflare nameservers (if domain is on Cloudflare, auto-configured)
+#
+# Environment variables: none required for the blog itself.

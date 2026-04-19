@@ -1,0 +1,126 @@
+/* ── Tao Outsider — Bittensor palette: black / white / gray ── */
+:root {
+  --bg:       #000000;
+  --s1:       #0a0a0a;
+  --s2:       #111111;
+  --s3:       #191919;
+  --border:   #202020;
+  --border2:  #2e2e2e;
+  --white:    #ffffff;
+  --text:     #e8e8e8;
+  --text2:    #a0a0a0;
+  --muted:    #606060;
+  --link:     #ffffff;
+
+  --font: 'Inter', system-ui, -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --max-w: 1100px;
+  --post-w: 720px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--link); text-decoration: none; }
+
+img { max-width: 100%; height: auto; display: block; }
+
+/* ── Typography ── */
+h1, h2, h3, h4 {
+  color: var(--white);
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+h2 { font-size: clamp(1.35rem, 3vw, 1.75rem); }
+h3 { font-size: 1.2rem; }
+
+p { color: var(--text); }
+
+/* ── Category tags ── */
+.tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 3px;
+  border: 1px solid var(--border2);
+  color: var(--text2);
+  background: var(--s2);
+  white-space: nowrap;
+}
+.tag-analysis  { border-color: #fff3; color: #fff; }
+.tag-subnet    { border-color: #ffffff44; color: #ccc; }
+.tag-trade     { border-color: #888; color: #bbb; }
+.tag-guide     { border-color: #555; color: #999; }
+.tag-weekly    { border-color: #333; color: #888; }
+.tag-news      { border-color: #444; color: #aaa; }
+
+/* ── Post body prose ── */
+.prose {
+  max-width: var(--post-w);
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: var(--text);
+}
+.prose h2 { margin: 2.5em 0 0.75em; }
+.prose h3 { margin: 2em 0 0.5em; color: var(--text); }
+.prose p  { margin-bottom: 1.4em; }
+.prose ul, .prose ol { padding-left: 1.5em; margin-bottom: 1.4em; }
+.prose li { margin-bottom: 0.4em; }
+.prose strong { color: var(--white); font-weight: 600; }
+.prose a { color: var(--white); border-bottom: 1px solid var(--border2); }
+.prose a:hover { border-color: var(--white); }
+.prose blockquote {
+  border-left: 3px solid var(--border2);
+  padding: 0.5em 1.25em;
+  margin: 1.5em 0;
+  color: var(--text2);
+  font-style: italic;
+}
+.prose code {
+  font-family: var(--mono);
+  font-size: 0.875em;
+  background: var(--s2);
+  border: 1px solid var(--border);
+  padding: 1px 6px;
+  border-radius: 3px;
+  color: var(--text);
+}
+.prose pre {
+  background: var(--s2) !important;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.25em;
+  overflow-x: auto;
+  margin-bottom: 1.4em;
+}
+.prose pre code { background: none; border: none; padding: 0; font-size: 0.875em; }
+.prose hr { border: none; border-top: 1px solid var(--border); margin: 2.5em 0; }
+.prose table { width: 100%; border-collapse: collapse; margin-bottom: 1.4em; font-size: 0.9em; }
+.prose th { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border2); color: var(--white); font-weight: 600; }
+.prose td { padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--text2); }
+.prose tr:last-child td { border-bottom: none; }
+
+/* ── Divider ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+/* ── Utilities ── */
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+
+@media (max-width: 768px) {
+  .container { padding: 0 16px; }
+}

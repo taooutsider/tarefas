@@ -1,0 +1,140 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  size?: 'default' | 'large' | 'compact';
+}
+
+const { post, size = 'default' } = Astro.props;
+const { title, description, pubDate, category, tags, author } = post.data;
+
+const url = `/blog/${post.slug}/`;
+const dateStr = pubDate.toLocaleDateString('en-US', {
+  month: 'short', day: 'numeric', year: 'numeric'
+});
+
+const categoryLabel: Record<string, string> = {
+  analysis: 'Analysis',
+  subnet:   'Subnet Deep Dive',
+  trade:    'Trade Setup',
+  guide:    'Guide',
+  weekly:   'Weekly Brief',
+  news:     'News',
+};
+---
+
+<article class:list={['post-card', `card-${size}`]} itemscope itemtype="https://schema.org/BlogPosting">
+  <meta itemprop="datePublished" content={pubDate.toISOString()} />
+
+  <a href={url} class="card-link" aria-label={title}>
+    <div class="card-thumb" aria-hidden="true">
+      <span class="card-cat-code">{category.toUpperCase()}</span>
+    </div>
+  </a>
+
+  <div class="card-body">
+    <span class:list={['tag', `tag-${category}`]}>{categoryLabel[category] ?? category}</span>
+    <h2 class="card-title" itemprop="headline">
+      <a href={url}>{title}</a>
+    </h2>
+    {size !== 'compact' && (
+      <p class="card-excerpt" itemprop="description">{description}</p>
+    )}
+    <div class="card-meta">
+      <time datetime={pubDate.toISOString()} itemprop="datePublished">{dateStr}</time>
+      {tags.length > 0 && (
+        <>
+          <span aria-hidden="true">·</span>
+          <span class="card-tags">{tags.slice(0, 2).join(', ')}</span>
+        </>
+      )}
+    </div>
+  </div>
+</article>
+
+<style>
+  .post-card {
+    background: var(--s1);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .post-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-2px);
+  }
+  .card-link { display: block; }
+  .card-thumb {
+    height: 130px;
+    background: var(--s2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    position: relative;
+  }
+  .card-thumb::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 28px,
+      var(--border) 28px, var(--border) 29px
+    ),
+    repeating-linear-gradient(
+      90deg, transparent, transparent 28px,
+      var(--border) 28px, var(--border) 29px
+    );
+    opacity: 0.4;
+  }
+  .card-cat-code {
+    position: relative;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    font-weight: 700;
+    font-family: var(--mono);
+  }
+  .card-body { padding: 18px 18px 16px; }
+  .card-body .tag { margin-bottom: 10px; }
+  .card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+  .card-title a { color: var(--white); transition: color 0.12s; }
+  .card-title a:hover { color: var(--text2); }
+  .card-excerpt {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card-meta {
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .card-tags { color: var(--border2); }
+
+  /* Large variant */
+  .card-large .card-thumb { height: 220px; }
+  .card-large .card-title { font-size: 1.25rem; }
+  .card-large .card-excerpt { -webkit-line-clamp: 4; }
+
+  /* Compact variant */
+  .card-compact .card-thumb { height: 80px; }
+  .card-compact .card-body { padding: 14px 16px; }
+  .card-compact .card-title { font-size: 0.9rem; margin-bottom: 4px; }
+</style>

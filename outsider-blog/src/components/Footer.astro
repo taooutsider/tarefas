@@ -1,0 +1,111 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer-wrap">
+  <div class="container footer-grid">
+
+    <div class="footer-brand">
+      <a href="/" class="footer-logo" aria-label="Tao Outsider">
+        <span class="logo-icon" aria-hidden="true">τ</span>
+        <span>Tao Outsider</span>
+      </a>
+      <p>Independent Bittensor intelligence.<br />Not affiliated with the Opentensor Foundation.</p>
+    </div>
+
+    <nav class="footer-col" aria-label="Content">
+      <h4>Content</h4>
+      <ul role="list">
+        <li><a href="/blog/">All Articles</a></li>
+        <li><a href="/blog/tag/analysis/">Market Analysis</a></li>
+        <li><a href="/blog/tag/subnet/">Subnet Deep Dives</a></li>
+        <li><a href="/blog/tag/trade/">Trade Setups</a></li>
+        <li><a href="/blog/tag/guide/">Beginner Guides</a></li>
+      </ul>
+    </nav>
+
+    <nav class="footer-col" aria-label="Community">
+      <h4>Community</h4>
+      <ul role="list">
+        <li><a href="https://t.me/taooutsider" rel="noopener">Outsider Intel (Paid)</a></li>
+        <li><a href="https://t.me/taooutsiderfree" rel="noopener">Free Channel</a></li>
+        <li><a href="https://x.com/taooutsider" rel="noopener">X / Twitter</a></li>
+      </ul>
+    </nav>
+
+  </div>
+
+  <div class="footer-bottom container">
+    <p>&copy; {year} Tao Outsider &mdash; Not financial advice &mdash;
+      <a href="/privacy/">Privacy</a> &middot; <a href="/terms/">Terms</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer-wrap {
+    border-top: 1px solid var(--border);
+    margin-top: 80px;
+    padding-top: 56px;
+    padding-bottom: 32px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+  .logo-icon {
+    width: 26px;
+    height: 26px;
+    background: var(--white);
+    color: #000;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 13px;
+  }
+  .footer-brand p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .footer-col h4 {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 10px; }
+  .footer-col a {
+    font-size: 14px;
+    color: var(--text2);
+    transition: color 0.12s;
+  }
+  .footer-col a:hover { color: var(--white); }
+  .footer-bottom {
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+  }
+  .footer-bottom p { font-size: 12px; color: var(--muted); }
+  .footer-bottom a { color: var(--muted); }
+  .footer-bottom a:hover { color: var(--text2); }
+
+  @media (max-width: 768px) {
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+</style>

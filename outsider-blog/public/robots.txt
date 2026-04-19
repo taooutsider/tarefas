@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://taooutsider.com/sitemap-index.xml
