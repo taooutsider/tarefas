@@ -1,12 +1,11 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PostCard from '../../../components/PostCard.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
 
-  // Collect all unique tags + categories
   const tagSet = new Set<string>();
   for (const post of posts) {
     tagSet.add(post.data.category);
@@ -22,7 +21,7 @@ export async function getStaticPaths() {
   });
 }
 
-interface Props { posts: Awaited<ReturnType<typeof getCollection<'blog'>>>; tag: string; }
+interface Props { posts: CollectionEntry<'blog'>[]; tag: string; }
 const { posts, tag } = Astro.props;
 
 const sorted = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());

@@ -1,26 +1,25 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
   return posts.map(post => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
     props: { post },
   }));
 }
 
 interface Props { post: CollectionEntry<'blog'>; }
 const { post } = Astro.props;
-const { Content } = await post.render();
+const { Content } = await render(post);
 
 const { title, description, pubDate, updatedDate, category, tags, author } = post.data;
 
-// Related posts
 const all = await getCollection('blog');
 const related = all
-  .filter(p => p.slug !== post.slug && p.data.category === category)
+  .filter(p => p.id !== post.id && p.data.category === category)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 
@@ -41,7 +40,7 @@ const categoryLabel: Record<string, string> = {
 <BaseLayout
   title={title}
   description={description}
-  canonicalURL={`https://taooutsider.com/blog/${post.slug}/`}
+  canonicalURL={`https://taooutsider.com/blog/${post.id}/`}
   article={true}
   pubDate={pubDate}
   updatedDate={updatedDate}
