@@ -7,6 +7,11 @@ Schedule (UTC):
   14:00  — News Digest → Intel
   18:00  — News Digest → Intel
   Every 15 min — Alert cycle (price + subnet movers)
+
+Blog (auto-publishes to taooutsider.com via git push → Cloudflare Pages):
+  Mon 07:00  — Weekly Brief blog post
+  Wed 08:00  — Market Analysis blog post
+  Fri 08:00  — Market Analysis blog post
 """
 
 import logging
@@ -92,4 +97,42 @@ def build_scheduler() -> AsyncIOScheduler:
         replace_existing=True,
     )
 
+    # Blog — Weekly Brief every Monday 07:00 UTC
+    scheduler.add_job(
+        job_blog_weekly,
+        CronTrigger(day_of_week="mon", hour=7, minute=0, timezone=settings.timezone),
+        id="blog_weekly",
+        name="Blog Weekly Brief",
+        replace_existing=True,
+    )
+
+    # Blog — Market Analysis on Wednesday + Friday 08:00 UTC
+    scheduler.add_job(
+        job_blog_market,
+        CronTrigger(day_of_week="wed,fri", hour=8, minute=0, timezone=settings.timezone),
+        id="blog_market",
+        name="Blog Market Analysis",
+        replace_existing=True,
+    )
+
     return scheduler
+
+
+async def job_blog_weekly():
+    from agents.blog import run_weekly_brief
+    logger.info("Running blog weekly brief job...")
+    try:
+        path = await run_weekly_brief()
+        logger.info(f"Blog weekly brief published: {path}")
+    except Exception as e:
+        logger.error(f"Blog weekly brief failed: {e}", exc_info=True)
+
+
+async def job_blog_market():
+    from agents.blog import run_market_analysis
+    logger.info("Running blog market analysis job...")
+    try:
+        path = await run_market_analysis()
+        logger.info(f"Blog market analysis published: {path}")
+    except Exception as e:
+        logger.error(f"Blog market analysis failed: {e}", exc_info=True)

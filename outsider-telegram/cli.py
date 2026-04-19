@@ -2,13 +2,21 @@
 CLI — founder command interface.
 Run locally to trigger content manually without touching code.
 
-Usage:
-  python cli.py brief          → generate + post daily brief now
-  python cli.py news           → generate + post news digest now
-  python cli.py trade "text"   → format trade setup and post to Intel
-  python cli.py dive 8         → generate subnet deep dive for SN8
-  python cli.py test           → send test message to both groups
-  python cli.py preview brief  → generate brief but DON'T post (print only)
+TELEGRAM:
+  python cli.py brief            → generate + post daily brief now
+  python cli.py news             → generate + post news digest now
+  python cli.py trade "text"     → format trade setup and post to Intel
+  python cli.py dive 8           → generate subnet deep dive for SN8
+  python cli.py test             → send test message to both groups
+  python cli.py preview brief    → generate brief but DON'T post (print only)
+
+BLOG (publishes to taooutsider.com automatically):
+  python cli.py blog market      → market analysis post → publish
+  python cli.py blog weekly      → weekly brief post → publish
+  python cli.py blog dive 8 "Taoshi PTN"  → subnet deep dive → publish
+  python cli.py blog trade "text"         → trade setup post → publish
+  python cli.py blog guide "topic"        → educational guide → publish
+  python cli.py blog preview market       → generate only (don't publish)
 """
 
 import asyncio
@@ -122,9 +130,54 @@ def main():
             asyncio.run(cmd_news(post=False))
         else:
             print("Usage: python cli.py preview brief|news")
+
+    elif cmd == "blog":
+        asyncio.run(cmd_blog(args[1:]))
+
     else:
         print(f"Unknown command: {cmd}")
         print(__doc__)
+
+
+async def cmd_blog(args: list[str]):
+    from agents.blog import (
+        run_market_analysis, run_weekly_brief,
+        run_subnet_deep_dive, run_trade_setup, run_guide,
+    )
+    if not args:
+        print("Usage: python cli.py blog <market|weekly|dive|trade|guide|preview>")
+        return
+
+    sub = args[0].lower()
+    dry = False
+
+    if sub == "preview":
+        dry = True
+        sub = args[1].lower() if len(args) > 1 else ""
+        args = args[1:]
+
+    if sub == "market":
+        path = await run_market_analysis(dry_run=dry)
+        print(f"Done: {path}")
+    elif sub == "weekly":
+        path = await run_weekly_brief(dry_run=dry)
+        print(f"Done: {path}")
+    elif sub == "dive":
+        netuid = int(args[1]) if len(args) > 1 else int(input("netuid: "))
+        name   = args[2]       if len(args) > 2 else input("Subnet name: ").strip()
+        path = await run_subnet_deep_dive(netuid, name, dry_run=dry)
+        print(f"Done: {path}")
+    elif sub == "trade":
+        idea = args[1] if len(args) > 1 else input("Trade idea: ").strip()
+        path = await run_trade_setup(idea, dry_run=dry)
+        print(f"Done: {path}")
+    elif sub == "guide":
+        topic = args[1] if len(args) > 1 else input("Guide topic: ").strip()
+        path = await run_guide(topic, dry_run=dry)
+        print(f"Done: {path}")
+    else:
+        print(f"Unknown blog subcommand: {sub}")
+        print("Options: market, weekly, dive, trade, guide, preview")
 
 
 if __name__ == "__main__":
