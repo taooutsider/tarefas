@@ -30,7 +30,7 @@ const categoryLabel: Record<string, string> = {
 
       {featured && (
         <article class="hero-featured" itemscope itemtype="https://schema.org/BlogPosting">
-          <a href={`/blog/${featured.slug}/`} class="hero-thumb" aria-label={featured.data.title}>
+          <a href={`/blog/${featured.id}/`} class="hero-thumb" aria-label={featured.data.title}>
             <div class="hero-thumb-inner">
               <span class="thumb-label">FEATURED</span>
             </div>
@@ -40,7 +40,7 @@ const categoryLabel: Record<string, string> = {
               {categoryLabel[featured.data.category] ?? featured.data.category}
             </span>
             <h1 class="hero-title" itemprop="headline">
-              <a href={`/blog/${featured.slug}/`}>{featured.data.title}</a>
+              <a href={`/blog/${featured.id}/`}>{featured.data.title}</a>
             </h1>
             <p class="hero-excerpt" itemprop="description">{featured.data.description}</p>
             <div class="hero-meta">
@@ -67,7 +67,7 @@ const categoryLabel: Record<string, string> = {
               <li class="trending-item">
                 <span class="t-num" aria-hidden="true">0{i + 1}</span>
                 <div>
-                  <a href={`/blog/${p.slug}/`} class="t-title">{p.data.title}</a>
+                  <a href={`/blog/${p.id}/`} class="t-title">{p.data.title}</a>
                   <div class="t-meta">
                     <time datetime={p.data.pubDate.toISOString()}>
                       {p.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}

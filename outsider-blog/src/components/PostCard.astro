@@ -9,7 +9,7 @@ interface Props {
 const { post, size = 'default' } = Astro.props;
 const { title, description, pubDate, category, tags, author } = post.data;
 
-const url = `/blog/${post.slug}/`;
+const url = `/blog/${post.id}/`;
 const dateStr = pubDate.toLocaleDateString('en-US', {
   month: 'short', day: 'numeric', year: 'numeric'
 });

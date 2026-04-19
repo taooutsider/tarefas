@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="The page you're looking for doesn't exist on Tao Outsider. Head back to our Bittensor intelligence feed."
+  canonicalURL="https://taooutsider.com/404/"
+  noindex={true}
+>
+  <section class="not-found container">
+    <p class="code">404</p>
+    <h1>Signal lost.</h1>
+    <p class="desc">The page you're looking for doesn't exist, was moved, or never made it on-chain.</p>
+    <div class="actions">
+      <a href="/" class="btn primary">Back to Home</a>
+      <a href="/blog/" class="btn ghost">Browse Blog</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    padding: 120px 24px;
+    text-align: center;
+    max-width: 560px;
+  }
+  .code {
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    color: var(--border2);
+    font-family: var(--mono, monospace);
+    margin-bottom: 12px;
+    line-height: 1;
+  }
+  .not-found h1 {
+    font-size: 2rem;
+    margin-bottom: 14px;
+  }
+  .desc {
+    font-size: 15px;
+    color: var(--text2);
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+  .actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 18px;
+    border-radius: 7px;
+    transition: opacity 0.12s, background 0.12s;
+  }
+  .btn.primary { background: var(--white); color: #000; }
+  .btn.primary:hover { opacity: 0.85; }
+  .btn.ghost {
+    border: 1px solid var(--border2);
+    color: var(--text);
+  }
+  .btn.ghost:hover { background: var(--s1); }
+</style>
