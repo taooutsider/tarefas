@@ -44,6 +44,7 @@ CATEGORIES = {
 def _frontmatter(title: str, description: str, category: str,
                  tags: list[str], featured: bool = False) -> str:
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    description = description[:155].rsplit(' ', 1)[0] if len(description) > 155 else description
     tags_yaml = ", ".join(f'"{t}"' for t in tags)
     return f"""---
 title: "{title}"
