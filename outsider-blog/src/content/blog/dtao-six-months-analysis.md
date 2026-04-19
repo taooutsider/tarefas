@@ -1,6 +1,6 @@
 ---
 title: "dTAO Six Months In: Which Subnets Are Actually Winning the Liquidity Game?"
-description: "dTAO six months in: emission flows, alpha token price action and validator analysis across 128 Bittensor subnets — where liquidity is concentrating."
+description: "dTAO six months in: emission flows, alpha token returns and validator movements across 128 Bittensor subnets."
 pubDate: 2026-04-11
 category: analysis
 featured: true
