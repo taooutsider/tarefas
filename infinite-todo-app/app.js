@@ -284,6 +284,15 @@ function hasCloudConfig() {
   return Boolean(localStorage.getItem(CLOUD_URL_KEY) && localStorage.getItem(CLOUD_ANON_KEY));
 }
 
+function updateLogoutVisibility() {
+  if (!logoutBtn) return;
+  if (currentUser) {
+    logoutBtn.classList.remove("is-hidden");
+  } else {
+    logoutBtn.classList.add("is-hidden");
+  }
+}
+
 function updateSyncPanelMode() {
   if (!syncPanel) return;
   const localOnly = !hasCloudConfig();
@@ -296,7 +305,7 @@ function updateSyncPanelMode() {
   } else {
     toggleCloudBtn.classList.remove("is-hidden");
     syncNowBtn.classList.remove("is-hidden");
-    // logout visibility still depends on auth state elsewhere
+    updateLogoutVisibility();
   }
 }
 
@@ -690,12 +699,13 @@ async function initCloud() {
 
   supabaseClient = window.supabase.createClient(url, anonKey);
 
-  if (authSubscription?.subscription) {
-    authSubscription.subscription.unsubscribe();
+  if (authSubscription?.data?.subscription) {
+    authSubscription.data.subscription.unsubscribe();
   }
 
   authSubscription = supabaseClient.auth.onAuthStateChange(async (_event, session) => {
     currentUser = session?.user || null;
+    updateLogoutVisibility();
     if (!currentUser) {
       setStatus(t("cloudConfiguredNoAuth"));
       return;
@@ -713,6 +723,7 @@ async function initCloud() {
   }
 
   currentUser = data.session?.user || null;
+  updateLogoutVisibility();
   if (currentUser) {
     setStatus(`${t("statusConnectedPrefix")}: ${currentUser.email || currentUser.id.slice(0, 8)}`);
     await syncWithCloud({ manual: false });
