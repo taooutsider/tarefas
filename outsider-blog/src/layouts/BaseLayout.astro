@@ -1,0 +1,140 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalURL?: string;
+  ogImage?: string;
+  article?: boolean;
+  pubDate?: Date;
+  updatedDate?: Date;
+  tags?: string[];
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonicalURL = Astro.url.href,
+  ogImage = '/og-default.svg',
+  article = false,
+  pubDate,
+  updatedDate,
+  tags = [],
+  noindex = false,
+} = Astro.props;
+
+const SITE = 'https://taooutsider.com';
+const SITE_NAME = 'Tao Outsider';
+const fullTitle = title === SITE_NAME
+  ? `${SITE_NAME} — Bittensor Intelligence`
+  : `${title} | ${SITE_NAME}`;
+const ogImageURL = ogImage.startsWith('http') ? ogImage : `${SITE}${ogImage}`;
+
+const articleSchema = article ? {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  datePublished: pubDate?.toISOString(),
+  dateModified: (updatedDate ?? pubDate)?.toISOString(),
+  keywords: tags.join(', '),
+  author: { '@type': 'Organization', name: SITE_NAME, url: SITE },
+  publisher: {
+    '@type': 'Organization',
+    name: SITE_NAME,
+    url: SITE,
+    logo: { '@type': 'ImageObject', url: `${SITE}/favicon.svg` },
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalURL },
+  image: ogImageURL,
+} : null;
+
+const siteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE_NAME,
+  url: SITE,
+  description: 'Independent Bittensor intelligence. Market analysis, subnet deep dives, TAO trade setups and dTAO alpha for serious participants.',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${SITE}/blog/?q={search_term_string}`,
+    'query-input': 'required name=search_term_string',
+  },
+};
+---
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content={article ? 'article' : 'website'} />
+  <meta property="og:url"         content={canonicalURL} />
+  <meta property="og:title"       content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image"       content={ogImageURL} />
+  <meta property="og:image:width"  content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name"   content={SITE_NAME} />
+  <meta property="og:locale"      content="en_US" />
+  {article && pubDate && (
+    <meta property="article:published_time" content={pubDate.toISOString()} />
+  )}
+  {article && updatedDate && (
+    <meta property="article:modified_time" content={updatedDate.toISOString()} />
+  )}
+  {tags.map(t => <meta property="article:tag" content={t} />)}
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@taooutsider" />
+  <meta name="twitter:title"       content={fullTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image"       content={ogImageURL} />
+
+  <!-- Structured data -->
+  <script type="application/ld+json" set:html={JSON.stringify(siteSchema)} />
+  {articleSchema && (
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  )}
+
+  <!-- Sitemap -->
+  <link rel="sitemap" href="/sitemap-index.xml" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- Preconnect for web fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+    media="print"
+    onload="this.media='all'"
+  />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" />
+  </noscript>
+
+  <slot name="head" />
+</head>
+<body>
+  <Nav />
+  <main id="main-content">
+    <slot />
+  </main>
+  <Footer />
+</body>
+</html>

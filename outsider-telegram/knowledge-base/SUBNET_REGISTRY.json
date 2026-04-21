@@ -1,0 +1,1047 @@
+[
+  {
+    "netuid": 0,
+    "name": "root",
+    "repo": "https://github.com/opentensor/bittensor",
+    "org": "opentensor",
+    "local_path": "/home/user/bittensor-repos/subnets/sn000-root",
+    "clone_status": "exists"
+  },
+  {
+    "netuid": 1,
+    "name": "apex",
+    "repo": "https://github.com/macrocosm-os/prompting",
+    "org": "macrocosm-os",
+    "local_path": "/home/user/bittensor-repos/subnets/sn001-apex",
+    "clone_status": "exists"
+  },
+  {
+    "netuid": 2,
+    "name": "omron",
+    "repo": "https://github.com/inference-labs-inc/omron-subnet",
+    "org": "inference-labs-inc",
+    "local_path": "/home/user/bittensor-repos/subnets/sn002-omron",
+    "clone_status": "exists"
+  },
+  {
+    "netuid": 3,
+    "name": "templar",
+    "repo": "https://github.com/tplr-ai/templar",
+    "org": "tplr-ai",
+    "local_path": "/home/user/bittensor-repos/subnets/sn003-templar",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 4,
+    "name": "targon",
+    "repo": "https://github.com/manifold-inc/targon",
+    "org": "manifold-inc",
+    "local_path": "/home/user/bittensor-repos/subnets/sn004-targon",
+    "clone_status": "exists"
+  },
+  {
+    "netuid": 5,
+    "name": "open-kaito",
+    "repo": "https://github.com/OpenKaito/openkaito",
+    "org": "OpenKaito",
+    "local_path": "/home/user/bittensor-repos/subnets/sn005-open-kaito",
+    "clone_status": "exists"
+  },
+  {
+    "netuid": 6,
+    "name": "infinite-games",
+    "repo": "https://github.com/amedeo-gigaver/infinite_games",
+    "org": "amedeo-gigaver",
+    "local_path": "/home/user/bittensor-repos/subnets/sn006-infinite-games",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 7,
+    "name": "subvortex",
+    "repo": "https://github.com/eclipsevortex/SubVortex",
+    "org": "eclipsevortex",
+    "local_path": "/home/user/bittensor-repos/subnets/sn007-subvortex",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 8,
+    "name": "taoshi-ptn",
+    "repo": "https://github.com/taoshidev/proprietary-trading-network",
+    "org": "taoshidev",
+    "local_path": "/home/user/bittensor-repos/subnets/sn008-taoshi-ptn",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 9,
+    "name": "pretrain",
+    "repo": "https://github.com/macrocosm-os/pretraining",
+    "org": "macrocosm-os",
+    "local_path": "/home/user/bittensor-repos/subnets/sn009-pretrain",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 10,
+    "name": "sturdy",
+    "repo": "https://github.com/Sturdy-Subnet/sturdy-subnet",
+    "org": "Sturdy-Subnet",
+    "local_path": "/home/user/bittensor-repos/subnets/sn010-sturdy",
+    "clone_status": "exists"
+  },
+  {
+    "netuid": 11,
+    "name": "dippy-roleplay",
+    "repo": "https://github.com/impel-intelligence/dippy-bittensor-subnet",
+    "org": "impel-intelligence",
+    "local_path": null,
+    "clone_status": "private",
+    "notes": "Repo returned 404 \u2014 private or gated"
+  },
+  {
+    "netuid": 12,
+    "name": "compute-horde",
+    "repo": "https://github.com/backend-developers-ltd/ComputeHorde",
+    "org": "backend-developers-ltd",
+    "local_path": "/home/user/bittensor-repos/subnets/sn012-compute-horde",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 13,
+    "name": "data-universe",
+    "repo": "https://github.com/macrocosm-os/data-universe",
+    "org": "macrocosm-os",
+    "local_path": "/home/user/bittensor-repos/subnets/sn013-data-universe",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 14,
+    "name": "vectorstore",
+    "repo": "https://github.com/vector-pool/vector-store",
+    "org": "vector-pool",
+    "local_path": null,
+    "clone_status": "private",
+    "notes": "Repo returned 404 \u2014 private or gated"
+  },
+  {
+    "netuid": 15,
+    "name": "de-val",
+    "repo": "https://github.com/deval-core/De-Val",
+    "org": "deval-core",
+    "local_path": "/home/user/bittensor-repos/subnets/sn015-de-val",
+    "clone_status": "exists"
+  },
+  {
+    "netuid": 16,
+    "name": "bitads",
+    "repo": "https://github.com/eseckft/BitAds.ai",
+    "org": "eseckft",
+    "local_path": null,
+    "clone_status": "private",
+    "notes": "Repo returned 404 \u2014 private or gated"
+  },
+  {
+    "netuid": 17,
+    "name": "three-gen",
+    "repo": "https://github.com/404-Repo/three-gen-subnet",
+    "org": "404-Repo",
+    "local_path": "/home/user/bittensor-repos/subnets/sn017-three-gen",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 18,
+    "name": "cortex-t",
+    "repo": "https://github.com/corcel-api/cortex.t",
+    "org": "corcel-api",
+    "local_path": null,
+    "clone_status": "private_deleted",
+    "notes": "Corcel sunset \u2014 repo taken private/deleted"
+  },
+  {
+    "netuid": 19,
+    "name": "nineteen",
+    "repo": "https://github.com/namoray/vision",
+    "org": "namoray",
+    "local_path": null,
+    "clone_status": "private",
+    "notes": "URL corrected: namoray/nineteen \u2192 namoray/vision; repo is private"
+  },
+  {
+    "netuid": 20,
+    "name": "bitagent",
+    "repo": "https://github.com/RogueTensor/bitagent_subnet",
+    "org": "RogueTensor",
+    "local_path": null,
+    "clone_status": "private",
+    "notes": "Repo returned 404 \u2014 private or gated"
+  },
+  {
+    "netuid": 21,
+    "name": "omega-any2any",
+    "repo": "https://github.com/omegalabsinc/omegalabs-anytoany-bittensor",
+    "org": "omegalabsinc",
+    "local_path": "/home/user/bittensor-repos/subnets/sn021-omega-any2any",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 22,
+    "name": "desearch",
+    "repo": "https://github.com/datura-ai/smart-scrape",
+    "org": "datura-ai",
+    "local_path": "/home/user/bittensor-repos/subnets/sn022-desearch",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 23,
+    "name": "niche-image",
+    "repo": "https://github.com/NicheTensor/NicheImage",
+    "org": "NicheTensor",
+    "local_path": "/home/user/bittensor-repos/subnets/sn023-niche-image",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 24,
+    "name": "omega-labs",
+    "repo": "https://github.com/omegalabsinc/omegalabs-bittensor-subnet",
+    "org": "omegalabsinc",
+    "local_path": "/home/user/bittensor-repos/subnets/sn024-omega-labs",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 25,
+    "name": "protein-folding",
+    "repo": "https://github.com/macrocosm-os/folding",
+    "org": "macrocosm-os",
+    "local_path": "/home/user/bittensor-repos/subnets/sn025-protein-folding",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 26,
+    "name": "unknown-26",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 27,
+    "name": "ni-compute",
+    "repo": "https://github.com/neuralinternet/ni-compute",
+    "org": "neuralinternet",
+    "local_path": null,
+    "clone_status": "private",
+    "notes": "URL corrected: compute-subnet \u2192 ni-compute (Nodexo rebrand); repo is private"
+  },
+  {
+    "netuid": 28,
+    "name": "lol",
+    "repo": "https://github.com/Tao-Accumulation-Corporation/lol",
+    "org": "Tao-Accumulation-Corporation",
+    "local_path": null,
+    "clone_status": "private_deleted",
+    "notes": "Meme subnet \u2014 repo taken private or deleted"
+  },
+  {
+    "netuid": 29,
+    "name": "coldint",
+    "repo": "https://github.com/coldint/coldint_validator",
+    "org": "coldint",
+    "local_path": "/home/user/bittensor-repos/subnets/sn029-coldint",
+    "clone_status": "exists"
+  },
+  {
+    "netuid": 30,
+    "name": "bettensor",
+    "repo": "https://github.com/Bettensor/bettensor",
+    "org": "Bettensor",
+    "local_path": "/home/user/bittensor-repos/subnets/sn030-bettensor",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 31,
+    "name": "nas-chain",
+    "repo": "https://github.com/neuronlogic/NASChain",
+    "org": "neuronlogic",
+    "local_path": "/home/user/bittensor-repos/subnets/sn031-nas-chain",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 32,
+    "name": "its-ai",
+    "repo": "https://github.com/It-s-AI/llm-detection",
+    "org": "It-s-AI",
+    "local_path": "/home/user/bittensor-repos/subnets/sn032-its-ai",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 33,
+    "name": "ready-ai",
+    "repo": "https://github.com/afterpartyai/bittensor-conversation-genome-project",
+    "org": "afterpartyai",
+    "local_path": "/home/user/bittensor-repos/subnets/sn033-ready-ai",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 34,
+    "name": "bitmind",
+    "repo": "https://github.com/BitMind-AI/bitmind-subnet",
+    "org": "BitMind-AI",
+    "local_path": "/home/user/bittensor-repos/subnets/sn034-bitmind",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 35,
+    "name": "logicnet",
+    "repo": "https://github.com/LogicNet-Subnet/LogicNet",
+    "org": "LogicNet-Subnet",
+    "local_path": "/home/user/bittensor-repos/subnets/sn035-logicnet",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 36,
+    "name": "web-agents",
+    "repo": "https://github.com/autoppia/autoppia_web_agents_subnet",
+    "org": "autoppia",
+    "local_path": "/home/user/bittensor-repos/subnets/sn036-web-agents",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 37,
+    "name": "finetuning",
+    "repo": "https://github.com/macrocosm-os/finetuning",
+    "org": "macrocosm-os",
+    "local_path": "/home/user/bittensor-repos/subnets/sn037-finetuning",
+    "clone_status": "exists"
+  },
+  {
+    "netuid": 38,
+    "name": "dist-training",
+    "repo": "https://github.com/KMFODA/DistributedTraining",
+    "org": "KMFODA",
+    "local_path": "/home/user/bittensor-repos/subnets/sn038-dist-training",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 39,
+    "name": "basilica",
+    "repo": "https://github.com/one-covenant/basilica",
+    "org": "one-covenant",
+    "local_path": "/home/user/bittensor-repos/subnets/sn039-basilica",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 40,
+    "name": "chunking",
+    "repo": "https://github.com/VectorChat/chunking_subnet",
+    "org": "VectorChat",
+    "local_path": null,
+    "clone_status": "private",
+    "notes": "Repo returned 404 \u2014 private or gated"
+  },
+  {
+    "netuid": 41,
+    "name": "sportstensor",
+    "repo": "https://github.com/sportstensor/sportstensor",
+    "org": "sportstensor",
+    "local_path": null,
+    "clone_status": "private",
+    "notes": "Repo returned 404 \u2014 private or gated"
+  },
+  {
+    "netuid": 42,
+    "name": "masa",
+    "repo": "https://github.com/masa-finance/masa-bittensor",
+    "org": "masa-finance",
+    "local_path": "/home/user/bittensor-repos/subnets/sn042-masa",
+    "clone_status": "exists"
+  },
+  {
+    "netuid": 43,
+    "name": "graphite",
+    "repo": "https://github.com/GraphiteAI/Graphite-Subnet",
+    "org": "GraphiteAI",
+    "local_path": "/home/user/bittensor-repos/subnets/sn043-graphite",
+    "clone_status": "exists"
+  },
+  {
+    "netuid": 44,
+    "name": "score-vision",
+    "repo": "https://github.com/score-technologies/score-vision",
+    "org": "score-technologies",
+    "local_path": "/home/user/bittensor-repos/subnets/sn044-score-vision",
+    "clone_status": "exists"
+  },
+  {
+    "netuid": 45,
+    "name": "swe-rizzo",
+    "repo": "https://github.com/brokespace/code",
+    "org": "brokespace",
+    "local_path": "/home/user/bittensor-repos/subnets/sn045-swe-rizzo",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 46,
+    "name": "neural3d",
+    "repo": "https://github.com/GoNeuralAI/neural-subnet",
+    "org": "GoNeuralAI",
+    "local_path": "/home/user/bittensor-repos/subnets/sn046-neural3d",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 47,
+    "name": "condense-ai",
+    "repo": "https://github.com/condenses/neural-condense-subnet",
+    "org": "condenses",
+    "local_path": "/home/user/bittensor-repos/subnets/sn047-condense-ai",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 48,
+    "name": "nextplace",
+    "repo": "https://github.com/Nickel5-Inc/Nextplace",
+    "org": "Nickel5-Inc",
+    "local_path": "/home/user/bittensor-repos/subnets/sn048-nextplace",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 49,
+    "name": "hivetrain",
+    "repo": "https://github.com/Hivetrain/DistributedAutoML",
+    "org": "Hivetrain",
+    "local_path": "/home/user/bittensor-repos/subnets/sn049-hivetrain",
+    "clone_status": "exists"
+  },
+  {
+    "netuid": 50,
+    "name": "synth",
+    "repo": "https://github.com/mode-network/synth-subnet",
+    "org": "mode-network",
+    "local_path": "/home/user/bittensor-repos/subnets/sn050-synth",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 51,
+    "name": "datura-compute",
+    "repo": "https://github.com/Datura-ai/compute-subnet",
+    "org": "Datura-ai",
+    "local_path": "/home/user/bittensor-repos/subnets/sn051-datura-compute",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 52,
+    "name": "dojo",
+    "repo": "https://github.com/tensorplex-labs/dojo",
+    "org": "tensorplex-labs",
+    "local_path": "/home/user/bittensor-repos/subnets/sn052-dojo",
+    "clone_status": "exists"
+  },
+  {
+    "netuid": 53,
+    "name": "efficient-frontier",
+    "repo": "https://github.com/EfficientFrontier-SignalPlus/EfficientFrontier",
+    "org": "EfficientFrontier-SignalPlus",
+    "local_path": "/home/user/bittensor-repos/subnets/sn053-efficient-frontier",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 54,
+    "name": "webgenie",
+    "repo": "https://github.com/web-genie-ai/web-genie-ai",
+    "org": "web-genie-ai",
+    "local_path": "/home/user/bittensor-repos/subnets/sn054-webgenie",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 55,
+    "name": "precog",
+    "repo": "https://github.com/coinmetrics/precog",
+    "org": "coinmetrics",
+    "local_path": "/home/user/bittensor-repos/subnets/sn055-precog",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 56,
+    "name": "gradients-god",
+    "repo": "https://github.com/rayonlabs/G.O.D",
+    "org": "rayonlabs",
+    "local_path": "/home/user/bittensor-repos/subnets/sn056-gradients-god",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 57,
+    "name": "gaia",
+    "repo": "https://github.com/Nickel5-Inc/Gaia",
+    "org": "Nickel5-Inc",
+    "local_path": "/home/user/bittensor-repos/subnets/sn057-gaia",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 58,
+    "name": "dippy-speech",
+    "repo": "https://github.com/impel-intelligence/dippy-speech-subnet",
+    "org": "impel-intelligence",
+    "local_path": null,
+    "clone_status": "private",
+    "notes": "Repo returned 404 \u2014 private or gated"
+  },
+  {
+    "netuid": 59,
+    "name": "agent-arena",
+    "repo": "https://github.com/masa-finance/agent-arena-subnet",
+    "org": "masa-finance",
+    "local_path": "/home/user/bittensor-repos/subnets/sn059-agent-arena",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 60,
+    "name": "bitsec",
+    "repo": "https://github.com/Bitsec-AI/subnet",
+    "org": "Bitsec-AI",
+    "local_path": "/home/user/bittensor-repos/subnets/sn060-bitsec",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 61,
+    "name": "red-team",
+    "repo": "https://github.com/RedTeamSubnet/RedTeam",
+    "org": "RedTeamSubnet",
+    "local_path": "/home/user/bittensor-repos/subnets/sn061-red-team",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 62,
+    "name": "agentao",
+    "repo": "https://github.com/taoagents/agentao",
+    "org": "taoagents",
+    "local_path": "/home/user/bittensor-repos/subnets/sn062-agentao",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 63,
+    "name": "unknown-63",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 64,
+    "name": "chutes",
+    "repo": "https://github.com/rayonlabs/chutes",
+    "org": "rayonlabs",
+    "local_path": "/home/user/bittensor-repos/subnets/sn064-chutes",
+    "clone_status": "exists"
+  },
+  {
+    "netuid": 65,
+    "name": "tpn-vpn",
+    "repo": "https://github.com/beyond-stake/tpn-subnet",
+    "org": "beyond-stake",
+    "local_path": "/home/user/bittensor-repos/subnets/sn065-tpn-vpn",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 66,
+    "name": "fakenews",
+    "repo": "https://github.com/gutenberg-team/fakenews-subnet",
+    "org": "gutenberg-team",
+    "local_path": "/home/user/bittensor-repos/subnets/sn066-fakenews",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 67,
+    "name": "unknown-67",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 68,
+    "name": "nova",
+    "repo": "https://github.com/metanova-labs/nova",
+    "org": "metanova-labs",
+    "local_path": "/home/user/bittensor-repos/subnets/sn068-nova",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 69,
+    "name": "unknown-69",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 70,
+    "name": "unknown-70",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 71,
+    "name": "unknown-71",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 72,
+    "name": "unknown-72",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 73,
+    "name": "unknown-73",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 74,
+    "name": "unknown-74",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 75,
+    "name": "hippius",
+    "repo": "https://github.com/thenervelab/thebrain",
+    "org": "thenervelab",
+    "local_path": "/home/user/bittensor-repos/subnets/sn075-hippius",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 76,
+    "name": "safe-scan",
+    "repo": "https://github.com/safe-scan-ai/cancer-ai",
+    "org": "safe-scan-ai",
+    "local_path": "/home/user/bittensor-repos/subnets/sn076-safe-scan",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 77,
+    "name": "sn77-liquidity",
+    "repo": "https://github.com/CreativeBuilds/sn77",
+    "org": "CreativeBuilds",
+    "local_path": "/home/user/bittensor-repos/subnets/sn077-sn77-liquidity",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 78,
+    "name": "loosh",
+    "repo": "https://github.com/Loosh-ai/loosh-inference-validator",
+    "org": "Loosh-ai",
+    "local_path": "/home/user/bittensor-repos/subnets/sn078-loosh",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 79,
+    "name": "taos",
+    "repo": "https://github.com/taos-im/sn-79",
+    "org": "taos-im",
+    "local_path": "/home/user/bittensor-repos/subnets/sn079-taos",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 80,
+    "name": "dogelayer",
+    "repo": "https://github.com/dogelayer-ai/dogelayer",
+    "org": "dogelayer-ai",
+    "local_path": "/home/user/bittensor-repos/subnets/sn080-dogelayer",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 81,
+    "name": "grail",
+    "repo": "https://github.com/one-covenant/grail",
+    "org": "one-covenant",
+    "local_path": "/home/user/bittensor-repos/subnets/sn081-grail",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 82,
+    "name": "hermes",
+    "repo": "https://github.com/SN-Hermes/hermes-subnet",
+    "org": "SN-Hermes",
+    "local_path": "/home/user/bittensor-repos/subnets/sn082-hermes",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 83,
+    "name": "cliqueai",
+    "repo": "https://github.com/toptensor/CliqueAI",
+    "org": "toptensor",
+    "local_path": "/home/user/bittensor-repos/subnets/sn083-cliqueai",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 84,
+    "name": "chipforge",
+    "repo": "https://github.com/TatsuProject/ChipForge_SN84",
+    "org": "TatsuProject",
+    "local_path": "/home/user/bittensor-repos/subnets/sn084-chipforge",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 85,
+    "name": "vidaio",
+    "repo": "https://github.com/vidaio-subnet/vidaio-subnet",
+    "org": "vidaio-subnet",
+    "local_path": "/home/user/bittensor-repos/subnets/sn085-vidaio",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 86,
+    "name": "unknown-86",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 87,
+    "name": "luminar",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 88,
+    "name": "mobius-fund",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 89,
+    "name": "infinite-hash",
+    "repo": "https://github.com/backend-developers-ltd/InfiniteHash",
+    "org": "backend-developers-ltd",
+    "local_path": "/home/user/bittensor-repos/subnets/sn089-infinite-hash",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 90,
+    "name": "degenbrain",
+    "repo": "https://github.com/degenpredict/bittensor-subnet-90-brain",
+    "org": "degenpredict",
+    "local_path": null,
+    "clone_status": "private",
+    "notes": "Repo returned 404 \u2014 private or gated"
+  },
+  {
+    "netuid": 91,
+    "name": "unknown-91",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 92,
+    "name": "unknown-92",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 93,
+    "name": "bitcast",
+    "repo": "https://github.com/bitcast-network/bitcast",
+    "org": "bitcast-network",
+    "local_path": "/home/user/bittensor-repos/subnets/sn093-bitcast",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 94,
+    "name": "bitsota",
+    "repo": "https://github.com/AlveusLabs/SN94-BitSota",
+    "org": "AlveusLabs",
+    "local_path": "/home/user/bittensor-repos/subnets/sn094-bitsota",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 95,
+    "name": "unknown-95",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 96,
+    "name": "flock-off",
+    "repo": "https://github.com/FLock-io/FLock-subnet",
+    "org": "FLock-io",
+    "local_path": "/home/user/bittensor-repos/subnets/sn096-flock-off",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 97,
+    "name": "unknown-97",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 98,
+    "name": "unknown-98",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 99,
+    "name": "unknown-99",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 100,
+    "name": "cortexlm",
+    "repo": "https://github.com/PlatformNetwork/platform",
+    "org": "CortexLM",
+    "local_path": "/home/user/bittensor-repos/subnets/sn100-cortexlm",
+    "clone_status": "cloned",
+    "notes": "URL corrected: CortexLM/subnet \u2192 PlatformNetwork/platform"
+  },
+  {
+    "netuid": 101,
+    "name": "unknown-101",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 102,
+    "name": "unknown-102",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 103,
+    "name": "djinn",
+    "repo": null,
+    "org": "Djinn-Inc",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 104,
+    "name": "unknown-104",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 105,
+    "name": "unknown-105",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 106,
+    "name": "void-ai",
+    "repo": null,
+    "org": "VoidAI",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 107,
+    "name": "unknown-107",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 108,
+    "name": "unknown-108",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 109,
+    "name": "unknown-109",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 110,
+    "name": "unknown-110",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 111,
+    "name": "oneoneone",
+    "repo": null,
+    "org": "oneoneone",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 112,
+    "name": "unknown-112",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 113,
+    "name": "tensorusd",
+    "repo": "https://github.com/TensorUSD/subnet",
+    "org": "TensorUSD",
+    "local_path": "/home/user/bittensor-repos/subnets/sn113-tensorusd",
+    "clone_status": "cloned"
+  },
+  {
+    "netuid": 114,
+    "name": "unknown-114",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 115,
+    "name": "unknown-115",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 116,
+    "name": "xpenlab",
+    "repo": null,
+    "org": "XpenLab",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 117,
+    "name": "shiftlayer",
+    "repo": null,
+    "org": "ShiftLayer",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 118,
+    "name": "trustedstake",
+    "repo": null,
+    "org": "TrustedStake",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 119,
+    "name": "unknown-119",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 120,
+    "name": "unknown-120",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 121,
+    "name": "sundae-bar",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 122,
+    "name": "bitrecs",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 123,
+    "name": "barbarian",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 124,
+    "name": "swarm",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 125,
+    "name": "unknown-125",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 126,
+    "name": "poker44",
+    "repo": null,
+    "org": "Poker44-Team",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 127,
+    "name": "astrid",
+    "repo": null,
+    "org": "Astrid-Intelligence",
+    "local_path": null,
+    "clone_status": "no_repo"
+  },
+  {
+    "netuid": 128,
+    "name": "unknown-128",
+    "repo": null,
+    "org": "unknown",
+    "local_path": null,
+    "clone_status": "no_repo"
+  }
+]

@@ -1,0 +1,89 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PostCard from '../../../components/PostCard.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+
+  const tagSet = new Set<string>();
+  for (const post of posts) {
+    tagSet.add(post.data.category);
+    post.data.tags.forEach(t => tagSet.add(t.toLowerCase().replace(/\s+/g, '-')));
+  }
+
+  return Array.from(tagSet).map(tag => {
+    const filtered = posts.filter(p =>
+      p.data.category === tag ||
+      p.data.tags.map(t => t.toLowerCase().replace(/\s+/g, '-')).includes(tag)
+    );
+    return { params: { tag }, props: { posts: filtered, tag } };
+  });
+}
+
+interface Props { posts: CollectionEntry<'blog'>[]; tag: string; }
+const { posts, tag } = Astro.props;
+
+const sorted = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const tagDisplay = tag.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+
+const tagDescriptions: Record<string, string> = {
+  analysis: 'In-depth Bittensor market analysis — TAO price action, dTAO dynamics, emission cycles and on-chain intelligence.',
+  subnet:   'Deep dives into individual Bittensor subnets — architecture, emissions, validators, miners, and investment thesis.',
+  trade:    'TAO and alpha token trade setups with technical analysis, entry points, targets and on-chain confirmation.',
+  guide:    'Beginner and advanced guides to Bittensor — staking, delegating, understanding subnets, and the dTAO model.',
+  weekly:   'Weekly Bittensor intelligence briefs — the most important market and ecosystem developments every 7 days.',
+  news:     'Breaking Bittensor ecosystem news — new subnets, validator updates, protocol changes and partnerships.',
+};
+const desc = tagDescriptions[tag] ??
+  `All Tao Outsider articles tagged "${tagDisplay}" — Bittensor intelligence for serious TAO participants.`;
+---
+
+<BaseLayout
+  title={`${tagDisplay} — Bittensor ${tagDisplay} Articles`}
+  description={desc}
+  canonicalURL={`https://taooutsider.com/blog/tag/${tag}/`}
+>
+  <section class="page-header container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <a href="/blog/">Blog</a>
+      <span>/</span>
+      <span>{tagDisplay}</span>
+    </nav>
+    <h1>{tagDisplay}</h1>
+    <p>{desc}</p>
+    <p class="count">{sorted.length} article{sorted.length !== 1 ? 's' : ''}</p>
+  </section>
+
+  <section class="blog-listing container" aria-label={`${tagDisplay} posts`}>
+    {sorted.length > 0 ? (
+      <div class="posts-grid" role="list">
+        {sorted.map(post => (
+          <div role="listitem"><PostCard post={post} /></div>
+        ))}
+      </div>
+    ) : (
+      <p class="empty">No posts in this category yet.</p>
+    )}
+  </section>
+</BaseLayout>
+
+<style>
+  .page-header { padding: 56px 24px 40px; max-width: 640px; }
+  .breadcrumb {
+    display: flex; gap: 6px; align-items: center;
+    font-size: 12px; color: var(--muted); margin-bottom: 20px;
+  }
+  .breadcrumb a { color: var(--muted); transition: color 0.12s; }
+  .breadcrumb a:hover { color: var(--text2); }
+  .page-header h1 { margin-bottom: 10px; text-transform: capitalize; }
+  .page-header p { font-size: 15px; color: var(--text2); margin-bottom: 8px; }
+  .count { font-size: 13px; color: var(--muted); }
+  .blog-listing { padding: 0 24px 80px; }
+  .posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .empty { font-size: 14px; color: var(--muted); }
+  @media (max-width: 768px) { .posts-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .posts-grid { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,248 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+interface Props { post: CollectionEntry<'blog'>; }
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const { title, description, pubDate, updatedDate, category, tags, author } = post.data;
+
+const all = await getCollection('blog');
+const related = all
+  .filter(p => p.id !== post.id && p.data.category === category)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const pubDateStr = pubDate.toLocaleDateString('en-US', {
+  month: 'long', day: 'numeric', year: 'numeric',
+});
+const updatedStr = updatedDate?.toLocaleDateString('en-US', {
+  month: 'short', day: 'numeric', year: 'numeric',
+});
+
+const categoryLabel: Record<string, string> = {
+  analysis: 'Analysis', subnet: 'Subnet Deep Dive',
+  trade: 'Trade Setup', guide: 'Guide',
+  weekly: 'Weekly Brief', news: 'News',
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalURL={`https://taooutsider.com/blog/${post.id}/`}
+  article={true}
+  pubDate={pubDate}
+  updatedDate={updatedDate}
+  tags={tags}
+>
+  <article class="post-wrap" itemscope itemtype="https://schema.org/BlogPosting">
+
+    <!-- POST HEADER -->
+    <header class="post-header container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="/" itemprop="item"><span itemprop="name">Home</span></a>
+            <meta itemprop="position" content="1" />
+          </li>
+          <span aria-hidden="true">/</span>
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="/blog/" itemprop="item"><span itemprop="name">Blog</span></a>
+            <meta itemprop="position" content="2" />
+          </li>
+          <span aria-hidden="true">/</span>
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <span itemprop="name">{title}</span>
+            <meta itemprop="position" content="3" />
+          </li>
+        </ol>
+      </nav>
+
+      <span class:list={['tag', `tag-${category}`]}>{categoryLabel[category] ?? category}</span>
+      <h1 itemprop="headline">{title}</h1>
+      <p class="post-description" itemprop="description">{description}</p>
+
+      <div class="post-meta-bar">
+        <span class="meta-author" itemprop="author" itemscope itemtype="https://schema.org/Organization">
+          <span itemprop="name">{author}</span>
+        </span>
+        <span aria-hidden="true">·</span>
+        <time datetime={pubDate.toISOString()} itemprop="datePublished">{pubDateStr}</time>
+        {updatedDate && (
+          <>
+            <span aria-hidden="true">·</span>
+            <span class="updated">Updated <time datetime={updatedDate.toISOString()}>{updatedStr}</time></span>
+          </>
+        )}
+        {tags.length > 0 && (
+          <>
+            <span aria-hidden="true">·</span>
+            <nav class="inline-tags" aria-label="Post tags">
+              {tags.map(t => <a href={`/blog/tag/${t.toLowerCase().replace(/\s+/g, '-')}/`} class="tag-link">{t}</a>)}
+            </nav>
+          </>
+        )}
+      </div>
+    </header>
+
+    <!-- POST BODY -->
+    <div class="post-body container">
+      <div class="prose" itemprop="articleBody">
+        <Content />
+      </div>
+
+      <!-- SHARE + CTA -->
+      <aside class="post-cta" aria-label="Get more intelligence">
+        <div class="cta-inner">
+          <p class="cta-label">Want daily briefs like this?</p>
+          <h2>Join Outsider Intel</h2>
+          <p>Real-time alerts, trade setups, subnet deep dives and on-chain data — straight to your Telegram.</p>
+          <a href="https://t.me/taooutsider" class="cta-btn" rel="noopener">Get Access &rarr;</a>
+          <p class="cta-sub">$39/month &middot; Pay in USD or TAO &middot; Cancel anytime</p>
+        </div>
+      </aside>
+    </div>
+
+  </article>
+
+  <!-- RELATED POSTS -->
+  {related.length > 0 && (
+    <section class="related container" aria-labelledby="related-heading">
+      <h2 id="related-heading">Related Articles</h2>
+      <div class="related-grid" role="list">
+        {related.map(p => (
+          <div role="listitem"><PostCard post={p} /></div>
+        ))}
+      </div>
+    </section>
+  )}
+
+</BaseLayout>
+
+<style>
+  .post-wrap { padding-bottom: 80px; }
+
+  .post-header {
+    padding: 48px 24px 40px;
+    max-width: 800px;
+  }
+  .breadcrumb ol {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    list-style: none;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .breadcrumb a { color: var(--muted); transition: color 0.12s; }
+  .breadcrumb a:hover { color: var(--text2); }
+  .post-header .tag { margin-bottom: 14px; }
+  .post-header h1 { margin-bottom: 14px; }
+  .post-description {
+    font-size: 1.1rem;
+    color: var(--text2);
+    line-height: 1.65;
+    margin-bottom: 20px;
+    max-width: 680px;
+  }
+  .post-meta-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    flex-wrap: wrap;
+  }
+  .meta-author { color: var(--text2); font-weight: 500; }
+  .updated { color: var(--muted); }
+  .inline-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag-link {
+    font-size: 11px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 3px;
+    transition: all 0.12s;
+  }
+  .tag-link:hover { color: var(--text2); border-color: var(--border2); }
+
+  .post-body {
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 48px;
+    align-items: start;
+    max-width: var(--max-w);
+  }
+
+  .post-cta {
+    position: sticky;
+    top: 80px;
+  }
+  .cta-inner {
+    background: var(--s1);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .cta-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .cta-inner h2 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  .cta-inner p { font-size: 13px; color: var(--text2); line-height: 1.6; margin-bottom: 16px; }
+  .cta-btn {
+    display: block;
+    background: var(--white);
+    color: #000;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 10px 16px;
+    border-radius: 7px;
+    text-align: center;
+    margin-bottom: 10px;
+    transition: opacity 0.12s;
+  }
+  .cta-btn:hover { opacity: 0.85; }
+  .cta-sub { font-size: 11px; color: var(--muted); text-align: center; }
+
+  .related {
+    padding: 0 24px 80px;
+    border-top: 1px solid var(--border);
+    margin-top: 56px;
+  }
+  .related h2 { font-size: 1rem; margin: 40px 0 24px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  @media (max-width: 900px) {
+    .post-body { grid-template-columns: 1fr; }
+    .post-cta { position: static; }
+    .related-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .related-grid { grid-template-columns: 1fr; }
+  }
+</style>

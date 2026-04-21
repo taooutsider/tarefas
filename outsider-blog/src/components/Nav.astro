@@ -1,0 +1,106 @@
+---
+const pathname = Astro.url.pathname;
+const isActive = (path: string) =>
+  pathname === path || pathname.startsWith(path + '/');
+---
+
+<header class="nav-wrap">
+  <nav class="container nav-inner" aria-label="Main navigation">
+
+    <a href="/" class="logo" aria-label="Tao Outsider — Home">
+      <span class="logo-icon" aria-hidden="true">τ</span>
+      <span class="logo-name">Tao <strong>Outsider</strong></span>
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li><a href="/blog/"      class:list={['nav-link', { active: isActive('/blog') }]}>Blog</a></li>
+      <li><a href="/blog/tag/subnet/"  class:list={['nav-link', { active: isActive('/blog/tag/subnet') }]}>Subnets</a></li>
+      <li><a href="/blog/tag/trade/"   class:list={['nav-link', { active: isActive('/blog/tag/trade') }]}>Trade Setups</a></li>
+      <li><a href="/blog/tag/guide/"   class:list={['nav-link', { active: isActive('/blog/tag/guide') }]}>Guides</a></li>
+    </ul>
+
+    <a href="https://t.me/taooutsider" class="nav-cta" rel="noopener">
+      Join Intel &rarr;
+    </a>
+
+  </nav>
+</header>
+
+<style>
+  .nav-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(0,0,0,0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    flex-shrink: 0;
+  }
+  .logo-icon {
+    width: 30px;
+    height: 30px;
+    background: var(--white);
+    color: #000;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 16px;
+    line-height: 1;
+  }
+  .logo-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text2);
+    letter-spacing: -0.01em;
+  }
+  .logo-name strong {
+    color: var(--white);
+    font-weight: 700;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    list-style: none;
+  }
+  .nav-link {
+    font-size: 14px;
+    color: var(--muted);
+    padding: 5px 11px;
+    border-radius: 5px;
+    transition: color 0.12s, background 0.12s;
+  }
+  .nav-link:hover { color: var(--text); background: var(--s2); }
+  .nav-link.active { color: var(--white); }
+  .nav-cta {
+    font-size: 13px;
+    font-weight: 700;
+    background: var(--white);
+    color: #000;
+    padding: 7px 15px;
+    border-radius: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: opacity 0.12s;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+  }
+</style>

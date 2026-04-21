@@ -1,0 +1,370 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+
+const allPosts = await getCollection('blog');
+const sorted = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const featured = sorted.find(p => p.data.featured) ?? sorted[0];
+const recent = sorted.filter(p => p !== featured).slice(0, 6);
+
+const featuredDate = featured?.data.pubDate.toLocaleDateString('en-US', {
+  month: 'short', day: 'numeric', year: 'numeric',
+});
+
+const categoryLabel: Record<string, string> = {
+  analysis: 'Analysis', subnet: 'Subnet Deep Dive',
+  trade: 'Trade Setup', guide: 'Guide',
+  weekly: 'Weekly Brief', news: 'News',
+};
+---
+
+<BaseLayout
+  title="Tao Outsider"
+  description="Independent Bittensor intelligence. Market analysis, subnet deep dives, dTAO alpha token research and TAO trade setups for serious participants."
+>
+
+  <!-- HERO -->
+  <section class="hero container" aria-label="Featured article">
+    <div class="hero-grid">
+
+      {featured && (
+        <article class="hero-featured" itemscope itemtype="https://schema.org/BlogPosting">
+          <a href={`/blog/${featured.id}/`} class="hero-thumb" aria-label={featured.data.title}>
+            <div class="hero-thumb-inner">
+              <span class="thumb-label">FEATURED</span>
+            </div>
+          </a>
+          <div class="hero-body">
+            <span class:list={['tag', `tag-${featured.data.category}`]}>
+              {categoryLabel[featured.data.category] ?? featured.data.category}
+            </span>
+            <h1 class="hero-title" itemprop="headline">
+              <a href={`/blog/${featured.id}/`}>{featured.data.title}</a>
+            </h1>
+            <p class="hero-excerpt" itemprop="description">{featured.data.description}</p>
+            <div class="hero-meta">
+              <time datetime={featured.data.pubDate.toISOString()} itemprop="datePublished">
+                {featuredDate}
+              </time>
+              {featured.data.tags.length > 0 && (
+                <>
+                  <span aria-hidden="true">·</span>
+                  <span>{featured.data.tags.slice(0, 3).join(', ')}</span>
+                </>
+              )}
+            </div>
+          </div>
+        </article>
+      )}
+
+      <!-- Sidebar -->
+      <aside class="hero-sidebar" aria-label="Join the community">
+        <div class="sidebar-trending">
+          <h2 class="sidebar-heading">Trending</h2>
+          <ol class="trending-list" role="list">
+            {sorted.slice(0, 5).map((p, i) => (
+              <li class="trending-item">
+                <span class="t-num" aria-hidden="true">0{i + 1}</span>
+                <div>
+                  <a href={`/blog/${p.id}/`} class="t-title">{p.data.title}</a>
+                  <div class="t-meta">
+                    <time datetime={p.data.pubDate.toISOString()}>
+                      {p.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                    </time>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div class="sidebar-cta">
+          <p class="cta-eyebrow">Premium Intelligence</p>
+          <h3>Outsider Intel</h3>
+          <p class="cta-desc">Daily briefs, trade setups, and on-chain alpha — before the crowd catches on.</p>
+          <a href="https://t.me/taooutsider" class="cta-btn" rel="noopener">
+            Get Access &rarr;
+          </a>
+          <p class="cta-price">From $39 / month &middot; Pay in USD or TAO</p>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- RECENT POSTS -->
+  <section class="recent container" aria-labelledby="recent-heading">
+    <div class="section-header">
+      <h2 id="recent-heading">Latest Intelligence</h2>
+      <a href="/blog/">View all &rarr;</a>
+    </div>
+
+    <!-- Category filter (static links, SEO-friendly) -->
+    <nav class="cat-filter" aria-label="Filter by category">
+      <a href="/blog/" class="cat-pill active">All</a>
+      <a href="/blog/tag/analysis/" class="cat-pill">Analysis</a>
+      <a href="/blog/tag/subnet/" class="cat-pill">Subnets</a>
+      <a href="/blog/tag/trade/" class="cat-pill">Trade Setups</a>
+      <a href="/blog/tag/guide/" class="cat-pill">Guides</a>
+      <a href="/blog/tag/weekly/" class="cat-pill">Weekly</a>
+    </nav>
+
+    <div class="posts-grid" role="list">
+      {recent.map(post => (
+        <div role="listitem">
+          <PostCard post={post} />
+        </div>
+      ))}
+    </div>
+
+    {recent.length === 0 && (
+      <p class="empty">No posts yet — check back soon.</p>
+    )}
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter container" aria-labelledby="nl-heading">
+    <div class="nl-inner">
+      <h2 id="nl-heading">Free weekly Bittensor brief</h2>
+      <p>The most important TAO developments every week — market moves, subnet changes, new alpha. No spam.</p>
+      <form class="nl-form" method="POST" action="/api/subscribe">
+        <label for="nl-email" class="sr-only">Email address</label>
+        <input type="email" id="nl-email" name="email" placeholder="your@email.com" required autocomplete="email" />
+        <button type="submit">Subscribe &rarr;</button>
+      </form>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* HERO */
+  .hero { padding: 56px 24px 48px; }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 32px;
+    align-items: start;
+  }
+  .hero-featured {
+    background: var(--s1);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .hero-thumb {
+    display: block;
+    height: 280px;
+    background: var(--s2);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-thumb::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 36px, var(--border) 36px, var(--border) 37px),
+      repeating-linear-gradient(90deg, transparent, transparent 36px, var(--border) 36px, var(--border) 37px);
+    opacity: 0.5;
+  }
+  .hero-thumb-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .thumb-label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    font-weight: 700;
+    color: var(--muted);
+    font-family: var(--mono, monospace);
+  }
+  .hero-body { padding: 28px; }
+  .hero-body .tag { margin-bottom: 12px; }
+  .hero-title {
+    font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+    margin-bottom: 12px;
+    letter-spacing: -0.03em;
+  }
+  .hero-title a { color: var(--white); }
+  .hero-title a:hover { color: var(--text2); }
+  .hero-excerpt { font-size: 15px; color: var(--text2); line-height: 1.7; margin-bottom: 16px; }
+  .hero-meta { font-size: 13px; color: var(--muted); display: flex; gap: 8px; flex-wrap: wrap; }
+
+  /* SIDEBAR */
+  .hero-sidebar { display: flex; flex-direction: column; gap: 20px; }
+  .sidebar-trending {
+    background: var(--s1);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .sidebar-heading {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .trending-list { list-style: none; }
+  .trending-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .trending-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .t-num {
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--border2);
+    min-width: 24px;
+    line-height: 1;
+    font-family: var(--mono, monospace);
+    margin-top: 1px;
+  }
+  .t-title {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.45;
+    display: block;
+    margin-bottom: 3px;
+    transition: color 0.12s;
+  }
+  .t-title:hover { color: var(--white); }
+  .t-meta { font-size: 11px; color: var(--muted); }
+
+  .sidebar-cta {
+    background: var(--s2);
+    border: 1px solid var(--border2);
+    border-radius: 12px;
+    padding: 22px;
+  }
+  .cta-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .sidebar-cta h3 {
+    font-size: 1.15rem;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .cta-desc { font-size: 13px; color: var(--text2); line-height: 1.55; margin-bottom: 16px; }
+  .cta-btn {
+    display: block;
+    background: var(--white);
+    color: #000;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 10px 16px;
+    border-radius: 7px;
+    text-align: center;
+    margin-bottom: 10px;
+    transition: opacity 0.12s;
+  }
+  .cta-btn:hover { opacity: 0.85; }
+  .cta-price { font-size: 11px; color: var(--muted); text-align: center; }
+
+  /* RECENT */
+  .recent { padding: 48px 24px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+  .section-header h2 { font-size: 1.1rem; }
+  .section-header a { font-size: 13px; color: var(--text2); transition: color 0.12s; }
+  .section-header a:hover { color: var(--white); }
+  .cat-filter {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .cat-pill {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 13px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--muted);
+    background: var(--s1);
+    transition: all 0.12s;
+  }
+  .cat-pill:hover, .cat-pill.active {
+    border-color: var(--border2);
+    color: var(--text);
+    background: var(--s2);
+  }
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .empty { color: var(--muted); font-size: 14px; }
+
+  /* NEWSLETTER */
+  .newsletter { padding: 0 24px 80px; }
+  .nl-inner {
+    background: var(--s1);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 48px;
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .nl-inner h2 { font-size: 1.4rem; margin-bottom: 10px; }
+  .nl-inner p { font-size: 14px; color: var(--text2); margin-bottom: 28px; }
+  .nl-form { display: flex; gap: 10px; max-width: 400px; margin: 0 auto; }
+  .nl-form input {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border2);
+    color: var(--text);
+    padding: 10px 14px;
+    border-radius: 7px;
+    font-size: 14px;
+    outline: none;
+    font-family: var(--font);
+  }
+  .nl-form input:focus { border-color: var(--border2); box-shadow: 0 0 0 2px rgba(255,255,255,0.08); }
+  .nl-form button {
+    background: var(--white);
+    color: #000;
+    border: none;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 10px 18px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-family: var(--font);
+    white-space: nowrap;
+    transition: opacity 0.12s;
+  }
+  .nl-form button:hover { opacity: 0.85; }
+
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-sidebar { display: none; }
+  }
+  @media (max-width: 640px) {
+    .hero { padding: 32px 16px 24px; }
+    .hero-thumb { height: 180px; }
+    .posts-grid { grid-template-columns: 1fr; }
+    .nl-form { flex-direction: column; }
+  }
+</style>

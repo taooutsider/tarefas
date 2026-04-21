@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tao Outsider — Bittensor Intelligence</title>
+<style>
+  :root {
+    --bg: #0a0b0e;
+    --surface: #111318;
+    --surface2: #181c24;
+    --border: #1e2330;
+    --text: #cdd6f4;
+    --muted: #6c7393;
+    --accent: #89b4fa;
+    --tao: #f5c542;
+    --green: #a6e3a1;
+    --red: #f38ba8;
+    --tag-bg: #1e2330;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; font-size: 15px; line-height: 1.6; }
+
+  /* NAV */
+  nav { border-bottom: 1px solid var(--border); background: rgba(10,11,14,0.95); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
+  .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-icon { width: 32px; height: 32px; background: var(--tao); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 16px; color: #000; }
+  .logo-text { font-weight: 700; font-size: 17px; color: #fff; letter-spacing: -0.3px; }
+  .logo-text span { color: var(--tao); }
+  .nav-links { display: flex; align-items: center; gap: 4px; }
+  .nav-links a { color: var(--muted); text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 14px; transition: all 0.15s; }
+  .nav-links a:hover { color: var(--text); background: var(--surface); }
+  .nav-links a.active { color: var(--text); }
+  .nav-cta { background: var(--tao); color: #000; font-weight: 700; font-size: 13px; padding: 8px 16px; border-radius: 8px; text-decoration: none; margin-left: 12px; transition: opacity 0.15s; }
+  .nav-cta:hover { opacity: 0.88; }
+
+  /* TICKER */
+  .ticker { background: var(--surface); border-bottom: 1px solid var(--border); padding: 8px 0; overflow: hidden; }
+  .ticker-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; gap: 32px; align-items: center; }
+  .tick { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+  .tick-label { color: var(--muted); }
+  .tick-val { font-weight: 600; color: #fff; }
+  .tick-chg { font-size: 12px; font-weight: 500; }
+  .up { color: var(--green); }
+  .down { color: var(--red); }
+  .tick-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--border); }
+
+  /* HERO */
+  .hero { max-width: 1100px; margin: 0 auto; padding: 56px 24px 40px; }
+  .hero-grid { display: grid; grid-template-columns: 1fr 380px; gap: 32px; align-items: start; }
+  .hero-featured { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; cursor: pointer; transition: border-color 0.2s; }
+  .hero-featured:hover { border-color: #2a3050; }
+  .hero-img { height: 260px; background: linear-gradient(135deg, #0d1117 0%, #1a1f35 50%, #0f1729 100%); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .hero-img-bg { position: absolute; inset: 0; opacity: 0.15; background: repeating-linear-gradient(0deg, transparent, transparent 40px, var(--border) 40px, var(--border) 41px), repeating-linear-gradient(90deg, transparent, transparent 40px, var(--border) 40px, var(--border) 41px); }
+  .hero-img-center { position: relative; text-align: center; }
+  .hero-img-center .big-num { font-size: 72px; font-weight: 900; color: var(--tao); line-height: 1; }
+  .hero-img-center .big-label { font-size: 13px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+  .hero-body { padding: 24px; }
+  .tag { display: inline-block; background: var(--tag-bg); color: var(--accent); font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+  .tag.sn { color: var(--tao); }
+  .tag.alert { color: var(--red); }
+  .hero-title { font-size: 22px; font-weight: 700; line-height: 1.35; color: #fff; margin-bottom: 10px; letter-spacing: -0.3px; }
+  .hero-excerpt { color: var(--muted); font-size: 14px; line-height: 1.65; margin-bottom: 16px; }
+  .hero-meta { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--muted); }
+  .avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--tao); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #000; }
+  .hero-meta span { color: var(--text); font-weight: 500; }
+
+  /* SIDEBAR */
+  .sidebar { display: flex; flex-direction: column; gap: 16px; }
+  .sidebar-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+  .sidebar-card h3 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 14px; }
+  .sidebar-post { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--border); cursor: pointer; }
+  .sidebar-post:last-child { border-bottom: none; padding-bottom: 0; }
+  .sidebar-num { font-size: 20px; font-weight: 900; color: var(--border); min-width: 28px; line-height: 1; margin-top: 2px; }
+  .sidebar-post-title { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.4; }
+  .sidebar-post-meta { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+  /* CTA CARD */
+  .cta-card { background: linear-gradient(135deg, #1a1500 0%, #201c00 100%); border: 1px solid #3a2e00; border-radius: 14px; padding: 20px; }
+  .cta-card .cta-icon { font-size: 28px; margin-bottom: 8px; }
+  .cta-card h3 { font-size: 16px; font-weight: 700; color: var(--tao); margin-bottom: 6px; }
+  .cta-card p { font-size: 13px; color: #a09060; line-height: 1.5; margin-bottom: 14px; }
+  .cta-btn { display: block; background: var(--tao); color: #000; font-weight: 700; font-size: 13px; padding: 10px 16px; border-radius: 8px; text-decoration: none; text-align: center; }
+
+  /* SECTION */
+  .section { max-width: 1100px; margin: 0 auto; padding: 0 24px 56px; }
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; color: #fff; }
+  .section-header a { font-size: 13px; color: var(--accent); text-decoration: none; }
+  .posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .post-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; cursor: pointer; transition: border-color 0.2s, transform 0.2s; }
+  .post-card:hover { border-color: #2a3050; transform: translateY(-2px); }
+  .post-thumb { height: 140px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .thumb-analysis { background: linear-gradient(135deg, #0d1520 0%, #152035 100%); }
+  .thumb-subnet { background: linear-gradient(135deg, #150d20 0%, #251535 100%); }
+  .thumb-trade { background: linear-gradient(135deg, #0d200d 0%, #152515 100%); }
+  .thumb-guide { background: linear-gradient(135deg, #20150d 0%, #352515 100%); }
+  .thumb-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.25); font-weight: 700; }
+  .post-body { padding: 16px; }
+  .post-body .tag { margin-bottom: 8px; }
+  .post-title { font-size: 15px; font-weight: 600; color: #fff; line-height: 1.4; margin-bottom: 8px; }
+  .post-excerpt { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
+  .post-meta { font-size: 12px; color: var(--muted); }
+  .post-meta strong { color: var(--text); }
+
+  /* MARKET BAND */
+  .market-band { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--surface); padding: 28px 0; margin-bottom: 48px; }
+  .market-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .market-item { text-align: center; }
+  .market-item .m-label { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .market-item .m-val { font-size: 22px; font-weight: 700; color: #fff; }
+  .market-item .m-sub { font-size: 13px; margin-top: 2px; }
+
+  /* CATEGORIES */
+  .categories { display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap; }
+  .cat-pill { padding: 7px 16px; border: 1px solid var(--border); border-radius: 20px; font-size: 13px; color: var(--muted); cursor: pointer; transition: all 0.15s; background: var(--surface); }
+  .cat-pill:hover, .cat-pill.active { border-color: var(--accent); color: var(--accent); background: rgba(137,180,250,0.06); }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--border); padding: 40px 24px; text-align: center; }
+  footer p { font-size: 13px; color: var(--muted); }
+  footer a { color: var(--accent); text-decoration: none; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; text-align: left; margin-bottom: 40px; }
+  .footer-col h4 { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 12px; }
+  .footer-col a { display: block; font-size: 13px; color: var(--muted); text-decoration: none; margin-bottom: 8px; }
+  .footer-col a:hover { color: var(--text); }
+  .footer-brand { font-size: 13px; color: var(--muted); }
+
+  /* NEWSLETTER */
+  .newsletter { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 40px; text-align: center; margin-bottom: 48px; }
+  .newsletter h2 { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .newsletter p { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+  .nl-form { display: flex; gap: 10px; max-width: 440px; margin: 0 auto; }
+  .nl-form input { flex: 1; background: var(--bg); border: 1px solid var(--border); color: var(--text); padding: 10px 16px; border-radius: 8px; font-size: 14px; outline: none; }
+  .nl-form input:focus { border-color: var(--accent); }
+  .nl-form button { background: var(--tao); color: #000; border: none; font-weight: 700; font-size: 13px; padding: 10px 20px; border-radius: 8px; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">τ</div>
+      <div class="logo-text">Tao <span>Outsider</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="#" class="active">Blog</a>
+      <a href="#">Subnets</a>
+      <a href="#">Market</a>
+      <a href="#">Guides</a>
+      <a href="#">About</a>
+      <a href="#" class="nav-cta">Join Intel →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <div class="tick">
+      <span class="tick-label">TAO</span>
+      <span class="tick-val">$487.32</span>
+      <span class="tick-chg up">▲ +4.2%</span>
+    </div>
+    <div class="tick-dot"></div>
+    <div class="tick">
+      <span class="tick-label">Market Cap</span>
+      <span class="tick-val">$3.18B</span>
+    </div>
+    <div class="tick-dot"></div>
+    <div class="tick">
+      <span class="tick-label">Top Mover</span>
+      <span class="tick-val">SN64 α</span>
+      <span class="tick-chg up">+28.4%</span>
+    </div>
+    <div class="tick-dot"></div>
+    <div class="tick">
+      <span class="tick-label">Block</span>
+      <span class="tick-val">5,284,901</span>
+    </div>
+    <div class="tick-dot"></div>
+    <div class="tick">
+      <span class="tick-label">Subnets</span>
+      <span class="tick-val">128 active</span>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid">
+
+    <!-- Featured Post -->
+    <div class="hero-featured">
+      <div class="hero-img">
+        <div class="hero-img-bg"></div>
+        <div class="hero-img-center">
+          <div class="big-num">dTAO</div>
+          <div class="big-label">Deep Analysis</div>
+        </div>
+      </div>
+      <div class="hero-body">
+        <span class="tag">Analysis</span>
+        <h1 class="hero-title">dTAO Six Months In: Which Subnets Are Actually Winning the Liquidity Game?</h1>
+        <p class="hero-excerpt">Dynamic TAO changed everything. We analyzed emission flows, alpha token price action, and validator behavior across all 128 subnets to find where the real alpha is concentrating — and which projects are quietly eating the market.</p>
+        <div class="hero-meta">
+          <div class="avatar">T</div>
+          <span>Outsider Intel</span>
+          <span style="color:var(--muted)">·</span>
+          <span style="color:var(--muted)">Apr 11, 2026</span>
+          <span style="color:var(--muted)">·</span>
+          <span style="color:var(--muted)">12 min read</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+      <!-- Trending -->
+      <div class="sidebar-card">
+        <h3>Trending</h3>
+        <div class="sidebar-post">
+          <div class="sidebar-num">01</div>
+          <div>
+            <div class="sidebar-post-title">SN64 Chutes: The Containerized AI Play Nobody Is Talking About</div>
+            <div class="sidebar-post-meta">Apr 10 · 8 min</div>
+          </div>
+        </div>
+        <div class="sidebar-post">
+          <div class="sidebar-num">02</div>
+          <div>
+            <div class="sidebar-post-title">How to Stake TAO for Maximum Emissions in Q2 2026</div>
+            <div class="sidebar-post-meta">Apr 9 · 6 min</div>
+          </div>
+        </div>
+        <div class="sidebar-post">
+          <div class="sidebar-num">03</div>
+          <div>
+            <div class="sidebar-post-title">Validator Wars: Who Controls SN3 Templar Emissions?</div>
+            <div class="sidebar-post-meta">Apr 8 · 10 min</div>
+          </div>
+        </div>
+        <div class="sidebar-post">
+          <div class="sidebar-num">04</div>
+          <div>
+            <div class="sidebar-post-title">Alpha Token Playbook: Entry Points Before the Next Epoch</div>
+            <div class="sidebar-post-meta">Apr 7 · 7 min</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Join CTA -->
+      <div class="cta-card">
+        <div class="cta-icon">⚡</div>
+        <h3>Outsider Intel</h3>
+        <p>Daily briefs, trade setups, and alpha signals — before the crowd catches on. Private group, limited seats.</p>
+        <a href="#" class="cta-btn">Get Access — $39/month</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MARKET BAND -->
+<div class="market-band">
+  <div class="market-inner">
+    <div class="market-item">
+      <div class="m-label">TAO Price</div>
+      <div class="m-val">$487.32</div>
+      <div class="m-sub up">▲ 4.2% 24h</div>
+    </div>
+    <div class="market-item">
+      <div class="m-label">Top Emission SN</div>
+      <div class="m-val">SN3</div>
+      <div class="m-sub" style="color:var(--muted)">Templar — 8.2%</div>
+    </div>
+    <div class="market-item">
+      <div class="m-label">Best Alpha 7d</div>
+      <div class="m-val">SN64 α</div>
+      <div class="m-sub up">+112% / 7d</div>
+    </div>
+    <div class="market-item">
+      <div class="m-label">Total Stake</div>
+      <div class="m-val">4.28M</div>
+      <div class="m-sub" style="color:var(--muted)">TAO delegated</div>
+    </div>
+  </div>
+</div>
+
+<!-- RECENT POSTS -->
+<div class="section">
+  <div class="section-header">
+    <h2>Latest Intelligence</h2>
+    <a href="#">View all →</a>
+  </div>
+
+  <div class="categories">
+    <div class="cat-pill active">All</div>
+    <div class="cat-pill">Market Analysis</div>
+    <div class="cat-pill">Subnet Deep Dives</div>
+    <div class="cat-pill">Trade Setups</div>
+    <div class="cat-pill">Guides</div>
+    <div class="cat-pill">News</div>
+  </div>
+
+  <div class="posts-grid">
+
+    <div class="post-card">
+      <div class="post-thumb thumb-subnet">
+        <div class="thumb-label">SN 08</div>
+      </div>
+      <div class="post-body">
+        <span class="tag sn">Subnet Deep Dive</span>
+        <div class="post-title">SN8 Taoshi: The Quant Signal Machine Generating Real Edge</div>
+        <div class="post-excerpt">Proprietary trading signals at protocol scale. We break down how SN8 miners generate alpha and why validators keep emission flowing.</div>
+        <div class="post-meta"><strong>Apr 10</strong> · 9 min read</div>
+      </div>
+    </div>
+
+    <div class="post-card">
+      <div class="post-thumb thumb-trade">
+        <div class="thumb-label">Trade Setup</div>
+      </div>
+      <div class="post-body">
+        <span class="tag" style="color:var(--green)">Trade Setup</span>
+        <div class="post-title">TAO/USDC: Bull Flag Forming at $460 — Target $540</div>
+        <div class="post-excerpt">Clean technical structure with on-chain confirmation. Emission cycle aligns with the breakout thesis. Here's the exact entry and invalidation.</div>
+        <div class="post-meta"><strong>Apr 9</strong> · 4 min read</div>
+      </div>
+    </div>
+
+    <div class="post-card">
+      <div class="post-thumb thumb-analysis">
+        <div class="thumb-label">Analysis</div>
+      </div>
+      <div class="post-body">
+        <span class="tag">Analysis</span>
+        <div class="post-title">Why SN3 Templar's Distributed Training Model Is Bittensor's Biggest Bet</div>
+        <div class="post-excerpt">Training LLMs across 1000+ GPUs trustlessly is insane ambition. We explain the mechanism, the risks, and what success looks like for TAO holders.</div>
+        <div class="post-meta"><strong>Apr 8</strong> · 11 min read</div>
+      </div>
+    </div>
+
+    <div class="post-card">
+      <div class="post-thumb thumb-guide">
+        <div class="thumb-label">Guide</div>
+      </div>
+      <div class="post-body">
+        <span class="tag" style="color:var(--tao)">Beginner Guide</span>
+        <div class="post-title">The Complete Bittensor Staking Guide: From Zero to Delegating TAO</div>
+        <div class="post-excerpt">Which validators to delegate to, how emissions actually work, and the compounding math most people get wrong. Step-by-step with real numbers.</div>
+        <div class="post-meta"><strong>Apr 7</strong> · 14 min read</div>
+      </div>
+    </div>
+
+    <div class="post-card">
+      <div class="post-thumb thumb-subnet">
+        <div class="thumb-label">SN 64</div>
+      </div>
+      <div class="post-body">
+        <span class="tag sn">Subnet Deep Dive</span>
+        <div class="post-title">SN64 Chutes: Containerized Model Serving at Network Speed</div>
+        <div class="post-excerpt">Deploy any model in a container, get paid in TAO. Chutes is quietly becoming the AWS of the Bittensor ecosystem — and the alpha token reflects it.</div>
+        <div class="post-meta"><strong>Apr 6</strong> · 8 min read</div>
+      </div>
+    </div>
+
+    <div class="post-card">
+      <div class="post-thumb thumb-analysis">
+        <div class="thumb-label">Weekly Brief</div>
+      </div>
+      <div class="post-body">
+        <span class="tag">Weekly</span>
+        <div class="post-title">Week 15 Intelligence Brief: Emissions Shift, New Subnets, Price Milestones</div>
+        <div class="post-excerpt">TAO reclaims $480, SN9 emission drops 2%, three new subnets registered this week. Everything you need from the last 7 days — condensed.</div>
+        <div class="post-meta"><strong>Apr 5</strong> · 5 min read</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="section">
+  <div class="newsletter">
+    <h2>Free weekly brief — straight to your inbox</h2>
+    <p>The most important Bittensor developments of the week. No spam. Unsubscribe anytime.</p>
+    <div class="nl-form">
+      <input type="email" placeholder="your@email.com">
+      <button>Subscribe →</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+        <div class="logo-icon">τ</div>
+        <span style="font-weight:700;color:#fff;">Tao Outsider</span>
+      </div>
+      <p class="footer-brand" style="font-size:13px;color:var(--muted);line-height:1.6;">Independent Bittensor intelligence.<br>No affiliation with Opentensor Foundation.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Content</h4>
+      <a href="#">Market Analysis</a>
+      <a href="#">Subnet Deep Dives</a>
+      <a href="#">Trade Setups</a>
+      <a href="#">Beginner Guides</a>
+      <a href="#">Weekly Brief</a>
+    </div>
+    <div class="footer-col">
+      <h4>Community</h4>
+      <a href="#">Outsider Intel (Paid)</a>
+      <a href="#">Free Telegram Channel</a>
+      <a href="#">Twitter / X</a>
+      <a href="#">About</a>
+    </div>
+  </div>
+  <p style="color:var(--muted);font-size:12px;">© 2026 Tao Outsider · Not financial advice · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+</footer>
+
+</body>
+</html>
