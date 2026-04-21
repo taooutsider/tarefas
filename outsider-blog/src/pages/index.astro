@@ -21,8 +21,11 @@ const categoryLabel: Record<string, string> = {
 
 <BaseLayout
   title="Tao Outsider"
-  description="Independent Bittensor intelligence. Market analysis, subnet deep dives, dTAO alpha token research and TAO trade setups for serious participants."
+  description="Zoomed out on TAO Bittensor. Tracking every dTAO subnet. Mapping the future of decentralized AI."
 >
+  <section class="site-subtitle-wrap container" aria-label="Blog subtitle">
+    <p class="site-subtitle">Zoomed out on TAO Bittensor. Tracking every dTAO subnet. Mapping the future of decentralized AI.</p>
+  </section>
 
   <!-- HERO -->
   <section class="hero container" aria-label="Featured article">
@@ -142,6 +145,15 @@ const categoryLabel: Record<string, string> = {
 
 <style>
   /* HERO */
+  .site-subtitle-wrap {
+    padding: 28px 24px 0;
+  }
+  .site-subtitle {
+    color: var(--text2);
+    font-size: 14px;
+    line-height: 1.65;
+    max-width: 760px;
+  }
   .hero { padding: 56px 24px 48px; }
   .hero-grid {
     display: grid;
@@ -362,6 +374,7 @@ const categoryLabel: Record<string, string> = {
     .hero-sidebar { display: none; }
   }
   @media (max-width: 640px) {
+    .site-subtitle-wrap { padding: 20px 16px 0; }
     .hero { padding: 32px 16px 24px; }
     .hero-thumb { height: 180px; }
     .posts-grid { grid-template-columns: 1fr; }
