@@ -7,8 +7,7 @@ const year = new Date().getFullYear();
 
     <div class="footer-brand">
       <a href="/" class="footer-logo" aria-label="Tao Outsider">
-        <span class="logo-icon" aria-hidden="true">τ</span>
-        <span>Tao Outsider</span>
+        <img src="/logo.svg" alt="Outsider" class="footer-logo-img" width="120" height="24" />
       </a>
       <p>Independent Bittensor intelligence.<br />Not affiliated with the Opentensor Foundation.</p>
     </div>
@@ -56,25 +55,14 @@ const year = new Date().getFullYear();
     margin-bottom: 48px;
   }
   .footer-logo {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
-    font-weight: 700;
-    font-size: 15px;
-    color: var(--white);
     margin-bottom: 12px;
   }
-  .logo-icon {
-    width: 26px;
-    height: 26px;
-    background: var(--white);
-    color: #000;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 900;
-    font-size: 13px;
+  .footer-logo-img {
+    height: 24px;
+    width: auto;
+    display: block;
   }
   .footer-brand p {
     font-size: 13px;

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 60" role="img" aria-label="Outsider">
+  <style>
+    text {
+      font-family: "Inter", "Helvetica Neue", system-ui, sans-serif;
+      font-weight: 900;
+      font-size: 56px;
+      letter-spacing: -2.5px;
+      fill: #ffffff;
+    }
+  </style>
+  <text x="0" y="48">outsider</text>
+</svg>
