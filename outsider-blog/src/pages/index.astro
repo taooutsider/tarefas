@@ -130,11 +130,9 @@ const categoryLabel: Record<string, string> = {
     <div class="nl-inner">
       <h2 id="nl-heading">Free weekly Bittensor brief</h2>
       <p>The most important TAO developments every week — market moves, subnet changes, new alpha. No spam.</p>
-      <form class="nl-form" method="POST" action="/api/subscribe">
-        <label for="nl-email" class="sr-only">Email address</label>
-        <input type="email" id="nl-email" name="email" placeholder="your@email.com" required autocomplete="email" />
-        <button type="submit">Subscribe &rarr;</button>
-      </form>
+      <div class="nl-actions">
+        <a href="https://t.me/taooutsiderfree" class="nl-btn" rel="noopener">Join Free Channel &rarr;</a>
+      </div>
     </div>
   </section>
 
@@ -329,33 +327,23 @@ const categoryLabel: Record<string, string> = {
   }
   .nl-inner h2 { font-size: 1.4rem; margin-bottom: 10px; }
   .nl-inner p { font-size: 14px; color: var(--text2); margin-bottom: 28px; }
-  .nl-form { display: flex; gap: 10px; max-width: 400px; margin: 0 auto; }
-  .nl-form input {
-    flex: 1;
-    background: var(--bg);
-    border: 1px solid var(--border2);
-    color: var(--text);
-    padding: 10px 14px;
-    border-radius: 7px;
-    font-size: 14px;
-    outline: none;
-    font-family: var(--font);
+  .nl-actions {
+    display: flex;
+    justify-content: center;
   }
-  .nl-form input:focus { border-color: var(--border2); box-shadow: 0 0 0 2px rgba(255,255,255,0.08); }
-  .nl-form button {
+  .nl-btn {
+    display: inline-block;
     background: var(--white);
     color: #000;
-    border: none;
     font-weight: 700;
     font-size: 13px;
     padding: 10px 18px;
     border-radius: 7px;
-    cursor: pointer;
     font-family: var(--font);
     white-space: nowrap;
     transition: opacity 0.12s;
   }
-  .nl-form button:hover { opacity: 0.85; }
+  .nl-btn:hover { opacity: 0.85; }
 
   @media (max-width: 900px) {
     .hero-grid { grid-template-columns: 1fr; }
@@ -365,6 +353,5 @@ const categoryLabel: Record<string, string> = {
     .hero { padding: 32px 16px 24px; }
     .hero-thumb { height: 180px; }
     .posts-grid { grid-template-columns: 1fr; }
-    .nl-form { flex-direction: column; }
   }
 </style>

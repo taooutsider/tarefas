@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Terms of Use"
+  description="Terms of use for Tao Outsider and Outsider Intel services."
+  canonicalURL="https://taooutsider.com/terms/"
+>
+  <section class="legal container">
+    <h1>Terms of Use</h1>
+    <p>Last updated: April 21, 2026</p>
+
+    <h2>Informational Content</h2>
+    <p>All content is for informational and educational purposes only and does not constitute financial advice.</p>
+
+    <h2>User Responsibility</h2>
+    <p>You are solely responsible for your own research, risk decisions, and any trading or investment outcomes.</p>
+
+    <h2>No Guarantees</h2>
+    <p>We do not guarantee accuracy, completeness, timeliness, profitability, or future results.</p>
+
+    <h2>Service Availability</h2>
+    <p>Content and services may change or pause at any time without prior notice.</p>
+
+    <h2>Contact</h2>
+    <p>For support, contact us via <a href="https://t.me/taooutsider" rel="noopener">Telegram</a>.</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal {
+    max-width: 760px;
+    padding: 56px 24px 80px;
+  }
+  .legal h1 {
+    margin-bottom: 10px;
+  }
+  .legal h2 {
+    margin-top: 28px;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+  }
+  .legal p {
+    color: var(--text2);
+    line-height: 1.7;
+  }
+</style>
