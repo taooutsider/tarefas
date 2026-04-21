@@ -8,8 +8,7 @@ const isActive = (path: string) =>
   <nav class="container nav-inner" aria-label="Main navigation">
 
     <a href="/" class="logo" aria-label="Tao Outsider — Home">
-      <span class="logo-icon" aria-hidden="true">τ</span>
-      <span class="logo-name">Tao <strong>Outsider</strong></span>
+      <img src="/logo.svg" alt="Outsider" class="logo-img" width="140" height="28" />
     </a>
 
     <ul class="nav-links" role="list">
@@ -46,31 +45,12 @@ const isActive = (path: string) =>
   .logo {
     display: flex;
     align-items: center;
-    gap: 9px;
     flex-shrink: 0;
   }
-  .logo-icon {
-    width: 30px;
-    height: 30px;
-    background: var(--white);
-    color: #000;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 900;
-    font-size: 16px;
-    line-height: 1;
-  }
-  .logo-name {
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--text2);
-    letter-spacing: -0.01em;
-  }
-  .logo-name strong {
-    color: var(--white);
-    font-weight: 700;
+  .logo-img {
+    height: 28px;
+    width: auto;
+    display: block;
   }
   .nav-links {
     display: flex;
