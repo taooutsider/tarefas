@@ -35,6 +35,15 @@ const categoryLabel: Record<string, string> = {
   trade: 'Trade Setup', guide: 'Guide',
   weekly: 'Weekly Brief', news: 'News',
 };
+const shareUrl = `https://taooutsider.com/blog/${post.id}/`;
+const encodedShareUrl = encodeURIComponent(shareUrl);
+const encodedShareTitle = encodeURIComponent(title);
+
+const feedbackOptions = [
+  { key: 'learned', label: 'I learned something' },
+  { key: 'better', label: 'Could be better' },
+  { key: 'loved', label: 'Loved this' },
+];
 ---
 
 <BaseLayout
@@ -94,12 +103,53 @@ const categoryLabel: Record<string, string> = {
           </>
         )}
       </div>
+      <div class="post-share-row">
+        <div class="share-tools" data-share-root data-share-title={title} data-share-url={shareUrl}>
+          <button type="button" class="share-trigger" data-share-trigger>Share article</button>
+          <div class="share-menu" data-share-menu hidden>
+            <button type="button" class="share-item" data-copy-link>Copy link</button>
+            <a class="share-item" target="_blank" rel="noopener" href={`https://x.com/intent/tweet?url=${encodedShareUrl}&text=${encodedShareTitle}`}>Share on X</a>
+            <a class="share-item" target="_blank" rel="noopener" href={`https://t.me/share/url?url=${encodedShareUrl}&text=${encodedShareTitle}`}>Share on Telegram</a>
+            <a class="share-item" target="_blank" rel="noopener" href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedShareUrl}`}>Share on LinkedIn</a>
+          </div>
+          <p class="share-status" data-share-status aria-live="polite"></p>
+        </div>
+      </div>
     </header>
 
     <!-- POST BODY -->
     <div class="post-body container">
       <div class="prose" itemprop="articleBody">
         <Content />
+
+        <section class="post-feedback" aria-label="Article feedback" data-post-slug={post.id}>
+          <h2 class="feedback-title">Was this article useful?</h2>
+          <p class="feedback-subtitle">One tap feedback helps us improve each post.</p>
+          <div class="feedback-actions" role="group" aria-label="Rate this article">
+            {feedbackOptions.map((option) => (
+              <button
+                type="button"
+                class="feedback-btn"
+                data-reaction={option.key}
+              >
+                <span class="feedback-label">{option.label}</span>
+                <span class="feedback-count" aria-label="Votes">0</span>
+              </button>
+            ))}
+          </div>
+          <p class="feedback-status" aria-live="polite"></p>
+        </section>
+
+        <div class="share-tools share-tools-bottom" data-share-root data-share-title={title} data-share-url={shareUrl}>
+          <button type="button" class="share-trigger" data-share-trigger>Share article</button>
+          <div class="share-menu" data-share-menu hidden>
+            <button type="button" class="share-item" data-copy-link>Copy link</button>
+            <a class="share-item" target="_blank" rel="noopener" href={`https://x.com/intent/tweet?url=${encodedShareUrl}&text=${encodedShareTitle}`}>Share on X</a>
+            <a class="share-item" target="_blank" rel="noopener" href={`https://t.me/share/url?url=${encodedShareUrl}&text=${encodedShareTitle}`}>Share on Telegram</a>
+            <a class="share-item" target="_blank" rel="noopener" href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedShareUrl}`}>Share on LinkedIn</a>
+          </div>
+          <p class="share-status" data-share-status aria-live="polite"></p>
+        </div>
       </div>
 
       <!-- SHARE + CTA -->
@@ -129,6 +179,167 @@ const categoryLabel: Record<string, string> = {
   )}
 
 </BaseLayout>
+
+<script is:inline define:vars={{ postSlug: post.id }}>
+  (() => {
+    const shareRoots = Array.from(document.querySelectorAll('[data-share-root]'));
+
+    const setupShare = (root) => {
+      const trigger = root.querySelector('[data-share-trigger]');
+      const menu = root.querySelector('[data-share-menu]');
+      const statusEl = root.querySelector('[data-share-status]');
+      const copyButton = root.querySelector('[data-copy-link]');
+      const shareTitle = root.dataset.shareTitle || document.title;
+      const shareUrl = root.dataset.shareUrl || window.location.href;
+      if (!trigger || !menu || !copyButton) return;
+
+      const setStatus = (message, isError = false) => {
+        if (!statusEl) return;
+        statusEl.textContent = message;
+        statusEl.dataset.state = isError ? 'error' : 'ok';
+      };
+
+      const closeMenu = () => {
+        menu.hidden = true;
+        trigger.setAttribute('aria-expanded', 'false');
+      };
+
+      const openMenu = () => {
+        menu.hidden = false;
+        trigger.setAttribute('aria-expanded', 'true');
+      };
+
+      trigger.addEventListener('click', async () => {
+        const preferNativeShare = window.matchMedia('(max-width: 900px)').matches && typeof navigator.share === 'function';
+        if (preferNativeShare) {
+          try {
+            await navigator.share({ title: shareTitle, url: shareUrl });
+            setStatus('Thanks for sharing.');
+          } catch {
+            // User cancelled native share; no status update needed.
+          }
+          return;
+        }
+
+        if (menu.hidden) openMenu();
+        else closeMenu();
+      });
+
+      copyButton.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(shareUrl);
+          setStatus('Link copied.');
+          closeMenu();
+        } catch {
+          setStatus('Could not copy link.', true);
+        }
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!root.contains(event.target)) closeMenu();
+      });
+    };
+
+    shareRoots.forEach(setupShare);
+
+    const panel = document.querySelector('.post-feedback');
+    if (!panel) return;
+
+    const statusEl = panel.querySelector('.feedback-status');
+    const buttons = Array.from(panel.querySelectorAll('.feedback-btn'));
+    const reactionKeys = ['learned', 'better', 'loved'];
+    const storageKey = `taooutsider_feedback_vote_${postSlug}`;
+    const clientKey = 'taooutsider_feedback_client_id';
+
+    const readClientId = () => {
+      let clientId = localStorage.getItem(clientKey);
+      if (!clientId) {
+        clientId = (crypto && 'randomUUID' in crypto)
+          ? crypto.randomUUID()
+          : `client_${Math.random().toString(36).slice(2, 12)}`;
+        localStorage.setItem(clientKey, clientId);
+      }
+      return clientId;
+    };
+
+    const setStatus = (message, isError = false) => {
+      if (!statusEl) return;
+      statusEl.textContent = message;
+      statusEl.dataset.state = isError ? 'error' : 'ok';
+    };
+
+    const paintCounts = (counts) => {
+      buttons.forEach((button) => {
+        const reaction = button.dataset.reaction;
+        const countEl = button.querySelector('.feedback-count');
+        if (!countEl) return;
+        countEl.textContent = String(counts?.[reaction] ?? 0);
+      });
+    };
+
+    const paintSelected = (reaction) => {
+      buttons.forEach((button) => {
+        const isActive = button.dataset.reaction === reaction;
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+    };
+
+    const setLoading = (loading) => {
+      buttons.forEach((button) => {
+        button.disabled = loading;
+      });
+    };
+
+    const loadCounts = async () => {
+      try {
+        const response = await fetch(`/api/post-feedback?post=${encodeURIComponent(postSlug)}`);
+        if (!response.ok) throw new Error('Could not load feedback.');
+        const data = await response.json();
+        paintCounts(data.counts || {});
+      } catch {
+        setStatus('Feedback is temporarily unavailable.', true);
+      }
+    };
+
+    const submitVote = async (reaction) => {
+      if (!reactionKeys.includes(reaction)) return;
+      setLoading(true);
+      try {
+        const response = await fetch('/api/post-feedback', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            postSlug,
+            reaction,
+            clientId: readClientId(),
+          }),
+        });
+        if (!response.ok) throw new Error('Vote failed.');
+        const data = await response.json();
+        paintCounts(data.counts || {});
+        paintSelected(reaction);
+        localStorage.setItem(storageKey, reaction);
+        setStatus('Thanks for the feedback.');
+      } catch {
+        setStatus('Could not submit feedback. Please try again.', true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const reaction = button.dataset.reaction;
+        if (reaction) submitVote(reaction);
+      });
+    });
+
+    const existingVote = localStorage.getItem(storageKey);
+    if (existingVote) paintSelected(existingVote);
+    loadCounts();
+  })();
+</script>
 
 <style>
   .post-wrap { padding-bottom: 80px; }
@@ -178,6 +389,9 @@ const categoryLabel: Record<string, string> = {
     transition: all 0.12s;
   }
   .tag-link:hover { color: var(--text2); border-color: var(--border2); }
+  .post-share-row {
+    margin-top: 16px;
+  }
 
   .post-body {
     padding: 0 24px;
@@ -237,10 +451,174 @@ const categoryLabel: Record<string, string> = {
     gap: 18px;
   }
 
+  .share-tools {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .share-tools-bottom {
+    margin-top: 14px;
+  }
+  .share-trigger {
+    appearance: none;
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    min-height: 40px;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: border-color 0.12s, background 0.12s;
+  }
+  .share-trigger:hover {
+    border-color: var(--white);
+    background: var(--s2);
+  }
+  .share-menu {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 6px);
+    min-width: 220px;
+    background: var(--s1);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    padding: 6px;
+    display: grid;
+    gap: 4px;
+    z-index: 12;
+  }
+  .share-menu[hidden] {
+    display: none !important;
+  }
+  .share-item {
+    appearance: none;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text2);
+    font: inherit;
+    font-size: 0.88rem;
+    padding: 8px 10px;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
+  }
+  .share-item:hover {
+    background: var(--s2);
+    color: var(--white);
+    border-color: var(--border);
+  }
+  .share-status {
+    min-height: 1.2em;
+    margin: 0;
+    color: var(--text2);
+    font-size: 0.82rem;
+  }
+  .share-status[data-state="error"] {
+    color: #d0a6a6;
+  }
+
+  .post-feedback {
+    margin-top: 40px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--s1);
+  }
+  .feedback-title {
+    font-size: 1rem;
+    margin: 0 0 6px;
+  }
+  .feedback-subtitle {
+    color: var(--text2);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin: 0 0 14px;
+  }
+  .feedback-actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .feedback-btn {
+    appearance: none;
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--text2);
+    font: inherit;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-height: 44px;
+    cursor: pointer;
+    transition: border-color 0.12s, background 0.12s, color 0.12s;
+  }
+  .feedback-btn:hover {
+    border-color: var(--white);
+    color: var(--text);
+    background: var(--s2);
+  }
+  .feedback-btn:disabled {
+    opacity: 0.75;
+    cursor: wait;
+  }
+  .feedback-btn.is-active {
+    border-color: var(--white);
+    color: var(--white);
+    background: var(--s2);
+  }
+  .feedback-label {
+    font-size: 0.9rem;
+    line-height: 1.3;
+  }
+  .feedback-count {
+    font-size: 0.82rem;
+    border: 1px solid var(--border2);
+    border-radius: 999px;
+    min-width: 28px;
+    padding: 1px 8px;
+    text-align: center;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+  .feedback-btn.is-active .feedback-count {
+    color: var(--text2);
+  }
+  .feedback-status {
+    margin-top: 10px;
+    font-size: 0.82rem;
+    color: var(--text2);
+    min-height: 1.2em;
+  }
+  .feedback-status[data-state="error"] {
+    color: #d0a6a6;
+  }
+
   @media (max-width: 900px) {
     .post-body { grid-template-columns: 1fr; }
     .post-cta { position: static; }
     .related-grid { grid-template-columns: 1fr 1fr; }
+    .feedback-actions { grid-template-columns: 1fr; }
+    .share-menu {
+      position: static;
+      width: 100%;
+      margin-top: 4px;
+    }
+    .share-trigger {
+      width: 100%;
+      justify-content: center;
+    }
+    .share-tools {
+      width: 100%;
+    }
   }
   @media (max-width: 480px) {
     .related-grid { grid-template-columns: 1fr; }
