@@ -249,7 +249,30 @@ const feedbackOptions = [
     const buttons = Array.from(panel.querySelectorAll('.feedback-btn'));
     const reactionKeys = ['learned', 'better', 'loved'];
     const storageKey = `taooutsider_feedback_vote_${postSlug}`;
+    const countsKey = `taooutsider_feedback_counts_${postSlug}`;
     const clientKey = 'taooutsider_feedback_client_id';
+    let usingLocalFallback = false;
+
+    const makeEmptyCounts = () => ({ learned: 0, better: 0, loved: 0 });
+
+    const readLocalCounts = () => {
+      const raw = localStorage.getItem(countsKey);
+      if (!raw) return makeEmptyCounts();
+      try {
+        const parsed = JSON.parse(raw);
+        return {
+          learned: Number(parsed.learned) || 0,
+          better: Number(parsed.better) || 0,
+          loved: Number(parsed.loved) || 0,
+        };
+      } catch {
+        return makeEmptyCounts();
+      }
+    };
+
+    const writeLocalCounts = (counts) => {
+      localStorage.setItem(countsKey, JSON.stringify(counts));
+    };
 
     const readClientId = () => {
       let clientId = localStorage.getItem(clientKey);
@@ -298,12 +321,34 @@ const feedbackOptions = [
         const data = await response.json();
         paintCounts(data.counts || {});
       } catch {
-        setStatus('Feedback is temporarily unavailable.', true);
+        usingLocalFallback = true;
+        paintCounts(readLocalCounts());
+        setStatus('Feedback saved on this device.');
       }
+    };
+
+    const submitLocalVote = (reaction) => {
+      const previous = localStorage.getItem(storageKey);
+      const counts = readLocalCounts();
+
+      if (previous && reactionKeys.includes(previous) && counts[previous] > 0) {
+        counts[previous] -= 1;
+      }
+      counts[reaction] = (counts[reaction] || 0) + 1;
+
+      writeLocalCounts(counts);
+      localStorage.setItem(storageKey, reaction);
+      paintCounts(counts);
+      paintSelected(reaction);
+      setStatus('Saved on this device.');
     };
 
     const submitVote = async (reaction) => {
       if (!reactionKeys.includes(reaction)) return;
+      if (usingLocalFallback) {
+        submitLocalVote(reaction);
+        return;
+      }
       setLoading(true);
       try {
         const response = await fetch('/api/post-feedback', {
@@ -322,7 +367,8 @@ const feedbackOptions = [
         localStorage.setItem(storageKey, reaction);
         setStatus('Thanks for the feedback.');
       } catch {
-        setStatus('Could not submit feedback. Please try again.', true);
+        usingLocalFallback = true;
+        submitLocalVote(reaction);
       } finally {
         setLoading(false);
       }
