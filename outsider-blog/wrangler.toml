@@ -1,2 +1,8 @@
 name = "taooutsider"
 pages_build_output_dir = "dist"
+
+[[d1_databases]]
+binding = "FEEDBACK_DB"
+database_name = "outsider_feedback"
+database_id = "d05a2786-65a7-434a-96d3-94276088d6e4"
+preview_database_id = "d05a2786-65a7-434a-96d3-94276088d6e4"
