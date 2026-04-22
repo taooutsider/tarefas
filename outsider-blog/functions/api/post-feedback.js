@@ -21,18 +21,25 @@ function sanitizeClientId(value) {
 }
 
 async function ensureSchema(env) {
-  await env.FEEDBACK_DB.exec(`
-    CREATE TABLE IF NOT EXISTS post_feedback_votes (
-      post_slug TEXT NOT NULL,
-      client_id TEXT NOT NULL,
-      reaction TEXT NOT NULL,
-      created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      PRIMARY KEY (post_slug, client_id)
-    );
-    CREATE INDEX IF NOT EXISTS idx_post_feedback_reaction
-      ON post_feedback_votes (post_slug, reaction);
-  `);
+  await env.FEEDBACK_DB
+    .prepare(`
+      CREATE TABLE IF NOT EXISTS post_feedback_votes (
+        post_slug TEXT NOT NULL,
+        client_id TEXT NOT NULL,
+        reaction TEXT NOT NULL,
+        created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (post_slug, client_id)
+      )
+    `)
+    .run();
+
+  await env.FEEDBACK_DB
+    .prepare(`
+      CREATE INDEX IF NOT EXISTS idx_post_feedback_reaction
+      ON post_feedback_votes (post_slug, reaction)
+    `)
+    .run();
 }
 
 async function readCounts(env, postSlug) {
