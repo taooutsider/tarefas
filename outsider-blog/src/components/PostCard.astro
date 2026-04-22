@@ -129,8 +129,30 @@ const categoryLabel: Record<string, string> = {
   .card-tags { color: var(--border2); }
 
   /* Large variant */
-  .card-large .card-thumb { height: 220px; }
-  .card-large .card-title { font-size: 1.25rem; }
+  .card-large {
+    display: grid;
+    grid-template-columns: minmax(240px, 34%) minmax(0, 1fr);
+    align-items: stretch;
+  }
+  .card-large .card-link { height: 100%; }
+  .card-large .card-thumb {
+    height: 100%;
+    min-height: 248px;
+    border-bottom: none;
+    border-right: 1px solid var(--border);
+  }
+  .card-large .card-body {
+    padding: 26px 26px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .card-large .card-title { font-size: 1.5rem; }
+  .card-large .card-excerpt {
+    font-size: 1.06rem;
+    line-height: 1.75;
+  }
+  .card-large .card-meta { font-size: 13.5px; }
   .card-large .card-excerpt { -webkit-line-clamp: 4; }
 
   /* Compact variant */
@@ -141,5 +163,20 @@ const categoryLabel: Record<string, string> = {
   @media (max-width: 768px) {
     .card-body { padding: 20px 18px 16px; }
     .card-title { font-size: 1.05rem; }
+    .card-large {
+      display: block;
+    }
+    .card-large .card-thumb {
+      min-height: 200px;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-large .card-body { padding: 20px 18px 16px; }
+    .card-large .card-title { font-size: 1.25rem; }
+    .card-large .card-excerpt {
+      font-size: 1rem;
+      line-height: 1.68;
+    }
+    .card-large .card-meta { font-size: 12.5px; }
   }
 </style>
