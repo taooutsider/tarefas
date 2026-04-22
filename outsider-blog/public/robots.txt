@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /api/
 
-Sitemap: https://taooutsider.com/sitemap-index.xml
+Sitemap: https://www.taooutsider.com/sitemap-index.xml

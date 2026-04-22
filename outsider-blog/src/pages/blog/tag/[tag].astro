@@ -42,7 +42,8 @@ const desc = tagDescriptions[tag] ??
 <BaseLayout
   title={`${tagDisplay} — Bittensor ${tagDisplay} Articles`}
   description={desc}
-  canonicalURL={`https://taooutsider.com/blog/tag/${tag}/`}
+  canonicalURL={`https://www.taooutsider.com/blog/tag/${tag}/`}
+  noindex={sorted.length < 2}
 >
   <section class="page-header container">
     <nav class="breadcrumb" aria-label="Breadcrumb">

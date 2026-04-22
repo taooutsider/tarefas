@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://taooutsider.com',
+  site: 'https://www.taooutsider.com',
   output: 'static',
   trailingSlash: 'always',
   build: {

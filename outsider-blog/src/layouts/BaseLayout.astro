@@ -8,6 +8,7 @@ interface Props {
   description: string;
   canonicalURL?: string;
   ogImage?: string;
+  ogImageAlt?: string;
   article?: boolean;
   pubDate?: Date;
   updatedDate?: Date;
@@ -19,7 +20,8 @@ const {
   title,
   description,
   canonicalURL = Astro.url.href,
-  ogImage = '/og-default.svg',
+  ogImage = '/og-default.jpg',
+  ogImageAlt = 'Tao Outsider Bittensor Intelligence',
   article = false,
   pubDate,
   updatedDate,
@@ -27,12 +29,13 @@ const {
   noindex = false,
 } = Astro.props;
 
-const SITE = 'https://taooutsider.com';
+const SITE = 'https://www.taooutsider.com';
 const SITE_NAME = 'Tao Outsider';
 const fullTitle = title === SITE_NAME
   ? `${SITE_NAME} — Bittensor Intelligence`
   : `${title} | ${SITE_NAME}`;
 const ogImageURL = ogImage.startsWith('http') ? ogImage : `${SITE}${ogImage}`;
+const feedURL = `${SITE}/rss.xml`;
 
 const articleSchema = article ? {
   '@context': 'https://schema.org',
@@ -47,7 +50,7 @@ const articleSchema = article ? {
     '@type': 'Organization',
     name: SITE_NAME,
     url: SITE,
-    logo: { '@type': 'ImageObject', url: `${SITE}/favicon.svg` },
+    logo: { '@type': 'ImageObject', url: `${SITE}/logo.jpg` },
   },
   mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalURL },
   image: ogImageURL,
@@ -59,11 +62,18 @@ const siteSchema = {
   name: SITE_NAME,
   url: SITE,
   description: 'Independent Bittensor intelligence. Market analysis, subnet deep dives, TAO trade setups and dTAO alpha for serious participants.',
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: `${SITE}/blog/?q={search_term_string}`,
-    'query-input': 'required name=search_term_string',
-  },
+};
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE_NAME,
+  url: SITE,
+  logo: `${SITE}/logo.jpg`,
+  sameAs: [
+    'https://www.x.com/taooutsider',
+    'https://t.me/taooutsider',
+  ],
 };
 ---
 <!doctype html>
@@ -75,8 +85,13 @@ const siteSchema = {
 
   <title>{fullTitle}</title>
   <meta name="description" content={description} />
-  {noindex && <meta name="robots" content="noindex, nofollow" />}
+  <meta name="author" content={SITE_NAME} />
+  <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
+  <meta name="googlebot" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
+  <meta name="theme-color" content="#000000" />
   <link rel="canonical" href={canonicalURL} />
+  <link rel="alternate" type="application/rss+xml" title={`${SITE_NAME} RSS`} href={feedURL} />
+  <link rel="manifest" href="/site.webmanifest" />
 
   <!-- Open Graph -->
   <meta property="og:type"        content={article ? 'article' : 'website'} />
@@ -84,6 +99,7 @@ const siteSchema = {
   <meta property="og:title"       content={fullTitle} />
   <meta property="og:description" content={description} />
   <meta property="og:image"       content={ogImageURL} />
+  <meta property="og:image:alt"   content={ogImageAlt} />
   <meta property="og:image:width"  content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:site_name"   content={SITE_NAME} />
@@ -99,12 +115,15 @@ const siteSchema = {
   <!-- Twitter / X Card -->
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:site"        content="@taooutsider" />
+  <meta name="twitter:creator"     content="@taooutsider" />
   <meta name="twitter:title"       content={fullTitle} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image"       content={ogImageURL} />
+  <meta name="twitter:image:alt"   content={ogImageAlt} />
 
   <!-- Structured data -->
   <script type="application/ld+json" set:html={JSON.stringify(siteSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
   {articleSchema && (
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
   )}
@@ -114,6 +133,7 @@ const siteSchema = {
 
   <!-- Favicons -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/logo.jpg" />
 
   <!-- Preconnect for web fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
