@@ -67,7 +67,7 @@ const categoryLabel: Record<string, string> = {
   }
   .card-link { display: block; }
   .card-thumb {
-    height: 130px;
+    height: 164px;
     background: var(--s2);
     display: flex;
     align-items: center;
@@ -98,10 +98,10 @@ const categoryLabel: Record<string, string> = {
     font-weight: 700;
     font-family: var(--mono);
   }
-  .card-body { padding: 18px 18px 16px; }
+  .card-body { padding: 22px 22px 18px; }
   .card-body .tag { margin-bottom: 10px; }
   .card-title {
-    font-size: 1rem;
+    font-size: 1.12rem;
     font-weight: 600;
     line-height: 1.4;
     margin-bottom: 8px;
@@ -110,7 +110,7 @@ const categoryLabel: Record<string, string> = {
   .card-title a { color: var(--white); transition: color 0.12s; }
   .card-title a:hover { color: var(--text2); }
   .card-excerpt {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--muted);
     line-height: 1.65;
     margin-bottom: 12px;
@@ -120,7 +120,7 @@ const categoryLabel: Record<string, string> = {
     overflow: hidden;
   }
   .card-meta {
-    font-size: 12px;
+    font-size: 12.5px;
     color: var(--muted);
     display: flex;
     gap: 6px;
@@ -137,4 +137,9 @@ const categoryLabel: Record<string, string> = {
   .card-compact .card-thumb { height: 80px; }
   .card-compact .card-body { padding: 14px 16px; }
   .card-compact .card-title { font-size: 0.9rem; margin-bottom: 4px; }
+
+  @media (max-width: 768px) {
+    .card-body { padding: 20px 18px 16px; }
+    .card-title { font-size: 1.05rem; }
+  }
 </style>

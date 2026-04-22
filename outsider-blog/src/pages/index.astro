@@ -296,6 +296,8 @@ const categoryLabel: Record<string, string> = {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 24px;
+    max-width: 980px;
+    margin-inline: auto;
   }
   .section-header h2 { font-size: 1.1rem; }
   .section-header a { font-size: 13px; color: var(--text2); transition: color 0.12s; }
@@ -305,6 +307,8 @@ const categoryLabel: Record<string, string> = {
     gap: 6px;
     flex-wrap: wrap;
     margin-bottom: 28px;
+    max-width: 980px;
+    margin-inline: auto;
   }
   .cat-pill {
     font-size: 12px;
@@ -323,8 +327,10 @@ const categoryLabel: Record<string, string> = {
   }
   .posts-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    max-width: 980px;
+    margin: 0 auto;
   }
   .empty { color: var(--muted); font-size: 14px; }
 
@@ -377,7 +383,19 @@ const categoryLabel: Record<string, string> = {
     .site-subtitle-wrap { padding: 20px 16px 0; }
     .hero { padding: 32px 16px 24px; }
     .hero-thumb { height: 180px; }
-    .posts-grid { grid-template-columns: 1fr; }
+    .section-header {
+      max-width: 680px;
+      margin-bottom: 16px;
+    }
+    .cat-filter {
+      max-width: 680px;
+      margin-bottom: 20px;
+    }
+    .posts-grid {
+      grid-template-columns: 1fr;
+      max-width: 680px;
+      gap: 16px;
+    }
     .nl-form { flex-direction: column; }
   }
 </style>
