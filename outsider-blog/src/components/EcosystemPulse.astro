@@ -1,96 +1,37 @@
-<section class="ecosystem-pulse container" aria-labelledby="ecosystem-pulse-heading" data-ecosystem-pulse>
-  <div class="pulse-header">
+<section class="taoswap-pulse container" aria-labelledby="taoswap-pulse-heading" data-taoswap-pulse>
+  <div class="pulse-head">
     <div>
-      <p class="pulse-kicker">Bittensor data layer</p>
-      <h2 id="ecosystem-pulse-heading">Ecosystem Pulse</h2>
+      <p class="pulse-kicker">TaoSwap signal</p>
+      <h2 id="taoswap-pulse-heading">Subnet market pulse</h2>
     </div>
     <a href="https://taoswap.org/explore/subnets/" target="_blank" rel="noopener">Open TaoSwap</a>
   </div>
 
-  <div class="pulse-overview" aria-label="Bittensor network overview">
-    <div class="metric-card">
-      <span>Total subnets</span>
-      <strong data-pulse-metric="totalSubnets">...</strong>
-    </div>
-    <div class="metric-card">
-      <span>Subnet market cap</span>
-      <strong data-pulse-metric="totalMarketCapTao">...</strong>
-    </div>
-    <div class="metric-card">
-      <span>Emitting subnets</span>
-      <strong data-pulse-metric="emittingSubnets">...</strong>
-    </div>
-    <div class="metric-card">
-      <span>Active miners</span>
-      <strong data-pulse-metric="totalActiveMiners">...</strong>
-    </div>
+  <div class="pulse-card" aria-label="TaoSwap subnet market highlights">
+    <article class="signal-item">
+      <span>24h strength</span>
+      <strong data-pulse="strengthName">Loading</strong>
+      <small data-pulse="strengthValue">...</small>
+    </article>
+
+    <article class="signal-item">
+      <span>Capital leader</span>
+      <strong data-pulse="capitalName">Loading</strong>
+      <small data-pulse="capitalValue">...</small>
+    </article>
+
+    <article class="signal-item">
+      <span>Flow leader</span>
+      <strong data-pulse="flowName">Loading</strong>
+      <small data-pulse="flowValue">...</small>
+    </article>
   </div>
 
-  <div class="pulse-grid">
-    <section class="pulse-panel" aria-labelledby="movers-heading">
-      <div class="panel-head">
-        <h3 id="movers-heading">24h Movers</h3>
-        <span data-pulse-updated>Loading</span>
-      </div>
-      <div class="rank-columns">
-        <div>
-          <p class="rank-title">Strength</p>
-          <ol class="rank-list" data-pulse-list="topGainers24h"></ol>
-        </div>
-        <div>
-          <p class="rank-title">Weakness</p>
-          <ol class="rank-list" data-pulse-list="topLosers24h"></ol>
-        </div>
-      </div>
-    </section>
-
-    <section class="pulse-panel" aria-labelledby="flow-heading">
-      <div class="panel-head">
-        <h3 id="flow-heading">Flow Watch</h3>
-        <span data-pulse-net-flow>...</span>
-      </div>
-      <div class="rank-columns">
-        <div>
-          <p class="rank-title">Inflow</p>
-          <ol class="rank-list" data-pulse-list="topInflows"></ol>
-        </div>
-        <div>
-          <p class="rank-title">Outflow</p>
-          <ol class="rank-list" data-pulse-list="topOutflows"></ol>
-        </div>
-      </div>
-    </section>
-
-    <section class="pulse-panel pulse-panel-wide" aria-labelledby="heatmap-heading">
-      <div class="panel-head">
-        <h3 id="heatmap-heading">Subnet Heatmap</h3>
-        <span>Top market caps</span>
-      </div>
-      <div class="subnet-heatmap" data-pulse-heatmap aria-label="Subnet heatmap"></div>
-    </section>
-
-    <section class="pulse-panel" aria-labelledby="largest-heading">
-      <div class="panel-head">
-        <h3 id="largest-heading">Largest Subnets</h3>
-        <span>Market cap</span>
-      </div>
-      <ol class="rank-list" data-pulse-list="topMarketCaps"></ol>
-    </section>
-
-    <section class="pulse-panel" aria-labelledby="validators-heading">
-      <div class="panel-head">
-        <h3 id="validators-heading">Validator Watch</h3>
-        <span>Stake</span>
-      </div>
-      <ol class="rank-list" data-pulse-list="topValidators"></ol>
-    </section>
-  </div>
-
-  <p class="pulse-status" data-pulse-status aria-live="polite"></p>
+  <p class="pulse-context" data-pulse="context" aria-live="polite">Reading TaoSwap data.</p>
 </section>
 
 <script>
-  const roots = document.querySelectorAll('[data-ecosystem-pulse]');
+  const roots = document.querySelectorAll('[data-taoswap-pulse]');
 
   const compactNumber = (value, maximumFractionDigits = 1) => {
     const number = Number(value);
@@ -111,94 +52,39 @@
     return 'Flat';
   };
 
-  const formatTime = (value) => {
-    const date = new Date(value);
-    if (Number.isNaN(date.valueOf())) return '';
-    return `Updated ${date.toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-    })}`;
-  };
+  const subnetLabel = (item) => item ? `SN${item.id} ${item.name}` : 'Unavailable';
 
-  const subnetLabel = (item) => `SN${item.id} ${item.name}`;
-
-  const renderSubnetList = (list, items, formatter) => {
-    list.innerHTML = '';
-    items.forEach((item) => {
-      const li = document.createElement('li');
-      const left = document.createElement('span');
-      const right = document.createElement('strong');
-      left.textContent = subnetLabel(item);
-      right.textContent = formatter(item);
-      li.append(left, right);
-      list.append(li);
-    });
-  };
-
-  const renderValidatorList = (list, items) => {
-    list.innerHTML = '';
-    items.forEach((item) => {
-      const li = document.createElement('li');
-      const left = document.createElement('span');
-      const right = document.createElement('strong');
-      left.textContent = item.name;
-      right.textContent = formatTao(item.totalStake, 1);
-      li.append(left, right);
-      list.append(li);
-    });
-  };
-
-  const renderHeatmap = (root, items) => {
-    const heatmap = root.querySelector('[data-pulse-heatmap]');
-    if (!heatmap) return;
-    heatmap.innerHTML = '';
-    items.forEach((item) => {
-      const dot = document.createElement('a');
-      dot.href = `https://taoswap.org/explore/subnets/${item.id}`;
-      dot.target = '_blank';
-      dot.rel = 'noopener';
-      dot.title = `${subnetLabel(item)} ${formatChange(item.change24h)}`;
-      dot.setAttribute('aria-label', dot.title);
-      dot.className = Number(item.change24h) >= 0 ? 'heatmap-dot is-positive' : 'heatmap-dot is-negative';
-      dot.textContent = String(item.id);
-      heatmap.append(dot);
-    });
+  const setText = (root, key, value) => {
+    const element = root.querySelector(`[data-pulse="${key}"]`);
+    if (element) element.textContent = value;
   };
 
   const hydratePulse = async (root) => {
-    const status = root.querySelector('[data-pulse-status]');
     try {
       const response = await fetch('/api/ecosystem-pulse');
       if (!response.ok) throw new Error('Pulse request failed.');
+
       const data = await response.json();
       const overview = data.overview || {};
+      const strength = data.subnets?.topGainers24h?.[0];
+      const capital = data.subnets?.topMarketCaps?.[0];
+      const flow = data.subnets?.topInflows?.[0];
 
-      root.querySelector('[data-pulse-metric="totalSubnets"]').textContent = compactNumber(overview.totalSubnets, 0);
-      root.querySelector('[data-pulse-metric="totalMarketCapTao"]').textContent = formatTao(overview.totalMarketCapTao, 1);
-      root.querySelector('[data-pulse-metric="emittingSubnets"]').textContent = compactNumber(overview.emittingSubnets, 0);
-      root.querySelector('[data-pulse-metric="totalActiveMiners"]').textContent = compactNumber(overview.totalActiveMiners, 0);
+      setText(root, 'strengthName', subnetLabel(strength));
+      setText(root, 'strengthValue', formatChange(strength?.change24h));
+      setText(root, 'capitalName', subnetLabel(capital));
+      setText(root, 'capitalValue', formatTao(capital?.marketCapTao, 1));
+      setText(root, 'flowName', subnetLabel(flow));
+      setText(root, 'flowValue', formatTao(flow?.inflow, 2));
+      setText(
+        root,
+        'context',
+        `${compactNumber(overview.totalSubnets, 0)} subnets tracked. ${compactNumber(overview.emittingSubnets, 0)} emitting. Data source ${data.source}.`,
+      );
 
-      const updated = root.querySelector('[data-pulse-updated]');
-      if (updated) updated.textContent = formatTime(data.updatedAt);
-
-      const netFlow = root.querySelector('[data-pulse-net-flow]');
-      if (netFlow) {
-        const value = Number(overview.netFlowTao);
-        netFlow.textContent = value >= 0 ? `${formatTao(value, 2)} net inflow` : `${formatTao(Math.abs(value), 2)} net outflow`;
-      }
-
-      renderSubnetList(root.querySelector('[data-pulse-list="topGainers24h"]'), data.subnets?.topGainers24h || [], (item) => formatChange(item.change24h));
-      renderSubnetList(root.querySelector('[data-pulse-list="topLosers24h"]'), data.subnets?.topLosers24h || [], (item) => formatChange(item.change24h));
-      renderSubnetList(root.querySelector('[data-pulse-list="topInflows"]'), data.subnets?.topInflows || [], (item) => formatTao(item.inflow, 2));
-      renderSubnetList(root.querySelector('[data-pulse-list="topOutflows"]'), data.subnets?.topOutflows || [], (item) => formatTao(item.outflow, 2));
-      renderSubnetList(root.querySelector('[data-pulse-list="topMarketCaps"]'), data.subnets?.topMarketCaps || [], (item) => formatTao(item.marketCapTao, 1));
-      renderValidatorList(root.querySelector('[data-pulse-list="topValidators"]'), data.validators?.topStake || []);
-      renderHeatmap(root, data.subnets?.heatmap || []);
-
-      if (status) status.textContent = `Data source ${data.source}`;
       root.classList.add('is-loaded');
     } catch {
-      if (status) status.textContent = 'Ecosystem pulse is unavailable right now.';
+      setText(root, 'context', 'TaoSwap pulse is unavailable right now.');
       root.classList.add('is-muted');
     }
   };
@@ -207,15 +93,16 @@
 </script>
 
 <style>
-  .ecosystem-pulse {
-    padding: 18px 24px 56px;
+  .taoswap-pulse {
+    padding: 0 24px 48px;
+    max-width: 980px;
   }
-  .pulse-header {
+  .pulse-head {
     display: flex;
     align-items: end;
     justify-content: space-between;
     gap: 18px;
-    margin-bottom: 18px;
+    margin-bottom: 14px;
   }
   .pulse-kicker {
     color: var(--muted);
@@ -223,185 +110,87 @@
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
   }
-  .pulse-header h2 {
-    font-size: clamp(1.45rem, 3vw, 2rem);
+  .pulse-head h2 {
+    font-size: 1.1rem;
     letter-spacing: 0;
   }
-  .pulse-header a {
+  .pulse-head a {
     color: var(--text2);
     font-size: 13px;
     font-weight: 700;
     white-space: nowrap;
+    transition: color 0.12s;
   }
-  .pulse-header a:hover {
+  .pulse-head a:hover {
     color: var(--white);
   }
-  .pulse-overview {
+  .pulse-card {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 12px;
-    margin-bottom: 14px;
-  }
-  .metric-card,
-  .pulse-panel {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     background: var(--s1);
     border: 1px solid var(--border);
     border-radius: 8px;
+    overflow: hidden;
   }
-  .metric-card {
-    display: grid;
-    gap: 8px;
-    min-height: 92px;
-    padding: 16px;
+  .signal-item {
+    min-width: 0;
+    padding: 18px;
+    border-right: 1px solid var(--border);
   }
-  .metric-card span,
-  .panel-head span,
-  .rank-title,
-  .pulse-status {
+  .signal-item:last-child {
+    border-right: none;
+  }
+  .signal-item span {
+    display: block;
     color: var(--muted);
     font-size: 11px;
-  }
-  .metric-card strong {
-    color: var(--white);
-    font-size: clamp(1.25rem, 2.4vw, 1.75rem);
-    line-height: 1.1;
-  }
-  .pulse-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
-  }
-  .pulse-panel {
-    padding: 18px;
-    min-width: 0;
-  }
-  .pulse-panel-wide {
-    grid-column: 1 / -1;
-  }
-  .panel-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 14px;
-  }
-  .panel-head h3 {
-    font-size: 1rem;
-    letter-spacing: 0;
-  }
-  .panel-head span {
-    text-align: right;
-  }
-  .rank-columns {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-  }
-  .rank-title {
-    margin-bottom: 8px;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    margin-bottom: 10px;
   }
-  .rank-list {
-    display: grid;
-    gap: 8px;
-    list-style: none;
-  }
-  .rank-list li {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: baseline;
-    gap: 10px;
-    min-height: 22px;
-    color: var(--text2);
-    font-size: 13px;
-  }
-  .rank-list span {
+  .signal-item strong {
+    display: block;
+    color: var(--white);
+    font-size: clamp(1rem, 2vw, 1.18rem);
+    line-height: 1.35;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .rank-list strong {
-    color: var(--text);
+  .signal-item small {
+    display: block;
+    color: var(--text2);
+    font-size: 13px;
+    margin-top: 5px;
+  }
+  .pulse-context {
+    color: var(--muted);
     font-size: 12px;
-    white-space: nowrap;
+    margin-top: 10px;
   }
-  .subnet-heatmap {
-    display: grid;
-    grid-template-columns: repeat(24, minmax(0, 1fr));
-    gap: 5px;
+  .taoswap-pulse.is-muted {
+    opacity: 0.72;
   }
-  .heatmap-dot {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    aspect-ratio: 1;
-    min-width: 0;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    background: var(--s2);
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 9px;
-    line-height: 1;
-    transition: color 0.12s, border-color 0.12s, background 0.12s;
-  }
-  .heatmap-dot.is-positive {
-    color: var(--text);
-    border-color: #ffffff33;
-    background: #151515;
-  }
-  .heatmap-dot.is-negative {
-    color: var(--muted);
-    background: #080808;
-  }
-  .heatmap-dot:hover {
-    border-color: var(--white);
-    color: var(--white);
-  }
-  .pulse-status {
-    margin-top: 12px;
-  }
-  .ecosystem-pulse.is-muted {
-    opacity: 0.75;
-  }
-
-  @media (max-width: 900px) {
-    .pulse-overview {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+  @media (max-width: 720px) {
+    .taoswap-pulse {
+      padding: 0 16px 40px;
     }
-    .pulse-grid {
+    .pulse-head {
+      align-items: flex-start;
+    }
+    .pulse-card {
       grid-template-columns: 1fr;
     }
-    .subnet-heatmap {
-      grid-template-columns: repeat(12, minmax(0, 1fr));
+    .signal-item {
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      padding: 16px;
     }
-  }
-  @media (max-width: 640px) {
-    .ecosystem-pulse {
-      padding: 18px 16px 40px;
-    }
-    .pulse-header {
-      align-items: start;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .pulse-overview {
-      gap: 10px;
-    }
-    .metric-card {
-      min-height: 84px;
-      padding: 14px;
-    }
-    .rank-columns {
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-    .subnet-heatmap {
-      grid-template-columns: repeat(8, minmax(0, 1fr));
+    .signal-item:last-child {
+      border-bottom: none;
     }
   }
 </style>
