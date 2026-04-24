@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import EcosystemPulse from '../components/EcosystemPulse.astro';
+import TaoFlowsPulse from '../components/TaoFlowsPulse.astro';
 import PostCard from '../components/PostCard.astro';
 
 const allPosts = await getCollection('blog');
@@ -88,6 +89,7 @@ const categoryLabel: Record<string, string> = {
   </section>
 
   <EcosystemPulse />
+  <TaoFlowsPulse />
 
   <hr class="divider" />
 

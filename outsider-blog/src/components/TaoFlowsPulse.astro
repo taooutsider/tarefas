@@ -1,0 +1,310 @@
+<section class="taoflows-live container" aria-labelledby="taoflows-live-heading" data-taoflows-live>
+  <div class="flow-head">
+    <div>
+      <p class="flow-kicker">TaoFlows live</p>
+      <h2 id="taoflows-live-heading">Liquidity flow</h2>
+    </div>
+    <a class="flow-button" href="https://taoflows.app/" target="_blank" rel="noopener">Open TaoFlows &rarr;</a>
+  </div>
+
+  <div class="flow-surface" aria-label="Live TaoFlows liquidity pulse">
+    <div class="flow-primary">
+      <span class="live-label"><span class="live-dot" aria-hidden="true"></span>Live scan</span>
+      <strong data-flow="netVolume">Loading</strong>
+      <small data-flow="netLabel">Net flow last 1H</small>
+    </div>
+
+    <div class="flow-bars" data-flow-bars aria-label="Five minute liquidity buckets"></div>
+
+    <div class="flow-stats">
+      <div>
+        <span>Buy volume</span>
+        <strong data-flow="buyVolume">...</strong>
+      </div>
+      <div>
+        <span>Sell volume</span>
+        <strong data-flow="sellVolume">...</strong>
+      </div>
+      <div>
+        <span>Active subnets</span>
+        <strong data-flow="activeSubnets">...</strong>
+      </div>
+      <div>
+        <span>Latest</span>
+        <strong data-flow="latestTransaction">...</strong>
+      </div>
+    </div>
+  </div>
+
+  <p class="flow-context" data-flow="context" aria-live="polite">Reading TaoFlows data.</p>
+</section>
+
+<script>
+  const roots = document.querySelectorAll('[data-taoflows-live]');
+
+  const compactNumber = (value, maximumFractionDigits = 1) => {
+    const number = Number(value);
+    if (!Number.isFinite(number)) return 'Unavailable';
+    return number.toLocaleString('en-US', {
+      notation: 'compact',
+      maximumFractionDigits,
+    });
+  };
+
+  const formatTao = (value, maximumFractionDigits = 1) => `${compactNumber(value, maximumFractionDigits)} TAO`;
+
+  const setText = (root, key, value) => {
+    const element = root.querySelector(`[data-flow="${key}"]`);
+    if (element) element.textContent = value;
+  };
+
+  const renderBars = (root, bars) => {
+    const wrap = root.querySelector('[data-flow-bars]');
+    if (!wrap) return;
+    wrap.innerHTML = '';
+    const max = Math.max(...bars.map((bar) => Math.abs(Number(bar.netVolume) || 0)), 1);
+
+    bars.forEach((bar) => {
+      const item = document.createElement('span');
+      const magnitude = Math.max(8, (Math.abs(Number(bar.netVolume) || 0) / max) * 100);
+      item.className = Number(bar.netVolume) >= 0 ? 'flow-bar is-buy' : 'flow-bar is-sell';
+      item.style.height = `${magnitude}%`;
+      item.title = `${formatTao(Math.abs(bar.netVolume), 2)} ${Number(bar.netVolume) >= 0 ? 'net buy' : 'net sell'}`;
+      wrap.append(item);
+    });
+  };
+
+  const hydrateFlow = async (root) => {
+    try {
+      const response = await fetch('/api/taoflows-pulse');
+      if (!response.ok) throw new Error('Flow request failed.');
+
+      const data = await response.json();
+      const overview = data.overview || {};
+      const latest = data.latestTransaction;
+      const net = Number(overview.netVolumeTao);
+
+      setText(root, 'netVolume', net >= 0 ? `+${formatTao(net, 2)}` : `${formatTao(Math.abs(net), 2)} sell side`);
+      setText(root, 'netLabel', net >= 0 ? 'Net buy flow last 1H' : 'Net sell flow last 1H');
+      setText(root, 'buyVolume', formatTao(overview.buyVolumeTao, 1));
+      setText(root, 'sellVolume', formatTao(overview.sellVolumeTao, 1));
+      setText(root, 'activeSubnets', compactNumber(overview.activeSubnets, 0));
+      setText(
+        root,
+        'latestTransaction',
+        latest ? `${latest.type} ${latest.subnet} ${formatTao(latest.amountTao, 2)}` : 'Waiting',
+      );
+      setText(
+        root,
+        'context',
+        `${compactNumber(overview.totalTransactions, 0)} transactions last 1H. Latest block ${overview.latestBlock || 'pending'}. Data source ${data.source}.`,
+      );
+      renderBars(root, data.bars || []);
+      root.classList.toggle('is-sell', net < 0);
+      root.classList.add('is-loaded');
+    } catch {
+      setText(root, 'context', 'TaoFlows pulse is unavailable right now.');
+      root.classList.add('is-muted');
+    }
+  };
+
+  roots.forEach(hydrateFlow);
+</script>
+
+<style>
+  .taoflows-live {
+    padding: 0 24px 52px;
+    max-width: 980px;
+  }
+  .flow-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 14px;
+  }
+  .flow-kicker {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .flow-head h2 {
+    font-size: 1.1rem;
+    letter-spacing: 0;
+  }
+  .flow-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--white);
+    color: #000;
+    font-size: 13px;
+    font-weight: 800;
+    min-height: 38px;
+    padding: 0 16px;
+    border-radius: 7px;
+    white-space: nowrap;
+    transition: opacity 0.12s, transform 0.12s;
+  }
+  .flow-button:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+  .flow-surface {
+    display: grid;
+    grid-template-columns: minmax(210px, 0.8fr) minmax(160px, 0.7fr) minmax(0, 1.3fr);
+    align-items: stretch;
+    background: var(--s1);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .flow-primary {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    padding: 18px;
+    border-right: 1px solid var(--border);
+  }
+  .live-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: #d7ffd7;
+    box-shadow: 0 0 0 0 rgba(215,255,215,0.38);
+    animation: flow-pulse 1.8s ease-out infinite;
+  }
+  .flow-primary strong {
+    color: var(--white);
+    font-size: clamp(1.28rem, 3vw, 1.9rem);
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+  .flow-primary small {
+    color: var(--text2);
+    font-size: 13px;
+    margin-top: 8px;
+  }
+  .flow-bars {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    min-height: 132px;
+    padding: 18px;
+    border-right: 1px solid var(--border);
+  }
+  .flow-bar {
+    width: 8px;
+    min-height: 8px;
+    border-radius: 999px;
+    background: var(--text2);
+    opacity: 0.42;
+    transition: height 0.3s ease, opacity 0.2s ease;
+  }
+  .flow-bar.is-buy {
+    opacity: 0.72;
+  }
+  .flow-bar.is-sell {
+    opacity: 0.28;
+  }
+  .flow-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .flow-stats div {
+    min-width: 0;
+    padding: 16px 18px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .flow-stats div:nth-child(2n) {
+    border-right: none;
+  }
+  .flow-stats div:nth-last-child(-n + 2) {
+    border-bottom: none;
+  }
+  .flow-stats span {
+    display: block;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+  }
+  .flow-stats strong {
+    display: block;
+    color: var(--text);
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .flow-context {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 10px;
+  }
+  .taoflows-live.is-muted {
+    opacity: 0.72;
+  }
+  @keyframes flow-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(215,255,215,0.38); }
+    70% { box-shadow: 0 0 0 8px rgba(215,255,215,0); }
+    100% { box-shadow: 0 0 0 0 rgba(215,255,215,0); }
+  }
+  @media (max-width: 860px) {
+    .flow-surface {
+      grid-template-columns: 1fr;
+    }
+    .flow-primary,
+    .flow-bars {
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+    .flow-bars {
+      min-height: 82px;
+      align-items: end;
+    }
+  }
+  @media (max-width: 720px) {
+    .taoflows-live {
+      padding: 0 16px 42px;
+    }
+    .flow-head {
+      align-items: flex-start;
+    }
+    .flow-button {
+      min-height: 36px;
+      padding: 0 13px;
+    }
+    .flow-stats {
+      grid-template-columns: 1fr;
+    }
+    .flow-stats div,
+    .flow-stats div:nth-child(2n),
+    .flow-stats div:nth-last-child(-n + 2) {
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+    .flow-stats div:last-child {
+      border-bottom: none;
+    }
+  }
+</style>
