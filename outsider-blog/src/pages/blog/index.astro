@@ -8,8 +8,8 @@ const sorted = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate
 ---
 
 <BaseLayout
-  title="Blog — Bittensor Analysis, Subnet Deep Dives & TAO Intelligence"
-  description="All Bittensor intelligence articles from Tao Outsider — market analysis, subnet deep dives, dTAO alpha tokens, TAO trade setups and beginner guides."
+  title="Blog | Bittensor Analysis, Subnet Deep Dives & TAO Intelligence"
+  description="All Bittensor intelligence articles from Tao Outsider. Market analysis, subnet deep dives, dTAO alpha tokens, TAO trade setups and beginner guides."
   canonicalURL="https://www.taooutsider.com/blog/"
 >
   <section class="page-header container">
@@ -21,9 +21,6 @@ const sorted = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate
     <nav class="cat-filter" aria-label="Filter by category">
       <a href="/blog/" class="cat-pill active">All</a>
       <a href="/blog/tag/analysis/" class="cat-pill">Analysis</a>
-      <a href="/blog/tag/subnet/" class="cat-pill">Subnets</a>
-      <a href="/blog/tag/trade/" class="cat-pill">Trade Setups</a>
-      <a href="/blog/tag/guide/" class="cat-pill">Guides</a>
       <a href="/blog/tag/weekly/" class="cat-pill">Weekly</a>
       <a href="/blog/tag/news/" class="cat-pill">News</a>
     </nav>
@@ -37,7 +34,7 @@ const sorted = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate
         ))}
       </div>
     ) : (
-      <p class="empty">No posts yet — check back soon.</p>
+      <p class="empty">No posts yet. Check back soon.</p>
     )}
   </section>
 </BaseLayout>

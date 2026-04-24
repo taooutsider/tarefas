@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import EcosystemPulse from '../components/EcosystemPulse.astro';
 import PostCard from '../components/PostCard.astro';
 
 const allPosts = await getCollection('blog');
@@ -86,6 +87,8 @@ const categoryLabel: Record<string, string> = {
     </div>
   </section>
 
+  <EcosystemPulse />
+
   <hr class="divider" />
 
   <!-- RECENT POSTS -->
@@ -99,10 +102,8 @@ const categoryLabel: Record<string, string> = {
     <nav class="cat-filter" aria-label="Filter by category">
       <a href="/blog/" class="cat-pill active">All</a>
       <a href="/blog/tag/analysis/" class="cat-pill">Analysis</a>
-      <a href="/blog/tag/subnet/" class="cat-pill">Subnets</a>
-      <a href="/blog/tag/trade/" class="cat-pill">Trade Setups</a>
-      <a href="/blog/tag/guide/" class="cat-pill">Guides</a>
       <a href="/blog/tag/weekly/" class="cat-pill">Weekly</a>
+      <a href="/blog/tag/news/" class="cat-pill">News</a>
     </nav>
 
     <div class="posts-grid" role="list">
@@ -114,7 +115,7 @@ const categoryLabel: Record<string, string> = {
     </div>
 
     {recent.length === 0 && (
-      <p class="empty">No posts yet — check back soon.</p>
+      <p class="empty">No posts yet. Check back soon.</p>
     )}
   </section>
 
@@ -122,7 +123,7 @@ const categoryLabel: Record<string, string> = {
   <section class="newsletter container" aria-labelledby="nl-heading">
     <div class="nl-inner">
       <h2 id="nl-heading">Free weekly Bittensor brief</h2>
-      <p>The most important TAO developments every week — market moves, subnet changes, new alpha. No spam.</p>
+      <p>The most important TAO developments every week, market moves, subnet changes, new alpha. No spam.</p>
       <form class="nl-form" method="POST" action="/api/subscribe">
         <label for="nl-email" class="sr-only">Email address</label>
         <input type="email" id="nl-email" name="email" placeholder="your@email.com" required autocomplete="email" />

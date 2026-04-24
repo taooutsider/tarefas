@@ -28,19 +28,19 @@ const sorted = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.va
 const tagDisplay = tag.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
 
 const tagDescriptions: Record<string, string> = {
-  analysis: 'In-depth Bittensor market analysis — TAO price action, dTAO dynamics, emission cycles and on-chain intelligence.',
-  subnet:   'Deep dives into individual Bittensor subnets — architecture, emissions, validators, miners, and investment thesis.',
+  analysis: 'In-depth Bittensor market analysis covering TAO price action, dTAO dynamics, emission cycles and on-chain intelligence.',
+  subnet:   'Deep dives into individual Bittensor subnets covering architecture, emissions, validators, miners and investment thesis.',
   trade:    'TAO and alpha token trade setups with technical analysis, entry points, targets and on-chain confirmation.',
-  guide:    'Beginner and advanced guides to Bittensor — staking, delegating, understanding subnets, and the dTAO model.',
-  weekly:   'Weekly Bittensor intelligence briefs — the most important market and ecosystem developments every 7 days.',
-  news:     'Breaking Bittensor ecosystem news — new subnets, validator updates, protocol changes and partnerships.',
+  guide:    'Beginner and advanced guides to Bittensor covering staking, delegating, understanding subnets and the dTAO model.',
+  weekly:   'Weekly Bittensor intelligence briefs covering the most important market and ecosystem developments every 7 days.',
+  news:     'Breaking Bittensor ecosystem news covering new subnets, validator updates, protocol changes and partnerships.',
 };
 const desc = tagDescriptions[tag] ??
-  `All Tao Outsider articles tagged "${tagDisplay}" — Bittensor intelligence for serious TAO participants.`;
+  `All Tao Outsider articles tagged "${tagDisplay}". Bittensor intelligence for serious TAO participants.`;
 ---
 
 <BaseLayout
-  title={`${tagDisplay} — Bittensor ${tagDisplay} Articles`}
+  title={`${tagDisplay} | Bittensor ${tagDisplay} Articles`}
   description={desc}
   canonicalURL={`https://www.taooutsider.com/blog/tag/${tag}/`}
   noindex={sorted.length < 2}
