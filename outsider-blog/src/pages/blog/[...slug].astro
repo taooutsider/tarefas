@@ -2,6 +2,7 @@
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
+import TaoMarketWidget from '../../components/TaoMarketWidget.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -117,6 +118,9 @@ const feedbackOptions = [
           <p class="share-status" data-share-status aria-live="polite"></p>
         </div>
       </div>
+      <div class="mobile-market">
+        <TaoMarketWidget variant="panel" />
+      </div>
     </header>
 
     <!-- POST BODY -->
@@ -156,6 +160,7 @@ const feedbackOptions = [
 
       <!-- SHARE + CTA -->
       <aside class="post-cta" aria-label="Get more intelligence">
+        <TaoMarketWidget variant="panel" />
         <div class="cta-inner">
           <p class="cta-label">Want daily briefs like this?</p>
           <h2>Join Outsider Intel</h2>
@@ -440,6 +445,10 @@ const feedbackOptions = [
   .post-share-row {
     margin-top: 16px;
   }
+  .mobile-market {
+    display: none;
+    margin-top: 18px;
+  }
 
   .post-body {
     padding: 0 24px;
@@ -453,6 +462,8 @@ const feedbackOptions = [
   .post-cta {
     position: sticky;
     top: 80px;
+    display: grid;
+    gap: 16px;
   }
   .cta-inner {
     background: var(--s1);
@@ -653,6 +664,8 @@ const feedbackOptions = [
   @media (max-width: 900px) {
     .post-body { grid-template-columns: 1fr; }
     .post-cta { position: static; }
+    .post-cta > :global(.tao-market-panel) { display: none; }
+    .mobile-market { display: block; }
     .related-grid { grid-template-columns: 1fr 1fr; }
     .feedback-actions { grid-template-columns: 1fr; }
     .share-menu {

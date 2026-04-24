@@ -1,4 +1,6 @@
 ---
+import TaoMarketWidget from './TaoMarketWidget.astro';
+
 const pathname = Astro.url.pathname;
 const isActive = (path: string) =>
   pathname === path || pathname.startsWith(path + '/');
@@ -16,9 +18,12 @@ const isActive = (path: string) =>
       <li><a href="https://www.x.com/taooutsider" class="nav-link" rel="noopener" target="_blank">X - Tao Outsider</a></li>
     </ul>
 
-    <a href="https://t.me/taooutsider" class="nav-cta" rel="noopener">
-      Join Intel &rarr;
-    </a>
+    <div class="nav-right">
+      <TaoMarketWidget />
+      <a href="https://t.me/taooutsider" class="nav-cta" rel="noopener">
+        Join Intel &rarr;
+      </a>
+    </div>
 
   </nav>
 </header>
@@ -77,6 +82,12 @@ const isActive = (path: string) =>
     transition: opacity 0.12s;
   }
   .nav-cta:hover { opacity: 0.85; }
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
 
   @media (max-width: 640px) {
     .nav-links { display: none; }

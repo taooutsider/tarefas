@@ -1,0 +1,344 @@
+---
+interface Props {
+  variant?: 'compact' | 'panel';
+}
+
+const { variant = 'compact' } = Astro.props;
+---
+
+<a
+  class:list={['tao-market', `tao-market-${variant}`]}
+  href="https://www.binance.com/en/trade/TAO_USDT"
+  target="_blank"
+  rel="noopener"
+  aria-label="TAO USDT market data on Binance"
+  data-tao-market
+>
+  <span class="market-copy">
+    <span class="market-pair">TAO/USDT</span>
+    <span class="market-price" data-market-price>Loading</span>
+  </span>
+  <svg class="market-chart" viewBox="0 0 72 24" aria-hidden="true" data-market-chart>
+    <polyline points="" />
+  </svg>
+  <span class="market-change" data-market-change>...</span>
+
+  {variant === 'panel' && (
+    <>
+      <span class="market-panel-heading">TAO Market Snapshot</span>
+      <span class="market-stats" aria-hidden="true">
+        <span>
+          <span class="market-stat-label">24h Volume</span>
+          <span class="market-stat-value" data-market-volume>...</span>
+        </span>
+        <span>
+          <span class="market-stat-label">High / Low</span>
+          <span class="market-stat-value" data-market-high-low>...</span>
+        </span>
+        <span>
+          <span class="market-stat-label">Open Interest</span>
+          <span class="market-stat-value" data-market-open-interest>...</span>
+        </span>
+      </span>
+      <span class="market-range">
+        <span class="market-range-track">
+          <span class="market-range-fill" data-market-range></span>
+        </span>
+        <span class="market-range-label">Intraday range</span>
+      </span>
+      <span class="market-timeframes" role="group" aria-label="Chart timeframe">
+        <button type="button" class="is-active" data-market-timeframe="1h">1h</button>
+        <button type="button" data-market-timeframe="4h">4h</button>
+        <button type="button" data-market-timeframe="1d">1d</button>
+      </span>
+      <span class="market-updated" data-market-updated></span>
+    </>
+  )}
+</a>
+
+<script>
+  const widgets = document.querySelectorAll('[data-tao-market]');
+
+  const formatPrice = (value) => {
+    if (!Number.isFinite(value)) return 'Unavailable';
+    return `$${value.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+  };
+
+  const formatChange = (value) => {
+    if (!Number.isFinite(value)) return '';
+    const prefix = value > 0 ? '+' : '';
+    return `${prefix}${value.toFixed(2)}%`;
+  };
+
+  const compactNumber = (value, maximumFractionDigits = 1) => {
+    if (!Number.isFinite(value)) return 'Unavailable';
+    return value.toLocaleString('en-US', {
+      notation: 'compact',
+      maximumFractionDigits,
+    });
+  };
+
+  const formatDateTime = (value) => {
+    const date = new Date(value);
+    if (Number.isNaN(date.valueOf())) return '';
+    return `Updated ${date.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+    })}`;
+  };
+
+  const toPolyline = (values) => {
+    if (!Array.isArray(values) || values.length < 2) return '';
+    const width = 72;
+    const height = 24;
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const range = max - min || 1;
+
+    return values.map((value, index) => {
+      const x = (index / (values.length - 1)) * width;
+      const y = height - ((value - min) / range) * height;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    }).join(' ');
+  };
+
+  const hydrateWidget = async (widget) => {
+    const priceEl = widget.querySelector('[data-market-price]');
+    const changeEl = widget.querySelector('[data-market-change]');
+    const polyline = widget.querySelector('[data-market-chart] polyline');
+    const volumeEl = widget.querySelector('[data-market-volume]');
+    const highLowEl = widget.querySelector('[data-market-high-low]');
+    const openInterestEl = widget.querySelector('[data-market-open-interest]');
+    const rangeEl = widget.querySelector('[data-market-range]');
+    const updatedEl = widget.querySelector('[data-market-updated]');
+    const timeframeButtons = Array.from(widget.querySelectorAll('[data-market-timeframe]'));
+
+    try {
+      const response = await fetch('/api/tao-market');
+      if (!response.ok) throw new Error('Market data failed.');
+      const data = await response.json();
+      const price = Number(data.price);
+      const change = Number(data.changePercent);
+
+      if (priceEl) priceEl.textContent = formatPrice(price);
+      if (changeEl) changeEl.textContent = formatChange(change);
+      if (polyline) polyline.setAttribute('points', toPolyline(data.candles?.['1h'] || data.closes));
+      if (volumeEl) volumeEl.textContent = `${compactNumber(Number(data.volume))} TAO / $${compactNumber(Number(data.quoteVolume))}`;
+      if (highLowEl) highLowEl.textContent = `${formatPrice(Number(data.high))} / ${formatPrice(Number(data.low))}`;
+      if (openInterestEl) openInterestEl.textContent = `${compactNumber(Number(data.openInterest))} TAO`;
+      if (rangeEl) rangeEl.style.width = `${Math.min(100, Math.max(0, Number(data.rangePosition) || 0))}%`;
+      if (updatedEl) updatedEl.textContent = formatDateTime(data.updatedAt);
+      widget.classList.toggle('is-up', change >= 0);
+      widget.classList.toggle('is-down', change < 0);
+      widget.setAttribute('title', `${data.pair} via ${data.source}`);
+
+      timeframeButtons.forEach((button) => {
+        button.addEventListener('click', (event) => {
+          event.preventDefault();
+          const timeframe = button.dataset.marketTimeframe;
+          const values = data.candles?.[timeframe] || data.closes;
+          if (polyline) polyline.setAttribute('points', toPolyline(values));
+          timeframeButtons.forEach((item) => item.classList.toggle('is-active', item === button));
+        });
+      });
+    } catch {
+      if (priceEl) priceEl.textContent = 'Unavailable';
+      if (changeEl) changeEl.textContent = '';
+      widget.classList.add('is-muted');
+    }
+  };
+
+  widgets.forEach(hydrateWidget);
+</script>
+
+<style>
+  .tao-market {
+    display: grid;
+    grid-template-columns: auto 72px auto;
+    align-items: center;
+    gap: 10px;
+    min-width: 244px;
+    height: 40px;
+    padding: 7px 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--s1);
+    color: var(--text);
+    transition: border-color 0.12s, background 0.12s;
+  }
+  .tao-market-panel {
+    grid-template-columns: 1fr auto;
+    min-width: 0;
+    width: 100%;
+    height: auto;
+    padding: 18px;
+    gap: 14px;
+    cursor: pointer;
+  }
+  .tao-market-panel .market-panel-heading {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .tao-market-panel .market-copy {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .tao-market-panel .market-price {
+    font-size: 1.35rem;
+  }
+  .tao-market-panel .market-change {
+    grid-column: 2;
+    grid-row: 2;
+    min-width: auto;
+    align-self: end;
+    font-size: 0.9rem;
+  }
+  .tao-market-panel .market-chart {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    width: 100%;
+    height: 48px;
+  }
+  .tao-market-panel .market-chart polyline {
+    stroke-width: 1.6;
+  }
+  .market-stats {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: 10px;
+  }
+  .market-stats > span {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 9px;
+    border-top: 1px solid var(--border);
+  }
+  .market-stat-label,
+  .market-range-label,
+  .market-updated {
+    color: var(--muted);
+    font-size: 11px;
+  }
+  .market-stat-value {
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 700;
+    text-align: right;
+  }
+  .market-range {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: 6px;
+  }
+  .market-range-track {
+    width: 100%;
+    height: 6px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--s3);
+  }
+  .market-range-fill {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--text2);
+  }
+  .market-timeframes {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+  .market-timeframes button {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg);
+    color: var(--muted);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    min-height: 30px;
+    cursor: pointer;
+  }
+  .market-timeframes button:hover,
+  .market-timeframes button.is-active {
+    border-color: var(--border2);
+    color: var(--white);
+    background: var(--s2);
+  }
+  .market-updated {
+    grid-column: 1 / -1;
+  }
+  .tao-market:hover {
+    border-color: var(--border2);
+    background: var(--s2);
+  }
+  .market-copy {
+    display: grid;
+    gap: 1px;
+    min-width: 74px;
+  }
+  .market-pair {
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .market-price {
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  .market-chart {
+    width: 72px;
+    height: 24px;
+    overflow: visible;
+  }
+  .market-chart polyline {
+    fill: none;
+    stroke: var(--text2);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .market-change {
+    min-width: 50px;
+    color: var(--text2);
+    font-size: 12px;
+    font-weight: 700;
+    text-align: right;
+    line-height: 1;
+  }
+  .tao-market.is-up .market-change,
+  .tao-market.is-up .market-chart polyline,
+  .tao-market.is-up .market-range-fill {
+    color: #d8ffd8;
+    stroke: #d8ffd8;
+  }
+  .tao-market.is-down .market-change,
+  .tao-market.is-down .market-chart polyline,
+  .tao-market.is-down .market-range-fill {
+    color: #ffd8d8;
+    stroke: #ffd8d8;
+  }
+  .tao-market.is-muted {
+    opacity: 0.65;
+  }
+
+  @media (max-width: 920px) {
+    .tao-market-compact {
+      display: none;
+    }
+  }
+</style>
