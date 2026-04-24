@@ -65,7 +65,3 @@ Several macro factors converge over the next two quarters:
 3. **AI market integration** — External applications that pay in TAO for inference are starting to appear. This is genuinely new demand that didn't exist at launch.
 
 The participants who understand dTAO mechanics deeply will have structural advantages for at least the next 12 months. Most of the market still doesn't.
-
----
-
-*Daily intelligence, trade setups, and on-chain alerts in [Outsider Intel](https://t.me/taooutsider). We track validator movements, emission shifts, and alpha token technicals every day.*
