@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { post, size = 'default' } = Astro.props;
-const { title, description, pubDate, category, tags, author } = post.data;
+const { title, description, pubDate, category, tags, image } = post.data;
 
 const url = `/blog/${post.id}/`;
 const dateStr = pubDate.toLocaleDateString('en-US', {
@@ -29,7 +29,11 @@ const categoryLabel: Record<string, string> = {
 
   <a href={url} class="card-link" aria-label={title}>
     <div class="card-thumb" aria-hidden="true">
-      <span class="card-cat-code">{category.toUpperCase()}</span>
+      {image ? (
+        <img src={image} alt="" loading="lazy" />
+      ) : (
+        <span class="card-cat-code">{category.toUpperCase()}</span>
+      )}
     </div>
   </a>
 
@@ -75,6 +79,17 @@ const categoryLabel: Record<string, string> = {
     border-bottom: 1px solid var(--border);
     overflow: hidden;
     position: relative;
+  }
+  .card-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: 1;
+  }
+  .card-thumb:has(img)::before {
+    display: none;
   }
   .card-thumb::before {
     content: '';

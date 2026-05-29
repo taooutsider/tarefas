@@ -37,7 +37,11 @@ const categoryLabel: Record<string, string> = {
         <article class="hero-featured" itemscope itemtype="https://schema.org/BlogPosting">
           <a href={`/blog/${featured.id}/`} class="hero-thumb" aria-label={featured.data.title}>
             <div class="hero-thumb-inner">
-              <span class="thumb-label">FEATURED</span>
+              {featured.data.image ? (
+                <img src={featured.data.image} alt="" />
+              ) : (
+                <span class="thumb-label">FEATURED</span>
+              )}
             </div>
           </a>
           <div class="hero-body">
@@ -93,33 +97,30 @@ const categoryLabel: Record<string, string> = {
 
   <hr class="divider" />
 
-  <!-- RECENT POSTS -->
-  <section class="recent container" aria-labelledby="recent-heading">
-    <div class="section-header">
-      <h2 id="recent-heading">Latest Intelligence</h2>
-      <a href="/blog/">View all &rarr;</a>
-    </div>
+  {recent.length > 0 && (
+    <section class="recent container" aria-labelledby="recent-heading">
+      <div class="section-header">
+        <h2 id="recent-heading">Latest Intelligence</h2>
+        <a href="/blog/">View all &rarr;</a>
+      </div>
 
-    <!-- Category filter (static links, SEO-friendly) -->
-    <nav class="cat-filter" aria-label="Filter by category">
-      <a href="/blog/" class="cat-pill active">All</a>
-      <a href="/blog/tag/analysis/" class="cat-pill">Analysis</a>
-      <a href="/blog/tag/weekly/" class="cat-pill">Weekly</a>
-      <a href="/blog/tag/news/" class="cat-pill">News</a>
-    </nav>
+      <!-- Category filter (static links, SEO-friendly) -->
+      <nav class="cat-filter" aria-label="Filter by category">
+        <a href="/blog/" class="cat-pill active">All</a>
+        <a href="/blog/tag/analysis/" class="cat-pill">Analysis</a>
+        <a href="/blog/tag/weekly/" class="cat-pill">Weekly</a>
+        <a href="/blog/tag/news/" class="cat-pill">News</a>
+      </nav>
 
-    <div class="posts-grid" role="list">
-      {recent.map(post => (
-        <div role="listitem">
-          <PostCard post={post} />
-        </div>
-      ))}
-    </div>
-
-    {recent.length === 0 && (
-      <p class="empty">No posts yet. Check back soon.</p>
-    )}
-  </section>
+      <div class="posts-grid" role="list">
+        {recent.map(post => (
+          <div role="listitem">
+            <PostCard post={post} />
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
 
   <!-- NEWSLETTER -->
   <section class="newsletter container" aria-labelledby="nl-heading">
@@ -182,6 +183,17 @@ const categoryLabel: Record<string, string> = {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  .hero-thumb-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-thumb:has(img)::before {
+    display: none;
   }
   .thumb-label {
     font-size: 10px;
