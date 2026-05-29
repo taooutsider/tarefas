@@ -118,9 +118,6 @@ const feedbackOptions = [
           <p class="share-status" data-share-status aria-live="polite"></p>
         </div>
       </div>
-      <div class="mobile-market">
-        <TaoMarketWidget variant="panel" />
-      </div>
     </header>
 
     <!-- POST BODY -->
@@ -438,11 +435,6 @@ const feedbackOptions = [
   .post-share-row {
     margin-top: 16px;
   }
-  .mobile-market {
-    display: none;
-    margin-top: 18px;
-  }
-
   .post-body {
     padding: 0 24px;
     display: grid;
@@ -626,7 +618,6 @@ const feedbackOptions = [
     .post-body { grid-template-columns: 1fr; }
     .post-cta { position: static; }
     .post-cta > :global(.tao-market-panel) { display: none; }
-    .mobile-market { display: block; }
     .related-grid { grid-template-columns: 1fr 1fr; }
     .feedback-actions { grid-template-columns: 1fr; }
     .share-menu {
