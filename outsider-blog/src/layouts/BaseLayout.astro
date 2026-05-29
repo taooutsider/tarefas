@@ -31,15 +31,17 @@ const {
 
 const SITE = 'https://www.taooutsider.com';
 const SITE_NAME = 'Tao Outsider';
+const SITE_DESCRIPTION = 'Zoomed out on TAO Bittensor. Tracking every dTAO subnet. Mapping the future of decentralized AI.';
 const fullTitle = title === SITE_NAME
   ? `${SITE_NAME} | Bittensor Intelligence`
   : `${title} | ${SITE_NAME}`;
 const ogImageURL = ogImage.startsWith('http') ? ogImage : `${SITE}${ogImage}`;
 const feedURL = `${SITE}/rss.xml`;
+const newsSitemapURL = `${SITE}/news-sitemap.xml`;
 
 const articleSchema = article ? {
   '@context': 'https://schema.org',
-  '@type': 'BlogPosting',
+  '@type': 'NewsArticle',
   headline: title,
   description,
   datePublished: pubDate?.toISOString(),
@@ -54,6 +56,8 @@ const articleSchema = article ? {
   },
   mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalURL },
   image: ogImageURL,
+  inLanguage: 'en-US',
+  isAccessibleForFree: true,
 } : null;
 
 const siteSchema = {
@@ -61,7 +65,7 @@ const siteSchema = {
   '@type': 'WebSite',
   name: SITE_NAME,
   url: SITE,
-  description: 'Independent Bittensor intelligence. Market analysis, subnet deep dives, TAO trade setups and dTAO alpha for serious participants.',
+  description: SITE_DESCRIPTION,
 };
 
 const organizationSchema = {
@@ -70,6 +74,7 @@ const organizationSchema = {
   name: SITE_NAME,
   url: SITE,
   logo: `${SITE}/logo.jpg`,
+  description: SITE_DESCRIPTION,
   sameAs: [
     'https://www.x.com/taooutsider',
     'https://t.me/taooutsider',
@@ -91,6 +96,7 @@ const organizationSchema = {
   <meta name="theme-color" content="#000000" />
   <link rel="canonical" href={canonicalURL} />
   <link rel="alternate" type="application/rss+xml" title={`${SITE_NAME} RSS`} href={feedURL} />
+  <link rel="sitemap" type="application/xml" title={`${SITE_NAME} News Sitemap`} href={newsSitemapURL} />
   <link rel="manifest" href="/site.webmanifest" />
 
   <!-- Open Graph -->

@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StaticInfoPage from '../components/StaticInfoPage.astro';
+
+const description = 'Terms for using Tao Outsider.';
+---
+
+<BaseLayout
+  title="Terms"
+  description={description}
+  canonicalURL="https://www.taooutsider.com/terms/"
+>
+  <StaticInfoPage
+    eyebrow="Terms"
+    title="Terms"
+    description={description}
+    updated="2026-05-29"
+  >
+    <h2>Use of the site</h2>
+    <p>Tao Outsider provides independent information, opinion and research about TAO Bittensor, subnets, dTAO markets and decentralized AI.</p>
+
+    <h2>No financial advice</h2>
+    <p>Nothing on this site is financial advice, investment advice, legal advice or tax advice. Readers are responsible for their own decisions.</p>
+
+    <h2>Accuracy</h2>
+    <p>We work to publish accurate information, but crypto markets and ecosystem data can change quickly. Readers should verify time sensitive information before relying on it.</p>
+
+    <h2>External links</h2>
+    <p>External links are provided for context. Tao Outsider is not responsible for third party websites, products or services.</p>
+  </StaticInfoPage>
+</BaseLayout>

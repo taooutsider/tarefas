@@ -1,7 +1,7 @@
 ---
 title: "Babelbit SN59: The First Machine Interpreter on Bittensor"
 description: "A Tao Outsider deep dive into Babelbit, Subnet 59, and why its speech native translation approach may be one of the most misunderstood projects in Bittensor."
-pubDate: 2026-05-29T13:00:00.000Z
+pubDate: 2026-05-29T12:30:00.000Z
 category: subnet
 featured: true
 author: "Tao Outsider"

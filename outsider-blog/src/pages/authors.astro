@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StaticInfoPage from '../components/StaticInfoPage.astro';
+
+const description = 'Author and publisher information for Tao Outsider.';
+---
+
+<BaseLayout
+  title="Authors"
+  description={description}
+  canonicalURL="https://www.taooutsider.com/authors/"
+>
+  <StaticInfoPage
+    eyebrow="Authors"
+    title="Authors"
+    description={description}
+  >
+    <h2>Tao Outsider</h2>
+    <p>Tao Outsider is the publisher identity behind this site. The publication covers TAO Bittensor, dTAO markets, subnet research, creator activity and decentralized AI projects.</p>
+
+    <h2>Editorial voice</h2>
+    <p>The writing is direct, opinionated and research driven. We value clarity, useful context and human judgment over generic summaries.</p>
+
+    <h2>Profiles</h2>
+    <p>Follow Tao Outsider on <a href="https://x.com/taooutsider" rel="noopener">X</a> and join the <a href="https://t.me/taooutsiderfree" rel="noopener">free Telegram channel</a>.</p>
+  </StaticInfoPage>
+</BaseLayout>

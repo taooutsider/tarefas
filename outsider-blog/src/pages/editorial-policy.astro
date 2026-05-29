@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StaticInfoPage from '../components/StaticInfoPage.astro';
+
+const description = 'The editorial standards Tao Outsider uses for Bittensor research, market commentary and decentralized AI coverage.';
+---
+
+<BaseLayout
+  title="Editorial Policy"
+  description={description}
+  canonicalURL="https://www.taooutsider.com/editorial-policy/"
+>
+  <StaticInfoPage
+    eyebrow="Standards"
+    title="Editorial Policy"
+    description={description}
+  >
+    <h2>Mission</h2>
+    <p>Tao Outsider publishes independent coverage of TAO, Bittensor subnets, dTAO markets and decentralized AI initiatives. The mission is to help readers understand the ecosystem with more context, better judgment and less noise.</p>
+
+    <h2>Source standards</h2>
+    <p>We prefer primary sources whenever possible, including official project pages, public posts, documentation, on chain data, direct interviews and public market data. When a claim depends on interpretation, we make that clear in the writing.</p>
+
+    <h2>Opinion and analysis</h2>
+    <p>Opinion is allowed here. It is also labeled through context and tone. We do not present personal conviction as settled fact. Market commentary is educational and informational only.</p>
+
+    <h2>Conflicts</h2>
+    <p>If a material relationship, sponsorship or paid placement affects a piece of coverage, it should be disclosed in the article. Tao Outsider does not sell positive coverage.</p>
+
+    <h2>Corrections</h2>
+    <p>When we confirm a factual error, we update the article and preserve reader trust over ego. Significant updates may include an updated date in the article metadata.</p>
+  </StaticInfoPage>
+</BaseLayout>

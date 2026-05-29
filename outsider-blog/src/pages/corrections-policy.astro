@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StaticInfoPage from '../components/StaticInfoPage.astro';
+
+const description = 'How Tao Outsider reviews and handles factual corrections, updates and reader feedback.';
+---
+
+<BaseLayout
+  title="Corrections Policy"
+  description={description}
+  canonicalURL="https://www.taooutsider.com/corrections-policy/"
+>
+  <StaticInfoPage
+    eyebrow="Trust"
+    title="Corrections Policy"
+    description={description}
+  >
+    <h2>How to request a correction</h2>
+    <p>Send the article title, the specific sentence or claim, your source and the correction you believe is accurate through <a href="https://x.com/taooutsider" rel="noopener">X</a> or <a href="https://t.me/taooutsiderfree" rel="noopener">Telegram</a>.</p>
+
+    <h2>How we review</h2>
+    <p>We check the source, compare it with the article context and decide whether the article needs a correction, clarification or no change.</p>
+
+    <h2>How updates appear</h2>
+    <p>Minor edits may be made silently for grammar or clarity. Material factual changes may include an updated date in the article metadata.</p>
+  </StaticInfoPage>
+</BaseLayout>

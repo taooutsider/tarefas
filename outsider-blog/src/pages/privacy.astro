@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StaticInfoPage from '../components/StaticInfoPage.astro';
+
+const description = 'Privacy information for readers of Tao Outsider.';
+---
+
+<BaseLayout
+  title="Privacy"
+  description={description}
+  canonicalURL="https://www.taooutsider.com/privacy/"
+>
+  <StaticInfoPage
+    eyebrow="Privacy"
+    title="Privacy"
+    description={description}
+    updated="2026-05-29"
+  >
+    <h2>Information we collect</h2>
+    <p>Tao Outsider is a public website. We may use basic analytics, hosting logs and voluntary form submissions to understand site performance, protect the site and improve the publication.</p>
+
+    <h2>How information is used</h2>
+    <p>Information may be used to measure traffic, fix technical problems, improve content and respond to reader messages. We do not sell reader data.</p>
+
+    <h2>External services</h2>
+    <p>The site may link to external services such as X, Telegram, Binance data sources and Cloudflare. Those services have their own privacy practices.</p>
+
+    <h2>Contact</h2>
+    <p>For privacy questions, contact Tao Outsider through <a href="https://x.com/taooutsider" rel="noopener">X</a> or <a href="https://t.me/taooutsiderfree" rel="noopener">Telegram</a>.</p>
+  </StaticInfoPage>
+</BaseLayout>

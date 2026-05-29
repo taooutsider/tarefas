@@ -3,3 +3,4 @@ Allow: /
 Disallow: /api/
 
 Sitemap: https://www.taooutsider.com/sitemap-index.xml
+Sitemap: https://www.taooutsider.com/news-sitemap.xml

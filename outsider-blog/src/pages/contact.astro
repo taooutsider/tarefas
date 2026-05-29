@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StaticInfoPage from '../components/StaticInfoPage.astro';
+
+const description = 'How to contact Tao Outsider for tips, corrections, research notes, interviews and publication questions.';
+---
+
+<BaseLayout
+  title="Contact"
+  description={description}
+  canonicalURL="https://www.taooutsider.com/contact/"
+>
+  <StaticInfoPage
+    eyebrow="Contact"
+    title="Contact Tao Outsider"
+    description={description}
+  >
+    <h2>Primary channels</h2>
+    <p>For tips, corrections, interview requests and research leads, contact Tao Outsider through <a href="https://x.com/taooutsider" rel="noopener">X</a> or the <a href="https://t.me/taooutsiderfree" rel="noopener">free Telegram channel</a>.</p>
+
+    <h2>What to include</h2>
+    <p>Please include the article title, relevant links, screenshots when useful and a short explanation of what you want us to review.</p>
+
+    <h2>Corrections</h2>
+    <p>If you believe an article contains a factual error, send the claim, the source and the proposed correction. Material corrections are reviewed and reflected in the article when confirmed.</p>
+  </StaticInfoPage>
+</BaseLayout>

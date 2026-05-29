@@ -1,0 +1,75 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description: string;
+  updated?: string;
+}
+
+const { eyebrow, title, description, updated } = Astro.props;
+---
+
+<section class="info-page container">
+  <header class="info-header">
+    {eyebrow && <p class="info-eyebrow">{eyebrow}</p>}
+    <h1>{title}</h1>
+    <p>{description}</p>
+    {updated && <time datetime={updated}>Updated {updated}</time>}
+  </header>
+
+  <div class="info-body prose">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .info-page {
+    padding-top: 72px;
+    padding-bottom: 24px;
+  }
+  .info-header {
+    max-width: 760px;
+    margin-bottom: 48px;
+  }
+  .info-eyebrow {
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .info-header h1 {
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    margin-bottom: 16px;
+  }
+  .info-header > p {
+    color: var(--text2);
+    font-size: 18px;
+    line-height: 1.7;
+  }
+  .info-header time {
+    display: inline-block;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 18px;
+  }
+  .info-body {
+    padding-bottom: 48px;
+  }
+  .info-body :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  @media (max-width: 768px) {
+    .info-page {
+      padding-top: 48px;
+    }
+    .info-header {
+      margin-bottom: 36px;
+    }
+    .info-header > p {
+      font-size: 16px;
+    }
+  }
+</style>

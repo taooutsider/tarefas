@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StaticInfoPage from '../components/StaticInfoPage.astro';
+
+const description = 'Independent Bittensor intelligence covering TAO, subnets, dTAO markets and decentralized AI.';
+---
+
+<BaseLayout
+  title="About Tao Outsider"
+  description={description}
+  canonicalURL="https://www.taooutsider.com/about/"
+>
+  <StaticInfoPage
+    eyebrow="Publication"
+    title="About Tao Outsider"
+    description={description}
+  >
+    <h2>What we cover</h2>
+    <p>Tao Outsider is an independent publication focused on the TAO Bittensor ecosystem. We cover subnet research, dTAO markets, creator interviews, technical explainers and the wider decentralized AI frontier.</p>
+
+    <h2>How we think</h2>
+    <p>Our goal is to make Bittensor easier to understand without making it shallow. We look for useful context, direct explanations and original opinions that help readers track what is actually happening across the ecosystem.</p>
+
+    <h2>Independence</h2>
+    <p>Tao Outsider is not affiliated with the Opentensor Foundation, Bittensor, any subnet team or any exchange. Articles may include opinion and market commentary. Nothing on this site is financial advice.</p>
+  </StaticInfoPage>
+</BaseLayout>
