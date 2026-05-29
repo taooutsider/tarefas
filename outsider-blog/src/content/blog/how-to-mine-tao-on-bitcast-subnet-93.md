@@ -3,7 +3,7 @@ title: "How to Mine TAO on Bitcast Subnet 93"
 description: "A practical guide to mining TAO on Bitcast through Stitch3, building your X reputation, entering the ranking, and getting ready for creator rewards."
 pubDate: 2026-05-29T12:00:00.000Z
 category: guide
-featured: true
+featured: false
 author: "Tao Outsider"
 tags: ["TAO", "Bittensor", "Bitcast", "Stitch3", "Subnet 93"]
 image: "/blog/bitcast-stitch3-ranking-playbook/tao-outsider-bitcast-guide-01.jpg"
