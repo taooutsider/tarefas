@@ -9,6 +9,7 @@ reviewedBy: "Tao Outsider"
 tags: ["TAO", "Bittensor", "dTAO", "Conviction"]
 image: "/blog/bittensor-conviction/subnetradar-conviction-ranking-2026-05-30.png"
 imageAlt: "SubnetRadar Conviction leaderboard captured on May 30 2026"
+ogImage: "/blog/bittensor-conviction/bittensor-conviction-og-2026-05-30.jpg"
 ---
 
 ![SubnetRadar Conviction leaderboard captured on May 30 2026](/blog/bittensor-conviction/subnetradar-conviction-ranking-2026-05-30.png)

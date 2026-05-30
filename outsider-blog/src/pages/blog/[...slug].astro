@@ -16,7 +16,7 @@ interface Props { post: CollectionEntry<'blog'>; }
 const { post } = Astro.props;
 const { Content } = await render(post);
 
-const { title, description, pubDate, updatedDate, category, tags, author, reviewedBy, image, imageAlt } = post.data;
+const { title, description, pubDate, updatedDate, category, tags, author, reviewedBy, image, imageAlt, ogImage } = post.data;
 
 const all = await getCollection('blog');
 const related = all
@@ -51,7 +51,7 @@ const feedbackOptions = [
   title={title}
   description={description}
   canonicalURL={`https://www.taooutsider.com/blog/${post.id}/`}
-  ogImage={image}
+  ogImage={ogImage ?? image}
   ogImageAlt={imageAlt ?? title}
   article={true}
   pubDate={pubDate}
@@ -88,9 +88,17 @@ const feedbackOptions = [
       <p class="post-description" itemprop="description">{description}</p>
 
       <div class="post-meta-bar">
-        <span class="meta-author" itemprop="author" itemscope itemtype="https://schema.org/Organization">
+        <span class="meta-author" itemprop="author" itemscope itemtype={author === 'Tao Outsider' ? 'https://schema.org/Organization' : 'https://schema.org/Person'}>
           <span itemprop="name">{author}</span>
         </span>
+        {reviewedBy && (
+          <>
+            <span aria-hidden="true">·</span>
+            <span class="meta-reviewer" itemprop="reviewedBy" itemscope itemtype="https://schema.org/Organization">
+              Reviewed by <span itemprop="name">{reviewedBy}</span>
+            </span>
+          </>
+        )}
         <span aria-hidden="true">·</span>
         <time datetime={pubDate.toISOString()} itemprop="datePublished">{pubDateStr}</time>
         {updatedDate && (

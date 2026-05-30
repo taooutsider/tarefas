@@ -21,6 +21,8 @@ interface Props {
 const SITE = 'https://www.taooutsider.com';
 const SITE_NAME = 'Tao Outsider';
 const SITE_DESCRIPTION = 'Zoomed out on TAO Bittensor. Tracking every dTAO subnet. Mapping the future of decentralized AI.';
+const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+const CLOUDFLARE_ANALYTICS_TOKEN = import.meta.env.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN;
 
 const {
   title,
@@ -150,6 +152,26 @@ const organizationSchema = {
   <!-- Favicons -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" href="/logo.jpg" />
+
+  {GA_MEASUREMENT_ID && (
+    <>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}></script>
+      <script is:inline define:vars={{ gaMeasurementId: GA_MEASUREMENT_ID }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', gaMeasurementId);
+      </script>
+    </>
+  )}
+
+  {CLOUDFLARE_ANALYTICS_TOKEN && (
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon={`{"token":"${CLOUDFLARE_ANALYTICS_TOKEN}"}`}
+    ></script>
+  )}
 
   <!-- Preconnect for web fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />

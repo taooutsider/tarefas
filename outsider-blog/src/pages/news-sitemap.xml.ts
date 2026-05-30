@@ -30,6 +30,7 @@ export async function GET() {
     return [
       '  <url>',
       `    <loc>${loc}</loc>`,
+      `    <lastmod>${(post.data.updatedDate ?? post.data.pubDate).toISOString()}</lastmod>`,
       '    <news:news>',
       '      <news:publication>',
       `        <news:name>${PUBLICATION_NAME}</news:name>`,
@@ -52,6 +53,7 @@ export async function GET() {
   return new Response(xml, {
     headers: {
       'Content-Type': 'application/xml; charset=utf-8',
+      'Cache-Control': 'public, max-age=300, stale-while-revalidate=3600',
     },
   });
 }
