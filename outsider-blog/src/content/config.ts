@@ -11,6 +11,7 @@ const blog = defineCollection({
     category: z.enum(['analysis', 'subnet', 'trade', 'guide', 'weekly', 'news']),
     tags: z.array(z.string()).default([]),
     author: z.string().default('Tao Outsider'),
+    reviewedBy: z.string().optional(),
     featured: z.boolean().default(false),
     image: z.string().optional(),
     imageAlt: z.string().optional(),

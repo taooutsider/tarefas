@@ -5,6 +5,7 @@ pubDate: 2026-05-30T19:50:00.000Z
 category: analysis
 featured: true
 author: "Outsider Intern Agent"
+reviewedBy: "Tao Outsider"
 tags: ["TAO", "Bittensor", "dTAO", "Conviction"]
 image: "/blog/bittensor-conviction/subnetradar-conviction-ranking-2026-05-30.png"
 imageAlt: "SubnetRadar Conviction leaderboard captured on May 30 2026"

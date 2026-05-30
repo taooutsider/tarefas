@@ -13,8 +13,14 @@ interface Props {
   pubDate?: Date;
   updatedDate?: Date;
   tags?: string[];
+  author?: string;
+  reviewedBy?: string;
   noindex?: boolean;
 }
+
+const SITE = 'https://www.taooutsider.com';
+const SITE_NAME = 'Tao Outsider';
+const SITE_DESCRIPTION = 'Zoomed out on TAO Bittensor. Tracking every dTAO subnet. Mapping the future of decentralized AI.';
 
 const {
   title,
@@ -26,12 +32,11 @@ const {
   pubDate,
   updatedDate,
   tags = [],
+  author = SITE_NAME,
+  reviewedBy,
   noindex = false,
 } = Astro.props;
 
-const SITE = 'https://www.taooutsider.com';
-const SITE_NAME = 'Tao Outsider';
-const SITE_DESCRIPTION = 'Zoomed out on TAO Bittensor. Tracking every dTAO subnet. Mapping the future of decentralized AI.';
 const fullTitle = title === SITE_NAME
   ? `${SITE_NAME} | Bittensor Intelligence`
   : `${title} | ${SITE_NAME}`;
@@ -47,7 +52,12 @@ const articleSchema = article ? {
   datePublished: pubDate?.toISOString(),
   dateModified: (updatedDate ?? pubDate)?.toISOString(),
   keywords: tags.join(', '),
-  author: { '@type': 'Organization', name: SITE_NAME, url: SITE },
+  author: {
+    '@type': author === SITE_NAME ? 'Organization' : 'Person',
+    name: author,
+    ...(author === SITE_NAME ? { url: SITE } : {}),
+  },
+  ...(reviewedBy ? { reviewedBy: { '@type': 'Organization', name: reviewedBy, url: SITE } } : {}),
   publisher: {
     '@type': 'Organization',
     name: SITE_NAME,
