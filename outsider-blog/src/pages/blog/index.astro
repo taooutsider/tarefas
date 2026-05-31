@@ -21,8 +21,6 @@ const sorted = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate
     <nav class="cat-filter" aria-label="Filter by category">
       <a href="/blog/" class="cat-pill active">All</a>
       <a href="/blog/tag/analysis/" class="cat-pill">Analysis</a>
-      <a href="/blog/tag/weekly/" class="cat-pill">Weekly</a>
-      <a href="/blog/tag/news/" class="cat-pill">News</a>
     </nav>
 
     {sorted.length > 0 ? (

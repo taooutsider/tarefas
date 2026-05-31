@@ -8,7 +8,7 @@ const blog = defineCollection({
     description: z.string(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
-    category: z.enum(['analysis', 'subnet', 'trade', 'guide', 'weekly', 'news']),
+    category: z.enum(['analysis', 'subnet', 'trade', 'guide']),
     tags: z.array(z.string()).default([]),
     author: z.string().default('Tao Outsider'),
     reviewedBy: z.string().optional(),

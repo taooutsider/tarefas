@@ -17,7 +17,6 @@ const featuredDate = featured?.data.pubDate.toLocaleDateString('en-US', {
 const categoryLabel: Record<string, string> = {
   analysis: 'Analysis', subnet: 'Subnet Deep Dive',
   trade: 'Trade Setup', guide: 'Guide',
-  weekly: 'Weekly Brief', news: 'News',
 };
 ---
 
@@ -108,8 +107,6 @@ const categoryLabel: Record<string, string> = {
       <nav class="cat-filter" aria-label="Filter by category">
         <a href="/blog/" class="cat-pill active">All</a>
         <a href="/blog/tag/analysis/" class="cat-pill">Analysis</a>
-        <a href="/blog/tag/weekly/" class="cat-pill">Weekly</a>
-        <a href="/blog/tag/news/" class="cat-pill">News</a>
       </nav>
 
       <div class="posts-grid" role="list">

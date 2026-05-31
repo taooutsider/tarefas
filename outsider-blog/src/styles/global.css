@@ -65,8 +65,6 @@ p { color: var(--text); }
 .tag-subnet    { border-color: #ffffff44; color: #ccc; }
 .tag-trade     { border-color: #888; color: #bbb; }
 .tag-guide     { border-color: #555; color: #999; }
-.tag-weekly    { border-color: #333; color: #888; }
-.tag-news      { border-color: #444; color: #aaa; }
 
 /* ── Post body prose ── */
 .prose {
