@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Proof of Talk 2026 Bittensor Track guide</title>
+  <desc id="desc">Black Tao Outsider editorial cover for the Proof of Talk 2026 Bittensor Track</desc>
+  <rect width="1200" height="630" fill="#020202"/>
+  <rect x="72" y="72" width="1056" height="486" rx="28" fill="#080808" stroke="#232323" stroke-width="2"/>
+  <path d="M72 236h1056" stroke="#1e1e1e" stroke-width="2"/>
+  <path d="M190 72v486M360 72v486M530 72v486M700 72v486M870 72v486M1040 72v486" stroke="#111" stroke-width="2"/>
+  <text x="110" y="145" fill="#f5f5f5" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="800" letter-spacing="0">outsider</text>
+  <text x="110" y="285" fill="#f5f5f5" font-family="Inter, Arial, sans-serif" font-size="82" font-weight="900" letter-spacing="0">Proof of Talk</text>
+  <text x="110" y="380" fill="#f5f5f5" font-family="Inter, Arial, sans-serif" font-size="82" font-weight="900" letter-spacing="0">Bittensor Track</text>
+  <text x="110" y="454" fill="#a9a9a9" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="600" letter-spacing="0">Paris, June 2 and 3, 2026</text>
+  <text x="110" y="504" fill="#777" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="500" letter-spacing="0">A guide for watching from outside the room</text>
+  <circle cx="1014" cy="166" r="46" fill="#f5f5f5"/>
+  <circle cx="1014" cy="166" r="20" fill="#020202"/>
+  <rect x="944" y="338" width="140" height="18" rx="9" fill="#f5f5f5"/>
+  <rect x="944" y="382" width="96" height="18" rx="9" fill="#6f6f6f"/>
+  <rect x="944" y="426" width="124" height="18" rx="9" fill="#3b3b3b"/>
+</svg>
