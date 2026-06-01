@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "check:og": "node scripts/check-og-images.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },

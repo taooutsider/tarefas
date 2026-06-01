@@ -8,6 +8,7 @@ author: "Tao Outsider"
 tags: ["TAO", "Bittensor", "Babelbit", "Subnet 59", "translation"]
 image: "/blog/babelbit-subnet-59/babelbit-phrase-completion-latency.jpg"
 imageAlt: "Babelbit phrase completion latency benchmark"
+ogImage: "/blog/babelbit-subnet-59/babelbit-subnet-59-og.jpg"
 ---
 
 ![Babelbit phrase completion latency benchmark](/blog/babelbit-subnet-59/babelbit-phrase-completion-latency.jpg)

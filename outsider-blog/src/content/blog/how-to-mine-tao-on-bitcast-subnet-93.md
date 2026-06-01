@@ -8,6 +8,7 @@ author: "Tao Outsider"
 tags: ["TAO", "Bittensor", "Bitcast", "Stitch3", "Subnet 93"]
 image: "/blog/bitcast-stitch3-ranking-playbook/tao-outsider-bitcast-guide-01.jpg"
 imageAlt: "Tao Outsider Bitcast guide cover"
+ogImage: "/blog/bitcast-stitch3-ranking-playbook/bitcast-subnet-93-og.jpg"
 ---
 
 ![Tao Outsider Bitcast guide cover](/blog/bitcast-stitch3-ranking-playbook/tao-outsider-bitcast-guide-01.jpg)
