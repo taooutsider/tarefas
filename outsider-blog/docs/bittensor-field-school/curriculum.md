@@ -35,7 +35,8 @@ Reason: the first month builds topical authority quickly around the core cluster
    Date: 2026-06-03
    Cluster: protocol primitive
    Primary keyword: why Bittensor matters
-   Review URL: /field-school/review/bittensor-field-school-useful-work/
+   Public URL: /blog/bittensor-field-school-useful-work/
+   Status: published
    Summary: Start with the primitive many explainers skip: Bittensor only works when a subnet can measure work that someone actually wants.
 
 2. Why the Bitcoin comparison helps and then breaks

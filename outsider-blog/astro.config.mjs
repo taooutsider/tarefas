@@ -14,7 +14,7 @@ export default defineConfig({
       priority: 0.7,
       filter: (page) => {
         const pathname = new URL(page).pathname;
-        return !pathname.startsWith('/blog/tag/') && !pathname.startsWith('/field-school/');
+        return !pathname.startsWith('/blog/tag/') && !pathname.startsWith('/field-school/review/');
       },
     }),
   ],
