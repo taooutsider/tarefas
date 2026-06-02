@@ -7,12 +7,12 @@ featured: false
 draft: false
 author: "Tao Outsider"
 tags: ["TAO", "Bittensor", "Metanova Labs", "NOVA", "Subnet 68", "drug discovery", "Proof of Talk"]
-image: "/blog/metanova-nova/nova-micaela-proof-of-talk-x-card.jpg"
+image: "/blog/metanova-nova/nova-micaela-proof-of-talk-x-card-v2.jpg"
 imageAlt: "Micaela Bazo presenting NOVA at Proof of Talk with Tao Outsider analysis card"
-ogImage: "/blog/metanova-nova/metanova-nova-proof-of-talk-og.jpg"
+ogImage: "/blog/metanova-nova/metanova-nova-proof-of-talk-og-v2.jpg"
 ---
 
-![Micaela Bazo presenting NOVA at Proof of Talk with Tao Outsider analysis card](/blog/metanova-nova/nova-micaela-proof-of-talk-x-card.jpg)
+![Micaela Bazo presenting NOVA at Proof of Talk with Tao Outsider analysis card](/blog/metanova-nova/nova-micaela-proof-of-talk-x-card-v2.jpg)
 
 NOVA had one of the strongest Proof of Talk pitches because it did something many Bittensor projects still struggle to do.
 
