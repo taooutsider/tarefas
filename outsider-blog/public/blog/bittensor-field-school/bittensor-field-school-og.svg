@@ -1,0 +1,32 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#050505"/>
+  <rect x="42" y="42" width="1116" height="546" rx="34" fill="#0B0B0B" stroke="#242424"/>
+  <g opacity="0.6">
+    <path d="M104 146H1096" stroke="#181818"/>
+    <path d="M104 220H1096" stroke="#181818"/>
+    <path d="M104 294H1096" stroke="#181818"/>
+    <path d="M104 368H1096" stroke="#181818"/>
+    <path d="M104 442H1096" stroke="#181818"/>
+    <path d="M220 92V540" stroke="#151515"/>
+    <path d="M390 92V540" stroke="#151515"/>
+    <path d="M560 92V540" stroke="#151515"/>
+    <path d="M730 92V540" stroke="#151515"/>
+    <path d="M900 92V540" stroke="#151515"/>
+  </g>
+  <text x="104" y="124" fill="#F5F5F5" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="800">outsider</text>
+  <text x="104" y="228" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="78" font-weight="900">Bittensor</text>
+  <text x="104" y="310" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="78" font-weight="900">Field School</text>
+  <text x="106" y="370" fill="#B8B8B8" font-family="Inter, Arial, sans-serif" font-size="29" font-weight="500">A Tao Outsider curriculum for reading TAO</text>
+  <text x="106" y="412" fill="#B8B8B8" font-family="Inter, Arial, sans-serif" font-size="29" font-weight="500">from first principles and live data</text>
+  <rect x="104" y="472" width="180" height="54" rx="12" fill="#FFFFFF"/>
+  <text x="132" y="507" fill="#000000" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="900" letter-spacing="1.5">50 MODULES</text>
+  <rect x="314" y="472" width="204" height="54" rx="12" fill="#111111" stroke="#3A3A3A"/>
+  <text x="344" y="507" fill="#F1F1F1" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800">LIVE DATA</text>
+  <g transform="translate(820 164)">
+    <rect x="0" y="0" width="254" height="254" rx="28" fill="#101010" stroke="#303030"/>
+    <circle cx="127" cy="127" r="78" fill="none" stroke="#FFFFFF" stroke-width="14"/>
+    <path d="M127 49V205" stroke="#7DD3FC" stroke-width="14" stroke-linecap="round"/>
+    <path d="M49 127H205" stroke="#7DD3FC" stroke-width="14" stroke-linecap="round"/>
+    <circle cx="127" cy="127" r="28" fill="#FFFFFF"/>
+  </g>
+</svg>

@@ -1,0 +1,42 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#050505"/>
+  <rect x="42" y="42" width="1116" height="546" rx="32" fill="#0B0B0B" stroke="#242424"/>
+  <g opacity="0.55">
+    <path d="M90 118H1110" stroke="#191919"/>
+    <path d="M90 164H1110" stroke="#191919"/>
+    <path d="M90 210H1110" stroke="#191919"/>
+    <path d="M90 256H1110" stroke="#191919"/>
+    <path d="M90 302H1110" stroke="#191919"/>
+    <path d="M90 348H1110" stroke="#191919"/>
+    <path d="M90 394H1110" stroke="#191919"/>
+    <path d="M90 440H1110" stroke="#191919"/>
+    <path d="M90 486H1110" stroke="#191919"/>
+    <path d="M90 532H1110" stroke="#191919"/>
+    <path d="M160 90V540" stroke="#151515"/>
+    <path d="M272 90V540" stroke="#151515"/>
+    <path d="M384 90V540" stroke="#151515"/>
+    <path d="M496 90V540" stroke="#151515"/>
+    <path d="M608 90V540" stroke="#151515"/>
+    <path d="M720 90V540" stroke="#151515"/>
+    <path d="M832 90V540" stroke="#151515"/>
+    <path d="M944 90V540" stroke="#151515"/>
+  </g>
+  <text x="104" y="122" fill="#F5F5F5" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="800">outsider</text>
+  <text x="970" y="122" fill="#FDE68A" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="900">Module 44</text>
+  <text x="104" y="178" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="66" font-weight="900">Validator selection is</text>
+  <text x="104" y="256" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="66" font-weight="900">delegated judgment</text>
+  <rect x="104" y="456" width="210" height="54" rx="12" fill="#FFFFFF"/>
+  <text x="132" y="491" fill="#000000" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="900" letter-spacing="1.5">FIELD SCHOOL</text>
+  <rect x="340" y="456" width="220" height="54" rx="12" fill="#111111" stroke="#3A3A3A"/>
+  <text x="368" y="491" fill="#F1F1F1" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="800">STAKING</text>
+  <g transform="translate(780 200)">
+    <circle cx="94" cy="94" r="92" fill="#101010" stroke="#303030"/>
+    <path d="M94 28V188" stroke="#FDE68A" stroke-width="14" stroke-linecap="round"/>
+    <path d="M28 94H188" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round"/>
+    <circle cx="94" cy="94" r="26" fill="#FDE68A"/>
+    <circle cx="94" cy="28" r="14" fill="#FFFFFF"/>
+    <circle cx="188" cy="94" r="14" fill="#FFFFFF"/>
+    <circle cx="94" cy="188" r="14" fill="#FFFFFF"/>
+    <circle cx="28" cy="94" r="14" fill="#FFFFFF"/>
+  </g>
+</svg>

@@ -112,6 +112,136 @@ p { color: var(--text); }
 .prose td { padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--text2); }
 .prose tr:last-child td { border-bottom: none; }
 
+.prose .field-note,
+.prose .lab-card,
+.prose .reading-stack,
+.prose .knowledge-check,
+.prose .source-map {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--s1);
+  padding: 18px;
+  margin: 1.8em 0;
+}
+
+.prose .field-note h2,
+.prose .field-note h3,
+.prose .lab-card h2,
+.prose .lab-card h3,
+.prose .reading-stack h2,
+.prose .reading-stack h3,
+.prose .knowledge-check h2,
+.prose .knowledge-check h3,
+.prose .source-map h2,
+.prose .source-map h3 {
+  margin-top: 0;
+}
+
+.prose .field-note p:last-child,
+.prose .lab-card p:last-child,
+.prose .reading-stack p:last-child,
+.prose .source-map p:last-child {
+  margin-bottom: 0;
+}
+
+.prose .concept-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 1.6em 0;
+}
+
+.prose .concept-grid > * {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--s1);
+  padding: 16px;
+}
+
+.prose .concept-grid h3 {
+  margin-top: 0;
+}
+
+.prose .knowledge-check fieldset {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  margin: 0 0 12px;
+}
+
+.prose .knowledge-check fieldset.is-correct {
+  border-color: #ffffff99;
+  background: #ffffff08;
+}
+
+.prose .knowledge-check fieldset.is-missed {
+  border-color: #8a6f6f;
+  background: #2a161608;
+}
+
+.prose .knowledge-check legend {
+  color: var(--white);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.prose .knowledge-check label {
+  display: block;
+  color: var(--text2);
+  margin: 8px 0;
+  cursor: pointer;
+}
+
+.prose .knowledge-check input {
+  margin-right: 8px;
+}
+
+.prose .knowledge-check button {
+  appearance: none;
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  min-height: 42px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.prose .knowledge-check button:hover {
+  border-color: var(--white);
+  background: var(--s2);
+}
+
+.prose [data-quiz-result] {
+  color: var(--text2);
+  margin: 12px 0 0;
+}
+
+.prose [data-quiz-result][data-state="ok"] {
+  color: var(--white);
+}
+
+.prose [data-quiz-result][data-state="warn"] {
+  color: #d0b8a6;
+}
+
+.prose .course-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 2em 0;
+}
+
+.prose .course-nav a {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  background: var(--s1);
+}
+
 /* ── Divider ── */
 .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
 
@@ -121,4 +251,8 @@ p { color: var(--text); }
 
 @media (max-width: 768px) {
   .container { padding: 0 16px; }
+  .prose .concept-grid,
+  .prose .course-nav {
+    grid-template-columns: 1fr;
+  }
 }

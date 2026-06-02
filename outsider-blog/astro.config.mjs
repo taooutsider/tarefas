@@ -12,7 +12,10 @@ export default defineConfig({
     sitemap({
       changefreq: 'weekly',
       priority: 0.7,
-      filter: (page) => !new URL(page).pathname.startsWith('/blog/tag/'),
+      filter: (page) => {
+        const pathname = new URL(page).pathname;
+        return !pathname.startsWith('/blog/tag/') && !pathname.startsWith('/field-school/');
+      },
     }),
   ],
   markdown: {

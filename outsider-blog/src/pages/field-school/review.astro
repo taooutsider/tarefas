@@ -1,0 +1,97 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const drafts = (await getCollection('blog'))
+  .filter(post => post.data.draft && post.id.startsWith('bittensor-field-school-'))
+  .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+---
+
+<BaseLayout
+  title="Field School Review Queue"
+  description="Internal review queue for the Tao Outsider Bittensor Field School."
+  canonicalURL="https://www.taooutsider.com/field-school/review/"
+  noindex={true}
+>
+  <section class="review-page container">
+    <p class="eyebrow">Internal review</p>
+    <h1>Bittensor Field School review queue</h1>
+    <p class="intro">
+      Drafts stay out of the public blog until `draft` is changed to `false`.
+      Review one module at a time, approve, revise or hold.
+    </p>
+
+    <ol class="review-list" role="list">
+      {drafts.map((post, index) => (
+        <li>
+          <a href={`/field-school/review/${post.id}/`}>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <strong>{post.data.title}</strong>
+            <small>{post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</small>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </section>
+</BaseLayout>
+
+<style>
+  .review-page {
+    max-width: 860px;
+    padding: 64px 24px 90px;
+  }
+  .eyebrow {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  h1 {
+    margin-bottom: 14px;
+  }
+  .intro {
+    color: var(--text2);
+    max-width: 680px;
+    margin-bottom: 30px;
+  }
+  .review-list {
+    list-style: none;
+    display: grid;
+    gap: 10px;
+  }
+  .review-list a {
+    display: grid;
+    grid-template-columns: 44px 1fr auto;
+    gap: 14px;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--s1);
+    padding: 14px;
+  }
+  .review-list span {
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+  .review-list strong {
+    color: var(--text);
+    font-size: 0.98rem;
+  }
+  .review-list small {
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+  @media (max-width: 640px) {
+    .review-page {
+      padding: 42px 16px 70px;
+    }
+    .review-list a {
+      grid-template-columns: 36px 1fr;
+    }
+    .review-list small {
+      grid-column: 2;
+    }
+  }
+</style>

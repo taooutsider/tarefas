@@ -1,0 +1,139 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const fieldSchoolPosts = (await getCollection('blog'))
+  .filter(post => post.id.startsWith('bittensor-field-school-'))
+  .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+const publishedPosts = fieldSchoolPosts.filter(post => !post.data.draft);
+const publishedIds = new Set(publishedPosts.map(post => post.id));
+const hasPublishedModules = publishedIds.size > 0;
+---
+
+<BaseLayout
+  title="Bittensor Field School"
+  description="A Tao Outsider learning path for understanding Bittensor from first principles, live data, subnets, dTAO, Yuma Consensus and research workflows."
+  canonicalURL="https://www.taooutsider.com/field-school/"
+  ogImage="/blog/bittensor-field-school/bittensor-field-school-og.jpg"
+  ogImageAlt="Bittensor Field School by Tao Outsider"
+  noindex={!hasPublishedModules}
+>
+  <section class="field-hero container">
+    <p class="eyebrow">Tao Outsider curriculum</p>
+    <h1>Bittensor Field School</h1>
+    <p>
+      A learning path for people who want to understand Bittensor without becoming passive tourists.
+      Read the protocol. Open the dashboards. Inspect the subnets. Build your own view.
+    </p>
+  </section>
+
+  <section class="field-grid container" aria-label="Bittensor Field School modules">
+    {fieldSchoolPosts.map((post, index) => (
+      <article class="module-card">
+        <span>Module {String(index + 1).padStart(2, '0')}</span>
+        <h2>
+          {publishedIds.has(post.id) ? (
+            <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+          ) : (
+            <span>{post.data.title}</span>
+          )}
+        </h2>
+        <p>{post.data.description}</p>
+        {!publishedIds.has(post.id) && <small>In review</small>}
+      </article>
+    ))}
+  </section>
+
+  <section class="field-method container" aria-labelledby="method-heading">
+    <h2 id="method-heading">How to use this</h2>
+    <p>
+      Each module ends with a knowledge check. Do not race through it. The goal is to become dangerous in the useful sense:
+      able to read a subnet, question incentives, and spot when a beautiful narrative has no measurable work underneath.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .field-hero {
+    padding: 76px 24px 40px;
+    max-width: 860px;
+    text-align: center;
+  }
+  .eyebrow {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .field-hero h1 {
+    font-size: clamp(2.4rem, 7vw, 5rem);
+    margin-bottom: 18px;
+  }
+  .field-hero p {
+    color: var(--text2);
+    font-size: 1.12rem;
+    line-height: 1.7;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .field-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    padding: 0 24px 64px;
+  }
+  .module-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--s1);
+    padding: 22px;
+  }
+  .module-card span {
+    display: block;
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .module-card h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  .module-card p {
+    color: var(--text2);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+  .module-card small {
+    display: inline-block;
+    color: var(--muted);
+    font-size: 0.78rem;
+    margin-top: 12px;
+  }
+  .field-method {
+    max-width: 780px;
+    padding: 0 24px 90px;
+  }
+  .field-method h2 {
+    margin-bottom: 12px;
+  }
+  .field-method p {
+    color: var(--text2);
+    line-height: 1.75;
+  }
+  @media (max-width: 760px) {
+    .field-hero {
+      text-align: left;
+      padding: 48px 16px 28px;
+    }
+    .field-grid {
+      grid-template-columns: 1fr;
+      padding: 0 16px 48px;
+    }
+    .field-method {
+      padding: 0 16px 72px;
+    }
+  }
+</style>

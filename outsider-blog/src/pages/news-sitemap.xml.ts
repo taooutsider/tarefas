@@ -18,7 +18,7 @@ export async function GET() {
   const posts = (await getCollection('blog'))
     .filter((post) => {
       const publishedAt = post.data.pubDate.valueOf();
-      return publishedAt <= now && now - publishedAt <= NEWS_WINDOW_MS;
+      return !post.data.draft && publishedAt <= now && now - publishedAt <= NEWS_WINDOW_MS;
     })
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 

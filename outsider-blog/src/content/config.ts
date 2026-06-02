@@ -13,6 +13,7 @@ const blog = defineCollection({
     author: z.string().default('Tao Outsider'),
     reviewedBy: z.string().optional(),
     featured: z.boolean().default(false),
+    draft: z.boolean().default(false),
     image: z.string().optional(),
     imageAlt: z.string().optional(),
     ogImage: z.string().optional(),
