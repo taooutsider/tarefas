@@ -1,0 +1,14 @@
+{
+  "projectId": "tiger-miner",
+  "name": "Tiger Miner",
+  "status": "online",
+  "last_seen": "2026-06-05T04:15:17.504Z",
+  "observed_at": "2026-06-11T03:30:58.493Z",
+  "current_task": "Codex Mesh agent protocol bootstrapped",
+  "workspace": "/Users/victorlamenha/Documents/New project",
+  "thread": "019c5e15-3e59-71a0-9c93-1831dfa58091",
+  "source": "message",
+  "open_dispatches": 0,
+  "inbox_count": 6,
+  "outbox_count": 3
+}

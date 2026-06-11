@@ -1,0 +1,16 @@
+{
+  "from": "agent-system",
+  "to": "agente-vlmkt",
+  "type": "request_context",
+  "priority": "normal",
+  "subject": "Bridge runner validation",
+  "body": "Responda em uma linha confirmando que recebeu uma mensagem enviada pelo fluxo bridge-next/bridge-mark-sent do Codex Mesh.",
+  "expectedOutput": "Uma linha de ACK para registrar no backend.",
+  "requiresReply": true,
+  "id": "msg_b6a6f4628e6b4615",
+  "status": "replied",
+  "createdAt": "2026-06-04T22:50:41.654Z",
+  "dispatchedAt": "2026-06-04T22:50:47.849Z",
+  "dispatchThreadId": "019e9326-6aa8-7d73-9ce5-19248c724ccf",
+  "replyTo": "msg_3470171604b74497"
+}

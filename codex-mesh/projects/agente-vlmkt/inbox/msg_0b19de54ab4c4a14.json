@@ -1,0 +1,15 @@
+{
+  "body": "Request created by Agent Office.\n\nCan you share your latest room readiness summary?\n\nOperational source: web-operator",
+  "expectedOutput": "Reply with public context, relevant files, risks, and the recommended next step to register in the Mesh.",
+  "from": "agent-system",
+  "priority": "normal",
+  "requiresReply": true,
+  "subject": "Test real handoff",
+  "to": "agente-vlmkt",
+  "type": "request_context",
+  "id": "msg_0b19de54ab4c4a14",
+  "status": "dispatched",
+  "createdAt": "2026-06-10T03:04:44.388Z",
+  "dispatchedAt": "2026-06-10T03:04:44.391Z",
+  "dispatchThreadId": "019e9326-6aa8-7d73-9ce5-19248c724ccf"
+}

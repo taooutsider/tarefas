@@ -1,0 +1,136 @@
+version: '3.9'
+
+services:
+  # PostgreSQL database
+  database:
+    image: postgres:16-alpine
+    container_name: agency-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: agency
+      POSTGRES_USER: agency_user
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-agency_dev_password}
+      POSTGRES_INITDB_ARGS: "-c max_connections=100"
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agency_user -d agency"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - agency-net
+
+  # API Orchestrator (OpenAI Agents, Spec Routing, Job Processing)
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agency-api
+    restart: unless-stopped
+    command: node dist/api/orchestrator-server.js
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: 3000
+      DATABASE_URL: postgresql://agency_user:${DATABASE_PASSWORD:-agency_dev_password}@database:5432/agency
+      CODEX_MESH_ROOT: /data/codex-mesh
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-5.5}
+      OPENAI_ORCHESTRATOR_MODEL: ${OPENAI_ORCHESTRATOR_MODEL:-gpt-5.5}
+      OPENAI_BUILDER_MODEL: ${OPENAI_BUILDER_MODEL:-gpt-5.3-codex}
+      OPENAI_RESEARCHER_MODEL: ${OPENAI_RESEARCHER_MODEL:-gpt-5.5}
+      OPENAI_OPERATOR_MODEL: ${OPENAI_OPERATOR_MODEL:-gpt-5.4-mini}
+      OPENAI_SAFETY_MODEL: ${OPENAI_SAFETY_MODEL:-gpt-5.5}
+      OPENAI_ACCOUNT_MANAGER_MODEL: ${OPENAI_ACCOUNT_MANAGER_MODEL:-gpt-5.4-mini}
+      OPENAI_FINANCE_MODEL: ${OPENAI_FINANCE_MODEL:-gpt-5.5}
+      OPENAI_CAMPAIGN_STRATEGIST_MODEL: ${OPENAI_CAMPAIGN_STRATEGIST_MODEL:-gpt-5.5}
+      OPENAI_CREATIVE_PRODUCER_MODEL: ${OPENAI_CREATIVE_PRODUCER_MODEL:-gpt-5.4-mini}
+      OPENAI_CONTENT_STRATEGIST_MODEL: ${OPENAI_CONTENT_STRATEGIST_MODEL:-gpt-5.4-mini}
+      OPENAI_EDITORIAL_REVIEWER_MODEL: ${OPENAI_EDITORIAL_REVIEWER_MODEL:-gpt-5.5}
+      OPENAI_LAYOUT_DESIGNER_MODEL: ${OPENAI_LAYOUT_DESIGNER_MODEL:-gpt-5.3-codex}
+      OPENAI_DATA_ANALYST_MODEL: ${OPENAI_DATA_ANALYST_MODEL:-gpt-5.5}
+      OPENAI_AUTOMATION_ENGINEER_MODEL: ${OPENAI_AUTOMATION_ENGINEER_MODEL:-gpt-5.3-codex}
+      OPENAI_REPORTING_MODEL: ${OPENAI_REPORTING_MODEL:-gpt-5.5}
+      OPENAI_LANDING_PAGE_MODEL: ${OPENAI_LANDING_PAGE_MODEL:-gpt-5.3-codex}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/data
+    networks:
+      - agency-net
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Web Server (React UI + Static Assets)
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agency-web
+    restart: unless-stopped
+    command: node dist/web/server.js
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: 4173
+      API_URL: http://api:3000
+      WEB_ACCESS_TOKEN: ${WEB_ACCESS_TOKEN:-dev-token-change-in-production}
+      CODEX_MESH_ROOT: /data/codex-mesh
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    ports:
+      - "4173:4173"
+    volumes:
+      - ./data:/data
+    networks:
+      - agency-net
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:4173/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Telegram Bot Server
+  telegram:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agency-telegram
+    restart: unless-stopped
+    command: node dist/bot/telegram-bot-server.js
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      API_URL: http://api:3000
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      TELEGRAM_ALLOWED_USER_IDS: ${TELEGRAM_ALLOWED_USER_IDS:-}
+      CODEX_MESH_ROOT: /data/codex-mesh
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    volumes:
+      - ./data:/data
+    networks:
+      - agency-net
+    # No port exposed for Telegram (uses polling/webhooks)
+
+volumes:
+  pgdata:
+    driver: local
+
+networks:
+  agency-net:
+    driver: bridge

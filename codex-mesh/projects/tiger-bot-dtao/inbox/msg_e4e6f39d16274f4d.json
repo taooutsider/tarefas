@@ -1,0 +1,13 @@
+{
+  "from": "agent-system",
+  "to": "tiger-bot-dtao",
+  "type": "request_context",
+  "priority": "high",
+  "subject": "Gateway unification + return-to-research bridge",
+  "body": "Completed: Tiger Research - Out Bot - Tiger Bot Outsider gateway unification update.\n\nContext:\n- Out Bot contract hardening is now active. research_handoff_contract schema enforces strictness.\n- Tiger Bot Outsider runtime now defaults to Out-Bot as execution authority: require_outbot_contract=true and allow_direct_execution=false.\n- New return-to-research bridge writes only research-input artifacts:\n  - tiger-research-lab/handoffs/return_to_research/latest_outsider_intent.md\n  - .../.json\n  These are explicitly research-input-only and cannot execute wallet actions.\n- Only path for wallet execution is now: Tiger Research -> Out Bot -> Out Bot = execution gate.\n\nAsk:\n- Please acknowledge this update and align your process to enforce the chain:\n  research_to_wallet.md -> Out Bot contract -> Out Bot execution.\n- Treat return_to_research/latest_outsider_intent.* as input for research/validation only.\n- Confirm blockers if your thread is paused/backend-only.\n\nOperational source paths:\n- tiger-research-lab/handoffs/research_to_wallet.md\n- tiger-research-lab/handoffs/return_to_research/latest_outsider_intent.md\n- out-bot/scripts/research_handoff_contract.py\n- tiger-bot-outsider/scripts/return_to_research.py",
+  "expectedOutput": "Concise answer with relevant files, decisions, and risks.",
+  "requiresReply": true,
+  "id": "msg_e4e6f39d16274f4d",
+  "status": "sent",
+  "createdAt": "2026-06-11T05:28:11.595Z"
+}

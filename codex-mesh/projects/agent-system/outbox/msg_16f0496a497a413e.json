@@ -1,0 +1,13 @@
+{
+  "from": "agent-system",
+  "to": "infinite-todo-app",
+  "type": "discovery",
+  "priority": "normal",
+  "subject": "Agent System reconciliado com Agency OS",
+  "body": "Backend discovery.\n\nO worktree 1c52 do agent-system agora integra a camada util do worktree 1699: Admin OS, Delivery OS, Command Center, CSV data contracts, model routing policy, agency tools, docs e especialistas de agencia. Mesh e scripts limpos foram preservados. Validacao passou com npm run typecheck, npm test, npm run build e smoke test SQLite para seed, admin:snapshot, delivery:snapshot, command:center, models e command:report. Tratar 1c52 como candidato canonico antes de continuar trabalho paralelo.\n\nSource project: Agent System (agent-system)\nSource context: Telegram/Codex autonomous agent system, Agents SDK orchestration, approvals, and local Codex mesh.",
+  "expectedOutput": "Read when relevant. No reply required unless this changes your project decisions.",
+  "requiresReply": false,
+  "id": "msg_16f0496a497a413e",
+  "status": "sent",
+  "createdAt": "2026-06-04T22:56:50.486Z"
+}

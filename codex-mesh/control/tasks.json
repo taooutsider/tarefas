@@ -1,0 +1,374 @@
+[
+  {
+    "id": "task_rooms_control_plane",
+    "roomId": "build-room",
+    "title": "Install Agent Rooms OS control plane",
+    "objective": "Create persistent rooms, agents, mission queue, claims, and tomorrow plan in the Mesh backend.",
+    "status": "done",
+    "priority": "urgent",
+    "autonomyLevel": "execute",
+    "assignedAgentId": "backend-mesh-engineer",
+    "claimId": null,
+    "target": "agent-system + codex-mesh/control",
+    "dependencies": [],
+    "acceptanceCriteria": [
+      "rooms payload exists",
+      "control files persist",
+      "SSE carries room state",
+      "tests/build pass"
+    ],
+    "createdAt": "2026-06-09T12:00:00.000Z",
+    "updatedAt": "2026-06-09T04:18:56.000Z",
+    "dueDate": "2026-06-09",
+    "riskLevel": "low",
+    "executionMode": "auto",
+    "requiresHumanReview": false,
+    "riskSignals": [],
+    "requestedBy": null,
+    "sourceRoomId": null,
+    "linkedTaskId": null
+  },
+  {
+    "id": "task_office_room_ui",
+    "roomId": "build-room",
+    "title": "Show virtual rooms inside Agent Office",
+    "objective": "Add room tabs, mission queue, autonomy mode, locks, specialist roster, and tomorrow plan to the live Office.",
+    "status": "done",
+    "priority": "urgent",
+    "autonomyLevel": "execute",
+    "assignedAgentId": "frontend-architect",
+    "claimId": null,
+    "target": "web/src/App.tsx + web/src/styles.css",
+    "dependencies": [
+      "task_rooms_control_plane"
+    ],
+    "acceptanceCriteria": [
+      "desktop usable",
+      "mobile usable",
+      "room filter visible",
+      "no layout overlap"
+    ],
+    "createdAt": "2026-06-09T12:00:00.000Z",
+    "updatedAt": "2026-06-09T04:18:56.000Z",
+    "dueDate": "2026-06-09",
+    "riskLevel": "low",
+    "executionMode": "auto",
+    "requiresHumanReview": false,
+    "riskSignals": [],
+    "requestedBy": null,
+    "sourceRoomId": null,
+    "linkedTaskId": null
+  },
+  {
+    "id": "task_ack_audit",
+    "roomId": "build-room",
+    "title": "Audit live thread ACKs before scaling",
+    "objective": "Verify which mesh projects are true live agents, backend-only agents, or paused/broken threads before adding parallel work.",
+    "status": "queued",
+    "priority": "high",
+    "autonomyLevel": "suggest",
+    "assignedAgentId": "codex-bridge-operator",
+    "claimId": null,
+    "target": "codex-mesh/registry.json + dispatch state",
+    "dependencies": [],
+    "acceptanceCriteria": [
+      "live agents listed",
+      "backend-only agents listed",
+      "paused agents listed",
+      "repair actions written"
+    ],
+    "createdAt": "2026-06-09T12:00:00.000Z",
+    "updatedAt": "2026-06-09T12:00:00.000Z",
+    "dueDate": "2026-06-10",
+    "riskLevel": "low",
+    "executionMode": "auto",
+    "requiresHumanReview": false,
+    "riskSignals": [],
+    "requestedBy": null,
+    "sourceRoomId": null,
+    "linkedTaskId": null
+  },
+  {
+    "id": "task_autonomy_gates",
+    "roomId": "build-room",
+    "title": "Define autonomy gates per room",
+    "objective": "Turn observe/suggest/execute into explicit policies for tools, files, deploys, wallet-sensitive actions, and public publishing.",
+    "status": "queued",
+    "priority": "high",
+    "autonomyLevel": "suggest",
+    "assignedAgentId": "security-guardrail",
+    "claimId": null,
+    "target": "codex-mesh/control + docs",
+    "dependencies": [
+      "task_ack_audit"
+    ],
+    "acceptanceCriteria": [
+      "allowed actions",
+      "blocked actions",
+      "approval triggers",
+      "room owners"
+    ],
+    "createdAt": "2026-06-09T12:00:00.000Z",
+    "updatedAt": "2026-06-09T12:00:00.000Z",
+    "dueDate": "2026-06-10",
+    "riskLevel": "high",
+    "executionMode": "human-review",
+    "requiresHumanReview": true,
+    "riskSignals": [
+      "wallet"
+    ],
+    "requestedBy": null,
+    "sourceRoomId": null,
+    "linkedTaskId": null
+  },
+  {
+    "id": "task_research_first_parallel_run",
+    "roomId": "research-intel-room",
+    "title": "Prepare first Research Room parallel run",
+    "objective": "Split TAO/Bittensor research into subnet scout, wallet safety, market signal, and editor tasks with read-only boundaries.",
+    "status": "queued",
+    "priority": "high",
+    "autonomyLevel": "suggest",
+    "assignedAgentId": "research-room-lead",
+    "claimId": null,
+    "target": "Tiger research workflows",
+    "dependencies": [
+      "task_ack_audit"
+    ],
+    "acceptanceCriteria": [
+      "read-only scope",
+      "source list",
+      "output format",
+      "handoff contract"
+    ],
+    "createdAt": "2026-06-09T12:00:00.000Z",
+    "updatedAt": "2026-06-09T12:00:00.000Z",
+    "dueDate": "2026-06-10",
+    "riskLevel": "high",
+    "executionMode": "human-review",
+    "requiresHumanReview": true,
+    "riskSignals": [
+      "wallet"
+    ],
+    "requestedBy": null,
+    "sourceRoomId": null,
+    "linkedTaskId": null
+  },
+  {
+    "id": "task_content_first_parallel_run",
+    "roomId": "content-growth-room",
+    "title": "Prepare first Content Room parallel run",
+    "objective": "Split Tao Outsider/TaoSwap content work into strategy, draft, voice review, SEO, and creative production lanes.",
+    "status": "queued",
+    "priority": "normal",
+    "autonomyLevel": "suggest",
+    "assignedAgentId": "content-room-lead",
+    "claimId": null,
+    "target": "Tao Outsider + TaoSwap content workflow",
+    "dependencies": [
+      "task_ack_audit"
+    ],
+    "acceptanceCriteria": [
+      "brand identities preserved",
+      "publication gate",
+      "SEO checklist",
+      "review owner"
+    ],
+    "createdAt": "2026-06-09T12:00:00.000Z",
+    "updatedAt": "2026-06-09T12:00:00.000Z",
+    "dueDate": "2026-06-10",
+    "riskLevel": "low",
+    "executionMode": "auto",
+    "requiresHumanReview": false,
+    "riskSignals": [],
+    "requestedBy": null,
+    "sourceRoomId": null,
+    "linkedTaskId": null
+  },
+  {
+    "id": "task_mq76raip_dd4e8e",
+    "roomId": "build-room",
+    "title": "Smoke test task",
+    "objective": "Validate Office task claim/release path",
+    "status": "queued",
+    "priority": "low",
+    "autonomyLevel": "execute",
+    "assignedAgentId": "chief-orchestrator",
+    "claimId": null,
+    "target": "agent-system",
+    "dependencies": [],
+    "acceptanceCriteria": [
+      "typecheck passes",
+      "tests pass",
+      "build passes",
+      "office doctor passes"
+    ],
+    "createdAt": "2026-06-09T22:02:45.121Z",
+    "updatedAt": "2026-06-09T22:02:53.702Z",
+    "dueDate": null,
+    "riskLevel": "medium",
+    "executionMode": "auto",
+    "requiresHumanReview": false,
+    "riskSignals": [
+      "release"
+    ],
+    "requestedBy": null,
+    "sourceRoomId": null,
+    "linkedTaskId": null
+  },
+  {
+    "id": "task_mq76rh2y_908370",
+    "roomId": "build-room",
+    "title": "Smoke test task",
+    "objective": "Validate Office task claim/release path",
+    "status": "queued",
+    "priority": "low",
+    "autonomyLevel": "execute",
+    "assignedAgentId": null,
+    "claimId": null,
+    "target": "agent-system",
+    "dependencies": [],
+    "acceptanceCriteria": [
+      "typecheck passes",
+      "tests pass",
+      "build passes",
+      "office doctor passes"
+    ],
+    "createdAt": "2026-06-09T22:02:53.626Z",
+    "updatedAt": "2026-06-09T22:02:53.626Z",
+    "dueDate": null,
+    "riskLevel": "medium",
+    "executionMode": "auto",
+    "requiresHumanReview": false,
+    "riskSignals": [
+      "release"
+    ],
+    "requestedBy": null,
+    "sourceRoomId": null,
+    "linkedTaskId": null
+  },
+  {
+    "id": "task_mq76svyp_76f73b",
+    "roomId": "build-room",
+    "title": "Smoke release assign clear",
+    "objective": "Validate release clears assignedAgentId",
+    "status": "queued",
+    "priority": "low",
+    "autonomyLevel": "execute",
+    "assignedAgentId": null,
+    "claimId": null,
+    "target": "agent-system",
+    "dependencies": [],
+    "acceptanceCriteria": [
+      "typecheck passes",
+      "tests pass",
+      "build passes",
+      "office doctor passes"
+    ],
+    "createdAt": "2026-06-09T22:03:59.569Z",
+    "updatedAt": "2026-06-09T22:05:18.351Z",
+    "dueDate": null,
+    "riskLevel": "medium",
+    "executionMode": "auto",
+    "requiresHumanReview": false,
+    "riskSignals": [
+      "release"
+    ],
+    "requestedBy": null,
+    "sourceRoomId": null,
+    "linkedTaskId": null
+  },
+  {
+    "id": "task_mq76ukoo_c5b0ff",
+    "roomId": "build-room",
+    "title": "Smoke release assign clear",
+    "objective": "Validate release clears assignedAgentId",
+    "status": "queued",
+    "priority": "low",
+    "autonomyLevel": "execute",
+    "assignedAgentId": null,
+    "claimId": null,
+    "target": "agent-system",
+    "dependencies": [],
+    "acceptanceCriteria": [
+      "typecheck passes",
+      "tests pass",
+      "build passes",
+      "office doctor passes"
+    ],
+    "createdAt": "2026-06-09T22:05:18.264Z",
+    "updatedAt": "2026-06-09T22:05:18.264Z",
+    "dueDate": null,
+    "riskLevel": "medium",
+    "executionMode": "auto",
+    "requiresHumanReview": false,
+    "riskSignals": [
+      "release"
+    ],
+    "requestedBy": null,
+    "sourceRoomId": null,
+    "linkedTaskId": null
+  },
+  {
+    "id": "task_mq76wes8_e5a263",
+    "roomId": "build-room",
+    "title": "Final smoke",
+    "objective": "Validate runtime state updates after release fix",
+    "status": "queued",
+    "priority": "low",
+    "autonomyLevel": "execute",
+    "assignedAgentId": null,
+    "claimId": null,
+    "target": "agent-system",
+    "dependencies": [],
+    "acceptanceCriteria": [
+      "typecheck passes",
+      "tests pass",
+      "build passes",
+      "office doctor passes"
+    ],
+    "createdAt": "2026-06-09T22:06:43.928Z",
+    "updatedAt": "2026-06-09T22:06:50.494Z",
+    "dueDate": null,
+    "riskLevel": "medium",
+    "executionMode": "auto",
+    "requiresHumanReview": false,
+    "riskSignals": [
+      "release"
+    ],
+    "requestedBy": null,
+    "sourceRoomId": null,
+    "linkedTaskId": null
+  },
+  {
+    "id": "task_mq76wjsb_02e739",
+    "roomId": "build-room",
+    "title": "Final smoke",
+    "objective": "Validate runtime state updates after release fix",
+    "status": "queued",
+    "priority": "low",
+    "autonomyLevel": "execute",
+    "assignedAgentId": null,
+    "claimId": null,
+    "target": "agent-system",
+    "dependencies": [],
+    "acceptanceCriteria": [
+      "typecheck passes",
+      "tests pass",
+      "build passes",
+      "office doctor passes"
+    ],
+    "createdAt": "2026-06-09T22:06:50.411Z",
+    "updatedAt": "2026-06-09T22:06:50.411Z",
+    "dueDate": null,
+    "riskLevel": "medium",
+    "executionMode": "auto",
+    "requiresHumanReview": false,
+    "riskSignals": [
+      "release"
+    ],
+    "requestedBy": null,
+    "sourceRoomId": null,
+    "linkedTaskId": null
+  }
+]

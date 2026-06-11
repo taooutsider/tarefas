@@ -1,0 +1,133 @@
+[
+  {
+    "id": "build-room",
+    "name": "Build Room",
+    "mission": "Ship Agent Office, Mesh infrastructure, backend APIs, UI, tests, deployment, and operational tooling.",
+    "leadAgentId": "build-room-lead",
+    "autonomyMode": "execute",
+    "capacity": {
+      "maxParallelClaims": 5,
+      "maxDailyAutonomousRuns": 12
+    },
+    "color": "#2f8cff",
+    "policy": "May edit local code, run tests, restart local services, and update private control files. Production deploys require a green doctor check.",
+    "acceptanceGates": [
+      "typecheck passes",
+      "tests pass",
+      "build passes",
+      "office doctor passes"
+    ],
+    "actionPolicy": {
+      "mesh.help": {
+        "minAutonomy": "observe"
+      },
+      "room.audit": {
+        "minAutonomy": "suggest"
+      },
+      "task.create": {
+        "minAutonomy": "observe"
+      },
+      "task.release": {
+        "minAutonomy": "observe"
+      },
+      "task.claim": {
+        "minAutonomy": "execute"
+      },
+      "task.suggest": {
+        "minAutonomy": "suggest"
+      },
+      "mesh.dispatch": {
+        "minAutonomy": "execute"
+      }
+    },
+    "learningInitiativesEnabled": true
+  },
+  {
+    "id": "research-intel-room",
+    "name": "Research & Intelligence Room",
+    "mission": "Coordinate TAO/Bittensor research, mining viability, wallet safety, market intelligence, and evidence-backed reports.",
+    "leadAgentId": "research-room-lead",
+    "autonomyMode": "suggest",
+    "capacity": {
+      "maxParallelClaims": 6,
+      "maxDailyAutonomousRuns": 16
+    },
+    "color": "#35c776",
+    "policy": "Read-only by default. No trades, registrations, transfers, staking, swaps, or wallet-changing commands without explicit human authorization.",
+    "acceptanceGates": [
+      "sources cited",
+      "freshness checked",
+      "risk stated",
+      "no capital-risking action executed"
+    ],
+    "actionPolicy": {
+      "mesh.help": {
+        "minAutonomy": "observe"
+      },
+      "room.audit": {
+        "minAutonomy": "suggest"
+      },
+      "task.create": {
+        "minAutonomy": "observe"
+      },
+      "task.release": {
+        "minAutonomy": "observe"
+      },
+      "task.claim": {
+        "minAutonomy": "execute",
+        "maxTaskRiskLevel": "low"
+      },
+      "task.suggest": {
+        "minAutonomy": "suggest"
+      },
+      "mesh.dispatch": {
+        "minAutonomy": "suggest"
+      }
+    },
+    "learningInitiativesEnabled": true
+  },
+  {
+    "id": "content-growth-room",
+    "name": "Content & Growth Room",
+    "mission": "Produce Tao Outsider, TaoSwap, SEO, social, translation, creative, and publication workflows without losing brand voice.",
+    "leadAgentId": "content-room-lead",
+    "autonomyMode": "suggest",
+    "capacity": {
+      "maxParallelClaims": 5,
+      "maxDailyAutonomousRuns": 14
+    },
+    "color": "#f2aa2f",
+    "policy": "May draft and review content. Public publishing, brand-sensitive edits, and distribution campaigns require final review.",
+    "acceptanceGates": [
+      "voice preserved",
+      "facts verified",
+      "publication target clear",
+      "review status recorded"
+    ],
+    "actionPolicy": {
+      "mesh.help": {
+        "minAutonomy": "observe"
+      },
+      "room.audit": {
+        "minAutonomy": "suggest"
+      },
+      "task.create": {
+        "minAutonomy": "observe"
+      },
+      "task.release": {
+        "minAutonomy": "observe"
+      },
+      "task.claim": {
+        "minAutonomy": "execute",
+        "maxTaskRiskLevel": "low"
+      },
+      "task.suggest": {
+        "minAutonomy": "suggest"
+      },
+      "mesh.dispatch": {
+        "minAutonomy": "suggest"
+      }
+    },
+    "learningInitiativesEnabled": true
+  }
+]

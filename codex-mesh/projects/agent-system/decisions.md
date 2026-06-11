@@ -1,0 +1,22 @@
+# Decisions
+
+- 2026-06-04: Codex Mesh MVP uses local files as the audit layer: `registry.json`, project manifests, public summaries, inbox, and outbox.
+- 2026-06-04: Cross-project cooperation shares public summaries and explicit message payloads by default, not full private thread history.
+- 2026-06-04: Live Codex thread handshake was validated with `agente-vlmkt` through native Codex thread messaging.
+- 2026-06-04: Backend all-to-all introduction broadcast was executed across 10 active mesh projects, producing 90 introduction messages.
+- 2026-06-04: Mesh broadcasts are now idempotent; rerunning `broadcast-intros` skipped the 90 existing introductions instead of duplicating them.
+- 2026-06-04: `publish-discovery` was added and used by `agent-system` to publish the idempotency and dispatch update to 9 peers.
+- 2026-06-04: `dispatch` was added to prepare reply-required messages for Codex thread delivery; current pending dispatch skipped `infinite-todo-app` because it has no linked `threadId`.
+- 2026-06-04: End-to-end bridge smoke test passed with `agente-vlmkt`: mesh request `msg_272979f3e3654735` was dispatched to Codex thread `019e9326-6aa8-7d73-9ce5-19248c724ccf`, answered, and recorded back as reply `msg_d2e47a82310c4706`.
+- 2026-06-04: Bridge runner core was added with explicit dispatch envelope states (`pending`, `sent`, `replied`, `failed`) and a transport adapter boundary for Codex app thread delivery.
+- 2026-06-04: Bridge command cycle passed end to end with `agente-vlmkt`: `bridge-next` exposed request `msg_b6a6f4628e6b4615`, Codex app delivered it to thread `019e9326-6aa8-7d73-9ce5-19248c724ccf`, `bridge-mark-sent` recorded turn `019e94d1-e642-71a1-aee9-a721ca38d1af`, and `record-reply` closed reply `msg_3470171604b74497`.
+- 2026-06-04: Coordination note: `agente-vlmkt` is also evolving an `agent-system` worktree at `/Users/victorlamenha/.codex/worktrees/1699/New project/agent-system`; reconcile useful work before treating either worktree as canonical.
+- 2026-06-04: `agent-system` in worktree `1c52` was reconciled with the useful Agency OS layer from worktree `1699`: Admin OS, Delivery OS, Command Center, CSV data contracts, model routing policy, agency tools, docs, and specialist agents were integrated while preserving Codex Mesh and clean build/test scripts.
+- 2026-06-04: Reconciled agent validation passed: `npm run typecheck`, `npm test`, `npm run build`, plus temporary SQLite smoke tests for `seed`, `admin:snapshot`, `delivery:snapshot`, `command:center`, `models`, and `command:report`.
+- 2026-06-04: Product surface decision changed: Agency Command web is the primary operator interface for desktop and iPhone; Telegram remains auxiliary for alerts, quick approvals, and lightweight status.
+- 2026-06-04: Agency Command web MVP was added with React/Vite frontend, Node API server, SQLite-backed Agency OS snapshots, web task creation, approval endpoints, Mesh summaries, token auth via `WEB_ACCESS_TOKEN`, PWA manifest, Dockerfile, and docs for online deployment.
+- 2026-06-04: Web validation passed: API health/auth/seed/job smoke tests, desktop screenshot `1440x1000`, mobile screenshot `390x844`, `npm run typecheck`, `npm test`, and `npm run build`.
+- 2026-06-05: Mesh agent protocol was added at `/Users/victorlamenha/.codex/worktrees/1c52/New project/codex-mesh/AGENT_PROTOCOL.md`; every registered Codex thread is treated as an autonomous project agent with identity, scope, public memory, inbox, and outbox.
+- 2026-06-05: Direct thread bootstrap was delivered to 8 thread-backed projects. 7 returned visible ACKs; `tiger-bot-dtao` has a Codex thread system error, did not return visible ACK content after bootstrap or rescue bootstrap, and was paused in the registry. `infinite-todo-app` remains backend-only until a thread id is linked.
+- 2026-06-05: Future bridge prompts now include recipient identity, scope, workspace, public memory path, and protocol path so agents keep recognizing themselves during normal cross-project requests.
+- 2026-06-05: First live multi-agent round trip completed: `blog-outsider` asked `agent-system` for bridge guidance, `agent-system` delivered a pending request to `tiger-2-0`, Tiger returned a Field College audit, the reply was recorded into backend as `msg_ac299d68e52a4c88`, and `blog-outsider` received it in its live thread and began improvements.

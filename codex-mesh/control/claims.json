@@ -1,0 +1,62 @@
+[
+  {
+    "id": "claim_rooms_control_plane",
+    "roomId": "build-room",
+    "taskId": "task_rooms_control_plane",
+    "agentId": "backend-mesh-engineer",
+    "target": "agent-system/src/mesh/rooms.ts",
+    "status": "released",
+    "reason": "Control plane implemented, Office UI wired, and validation passed.",
+    "claimedAt": "2026-06-09T12:00:00.000Z",
+    "expiresAt": "2026-06-10T03:00:00.000Z",
+    "releasedAt": "2026-06-09T04:18:56.000Z"
+  },
+  {
+    "id": "claim_mq76rh4c_1c109e",
+    "roomId": "build-room",
+    "taskId": "task_mq76raip_dd4e8e",
+    "agentId": "chief-orchestrator",
+    "target": "agent-system",
+    "status": "released",
+    "reason": "Smoke release",
+    "claimedAt": "2026-06-09T22:02:53.676Z",
+    "expiresAt": "2026-06-09T23:32:53.676Z",
+    "releasedAt": "2026-06-09T22:02:53.702Z"
+  },
+  {
+    "id": "claim_mq76svzo_6d242c",
+    "roomId": "build-room",
+    "taskId": "task_mq76svyp_76f73b",
+    "agentId": "chief-orchestrator",
+    "target": "agent-system",
+    "status": "released",
+    "reason": "Smoke release",
+    "claimedAt": "2026-06-09T22:03:59.604Z",
+    "expiresAt": "2026-06-09T23:33:59.604Z",
+    "releasedAt": "2026-06-09T22:03:59.629Z"
+  },
+  {
+    "id": "claim_mq76ukqh_27ddf8",
+    "roomId": "build-room",
+    "taskId": "task_mq76svyp_76f73b",
+    "agentId": "chief-orchestrator",
+    "target": "agent-system",
+    "status": "released",
+    "reason": "Smoke release",
+    "claimedAt": "2026-06-09T22:05:18.329Z",
+    "expiresAt": "2026-06-09T23:35:18.329Z",
+    "releasedAt": "2026-06-09T22:05:18.351Z"
+  },
+  {
+    "id": "claim_mq76wjtz_96edb8",
+    "roomId": "build-room",
+    "taskId": "task_mq76wes8_e5a263",
+    "agentId": "chief-orchestrator",
+    "target": "agent-system",
+    "status": "released",
+    "reason": "release",
+    "claimedAt": "2026-06-09T22:06:50.471Z",
+    "expiresAt": "2026-06-09T23:36:50.471Z",
+    "releasedAt": "2026-06-09T22:06:50.494Z"
+  }
+]

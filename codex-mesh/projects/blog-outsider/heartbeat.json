@@ -1,0 +1,14 @@
+{
+  "projectId": "blog-outsider",
+  "name": "Blog Outsider",
+  "status": "working",
+  "last_seen": "2026-06-09T04:13:05.538Z",
+  "observed_at": "2026-06-11T03:30:58.493Z",
+  "current_task": "Reevaluate Bittensor Field College after X feedback fixes",
+  "workspace": "/Users/victorlamenha/Documents/New project",
+  "thread": "019db1a4-b01b-7042-9540-ef4c7fa4103e",
+  "source": "dispatch",
+  "open_dispatches": 1,
+  "inbox_count": 11,
+  "outbox_count": 8
+}

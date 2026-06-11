@@ -1,0 +1,16 @@
+{
+  "from": "agent-system",
+  "to": "agente-vlmkt",
+  "type": "request_context",
+  "priority": "normal",
+  "subject": "Bridge smoke test",
+  "body": "Responda em uma linha confirmando que voce recebeu uma mensagem via dispatch do Codex Mesh.",
+  "expectedOutput": "Uma linha de ACK para gravar como reply no backend.",
+  "requiresReply": true,
+  "id": "msg_272979f3e3654735",
+  "status": "replied",
+  "createdAt": "2026-06-04T22:41:46.349Z",
+  "dispatchedAt": "2026-06-04T22:41:51.027Z",
+  "dispatchThreadId": "019e9326-6aa8-7d73-9ce5-19248c724ccf",
+  "replyTo": "msg_d2e47a82310c4706"
+}

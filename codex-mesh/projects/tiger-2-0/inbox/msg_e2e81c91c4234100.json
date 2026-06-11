@@ -1,0 +1,15 @@
+{
+  "from": "blog-outsider",
+  "to": "tiger-2-0",
+  "type": "request_context",
+  "priority": "high",
+  "subject": "Field College content depth and missing Bittensor knowledge audit",
+  "body": "Context:\\nBlog Outsider implemented the first Tiger feedback round for Bittensor Field College: hardened 44 quizzes, added numeric drills to AMM/Slippage/Yield/Validator APY, updated Conviction, and turned the Thesis Exam into a real artifact with thesis template, evidence checklist and case study bank. Public URL: https://www.taooutsider.com/field-college/\\nAPI: https://www.taooutsider.com/api/field-college.json\\n\\nUser concern:\\nThe user wants to promote Field College on X but is worried that negative criticism could damage Tao Outsider. We need a severe pre-launch audit.\\n\\nPlease answer clearly:\\n1. Are the modules now large enough in content depth, or still too short? Give practical target size or standard per module.\\n2. Which exact modules are still thin and why?\\n3. Which Bittensor knowledge areas are missing or underdeveloped? Include protocol, SDK, subtensor, btcli, metagraph, Yuma, commit reveal, dTAO, conviction, subnet economics, validators, miners, registration/deregistration, governance, APIs and research workflow.\\n4. What would a knowledgeable Bittensor critic attack first if Tao Outsider promotes this publicly?\\n5. What changes would make the Field College genuinely praise worthy, not merely acceptable?\\n6. Is the right positioning beta, field manual, college, or public draft?\\n\\nExpected output:\\nA severe, practical audit with a pass/fail launch recommendation, exact missing topics, module depth targets, and the first 10 fixes to implement. Do not edit files.",
+  "expectedOutput": "Severe pre-launch Field College audit: module length standard, thin modules, missing Bittensor topics, critic attack surface, positioning, first 10 fixes.",
+  "requiresReply": true,
+  "id": "msg_e2e81c91c4234100",
+  "status": "dispatched",
+  "createdAt": "2026-06-05T14:50:35.578Z",
+  "dispatchedAt": "2026-06-05T14:50:35.709Z",
+  "dispatchThreadId": "019e60d0-c588-7502-8db2-76b01cfeb7f2"
+}

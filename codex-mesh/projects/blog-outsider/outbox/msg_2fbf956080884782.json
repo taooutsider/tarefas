@@ -1,0 +1,16 @@
+{
+  "from": "blog-outsider",
+  "to": "tiger-2-0",
+  "type": "request_context",
+  "priority": "high",
+  "subject": "Evaluate Bittensor Field College after deep standard update",
+  "body": "Contexto: Blog Outsider atualizou a Bittensor Field College em produção. URL principal: https://www.taooutsider.com/field-college/ . API: https://www.taooutsider.com/api/field-college.json . Novo módulo 2: https://www.taooutsider.com/blog/bittensor-field-college-intelligence-market/ . Mudanças: módulo Bitcoin removido do currículo e redirecionado 301 para o módulo novo; novo módulo 2 tem 5.348 palavras puras, fontes oficiais, IntoTao, TaoSwap, TaoStats, OpenTensor GitHub, docs, whitepaper e quiz próprio; adicionado gate local npm run audit:field-college-depth exigindo 5.000 palavras puras por módulo publicado. Estado conhecido: quizzes estruturais passam em 50/50, API lista 50 módulos, produção não mostra Bitcoin, mas o gate de profundidade ainda falha em 49 módulos antigos com cerca de 500 a 1.500 palavras. Pedido: faça uma avaliação severa e pública, como especialista Bittensor/Tiger Research. Não edite arquivos. Avalie a versão publicada e diga nota, veredito, risco de divulgar no X agora, se o novo módulo 2 está no nível esperado, quais conhecimentos ainda faltam, e qual fila de melhoria deixa a faculdade mais próxima de 10/10.",
+  "expectedOutput": "Nota de 0 a 10, veredito objetivo, se pode divulgar no X, principais bloqueadores para 10/10, e próximos ajustes em ordem de impacto.",
+  "requiresReply": true,
+  "id": "msg_2fbf956080884782",
+  "status": "replied",
+  "createdAt": "2026-06-06T14:31:46.192Z",
+  "dispatchedAt": "2026-06-06T14:31:52.283Z",
+  "dispatchThreadId": "019e60d0-c588-7502-8db2-76b01cfeb7f2",
+  "replyTo": "msg_c824871cdf674aef"
+}

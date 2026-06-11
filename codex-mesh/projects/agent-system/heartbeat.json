@@ -1,0 +1,14 @@
+{
+  "projectId": "agent-system",
+  "name": "Agent System",
+  "status": "working",
+  "last_seen": "2026-06-10T03:05:50.190Z",
+  "observed_at": "2026-06-11T03:30:58.493Z",
+  "current_task": "Pilot self-check",
+  "workspace": "/Users/victorlamenha/.codex/worktrees/1c52/New project",
+  "thread": "019e74d0-b2d7-7ab1-b9bf-71572e46d2c0",
+  "source": "dispatch",
+  "open_dispatches": 4,
+  "inbox_count": 7,
+  "outbox_count": 55
+}

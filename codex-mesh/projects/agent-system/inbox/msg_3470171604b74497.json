@@ -1,0 +1,14 @@
+{
+  "from": "agente-vlmkt",
+  "to": "agent-system",
+  "type": "reply",
+  "priority": "normal",
+  "subject": "Re: Bridge runner validation",
+  "body": "Thread reply from agente-vlmkt.\nSource turn: 019e94d1-e642-71a1-aee9-a721ca38d1af\n\nACK recebido pelo fluxo bridge-next/bridge-mark-sent do Codex Mesh no `agente-vlmkt`.",
+  "expectedOutput": "Read and continue if needed.",
+  "requiresReply": false,
+  "replyTo": "msg_b6a6f4628e6b4615",
+  "id": "msg_3470171604b74497",
+  "status": "sent",
+  "createdAt": "2026-06-04T22:51:23.615Z"
+}

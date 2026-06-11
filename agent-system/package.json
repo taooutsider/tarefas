@@ -1,0 +1,52 @@
+{
+  "name": "telegram-agent-system",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Telegram-controlled autonomous agent MVP powered by the OpenAI Agents SDK.",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "agency": "tsx src/cli/agencyCli.ts",
+    "mesh": "tsx src/mesh/cli.ts",
+    "web:dev": "vite --host 0.0.0.0 --config vite.config.ts",
+    "web:server": "tsx src/web/server.ts",
+    "web:start": "node dist/web/server.js",
+    "api:server": "tsx src/api/orchestrator-server.ts",
+    "bot:server": "tsx src/bot/telegram-bot-server.ts",
+    "office:start": "CODEX_MESH_ROOT=../codex-mesh PORT=4174 npm run web:start",
+    "office:tunnel": "cloudflared tunnel --config ~/.cloudflared/agent-office.yml run agent-office",
+    "office:access:configure": "node scripts/configure-office-access.mjs",
+    "office:doctor": "node scripts/office-lifecycle.mjs doctor",
+    "office:up": "node scripts/office-lifecycle.mjs up",
+    "office:restart": "node scripts/office-lifecycle.mjs restart",
+    "office:stop": "node scripts/office-lifecycle.mjs stop",
+    "build:server": "tsc -p tsconfig.build.json",
+    "build:web": "vite build --config vite.config.ts",
+    "start": "node dist/index.js",
+    "build": "npm run build:server && npm run build:web",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p web/tsconfig.json --noEmit",
+    "test": "vitest run --root . src"
+  },
+  "dependencies": {
+    "@openai/agents": "^0.11.6",
+    "better-sqlite3": "^12.10.0",
+    "dotenv": "^17.2.3",
+    "grammy": "^1.43.0",
+    "lucide-react": "^1.17.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.16",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "tsx": "^4.22.3",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.16",
+    "vitest": "^4.1.7",
+    "wrangler": "^4.98.0"
+  }
+}

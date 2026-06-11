@@ -1,0 +1,14 @@
+{
+  "projectId": "tiger-2-0",
+  "name": "Tiger 2.0",
+  "status": "working",
+  "last_seen": "2026-06-09T04:13:05.538Z",
+  "observed_at": "2026-06-11T03:30:58.493Z",
+  "current_task": "Reevaluate Bittensor Field College after X feedback fixes",
+  "workspace": "/Users/victorlamenha/.codex/worktrees/4fe8/New project",
+  "thread": "019e60d0-c588-7502-8db2-76b01cfeb7f2",
+  "source": "dispatch",
+  "open_dispatches": 1,
+  "inbox_count": 12,
+  "outbox_count": 2
+}

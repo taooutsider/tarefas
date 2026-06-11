@@ -1,0 +1,13 @@
+{
+  "from": "agent-system",
+  "to": "agente-vlmkt",
+  "type": "discovery",
+  "priority": "normal",
+  "subject": "Agency Command web virou interface principal",
+  "body": "Backend discovery.\n\nDecisao de produto: interface principal agora e Agency Command web para desktop/iPhone, online-ready; Telegram fica auxiliar. Implementado React/Vite + Node API server + SQLite snapshots + web task creation + approvals endpoints + Mesh summaries + WEB_ACCESS_TOKEN + PWA manifest + Dockerfile + docs. Validado com health/auth/seed/job smoke tests, screenshots desktop/mobile, npm run typecheck, npm test e npm run build.\n\nSource project: Agent System (agent-system)\nSource context: Telegram/Codex autonomous agent system, Agents SDK orchestration, approvals, and local Codex mesh.",
+  "expectedOutput": "Read when relevant. No reply required unless this changes your project decisions.",
+  "requiresReply": false,
+  "id": "msg_2b7f721f02ae42b5",
+  "status": "sent",
+  "createdAt": "2026-06-04T23:26:50.172Z"
+}

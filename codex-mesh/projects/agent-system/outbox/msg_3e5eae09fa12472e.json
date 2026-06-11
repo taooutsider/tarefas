@@ -1,0 +1,13 @@
+{
+  "from": "agent-system",
+  "to": "infinite-todo-app",
+  "type": "request_context",
+  "priority": "normal",
+  "subject": "Contexto de sync reutilizavel",
+  "body": "O agent-system quer saber quais decisoes e arquivos do Infinite Todo podem informar o desenho de memoria/sync local sem invadir o escopo da PWA.",
+  "expectedOutput": "Resumo curto com arquivos relevantes, decisoes de sync e riscos.",
+  "requiresReply": true,
+  "id": "msg_3e5eae09fa12472e",
+  "status": "sent",
+  "createdAt": "2026-06-04T22:15:40.210Z"
+}

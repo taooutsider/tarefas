@@ -1,0 +1,596 @@
+[
+  {
+    "id": "chief-orchestrator",
+    "displayName": "Chief Orchestrator",
+    "roomId": "build-room",
+    "meshProjectId": "agent-system",
+    "role": "Global command center and Mesh governance",
+    "scope": "Routes work, enforces autonomy policy, maintains cross-room state, and blocks unsafe actions.",
+    "modelTier": "frontier",
+    "skills": [
+      "orchestration",
+      "mesh-governance",
+      "handoffs",
+      "risk-routing"
+    ],
+    "allowedTools": [
+      "mesh-read",
+      "mesh-write",
+      "code",
+      "tests",
+      "office-restart"
+    ],
+    "authority": "Can coordinate all rooms; cannot bypass project scope, approval gates, or capital-risk actions.",
+    "autonomyScore": 78,
+    "reliabilityScore": 82,
+    "status": "live-thread",
+    "activation": "active",
+    "currentLoad": 0,
+    "workspaceRoot": "/Users/victorlamenha/.codex/worktrees/1c52/New project",
+    "threadId": "019e74d0-b2d7-7ab1-b9bf-71572e46d2c0"
+  },
+  {
+    "id": "build-room-lead",
+    "displayName": "Build Room Lead",
+    "roomId": "build-room",
+    "meshProjectId": "agente-vlmkt",
+    "role": "Engineering room lead",
+    "scope": "Breaks product goals into implementation tasks and assigns builders, QA, and deploy reviewers.",
+    "modelTier": "codex",
+    "skills": [
+      "system-design",
+      "task-decomposition",
+      "code-review"
+    ],
+    "allowedTools": [
+      "code",
+      "tests",
+      "mesh-read"
+    ],
+    "authority": "Can propose and claim build tasks inside the Agent Office workspace.",
+    "autonomyScore": 72,
+    "reliabilityScore": 74,
+    "status": "live-thread",
+    "activation": "active",
+    "currentLoad": 0,
+    "workspaceRoot": "/Users/victorlamenha/.codex/worktrees/1699/New project",
+    "threadId": "019e9326-6aa8-7d73-9ce5-19248c724ccf"
+  },
+  {
+    "id": "frontend-architect",
+    "displayName": "Frontend Architect",
+    "roomId": "build-room",
+    "meshProjectId": null,
+    "role": "Agent Office UI and mobile experience",
+    "scope": "Maintains the office scene, responsive controls, inspector states, and live interaction model.",
+    "modelTier": "codex",
+    "skills": [
+      "react",
+      "vite",
+      "css",
+      "browser-qa"
+    ],
+    "allowedTools": [
+      "code",
+      "browser",
+      "build"
+    ],
+    "authority": "Can edit local frontend and validate visually.",
+    "autonomyScore": 70,
+    "reliabilityScore": 76,
+    "status": "virtual",
+    "activation": "standby",
+    "currentLoad": 0,
+    "workspaceRoot": null,
+    "threadId": null
+  },
+  {
+    "id": "backend-mesh-engineer",
+    "displayName": "Backend Mesh Engineer",
+    "roomId": "build-room",
+    "meshProjectId": "agent-system",
+    "role": "Mesh APIs, events, locks, and state contracts",
+    "scope": "Owns SSE, room state, dispatch visibility, and persistent control-plane files.",
+    "modelTier": "codex",
+    "skills": [
+      "node",
+      "typescript",
+      "sse",
+      "file-state",
+      "api-contracts"
+    ],
+    "allowedTools": [
+      "code",
+      "tests",
+      "mesh-write"
+    ],
+    "authority": "Can edit backend control-plane code and private mesh files.",
+    "autonomyScore": 74,
+    "reliabilityScore": 78,
+    "status": "live-thread",
+    "activation": "active",
+    "currentLoad": 0,
+    "workspaceRoot": "/Users/victorlamenha/.codex/worktrees/1c52/New project",
+    "threadId": "019e74d0-b2d7-7ab1-b9bf-71572e46d2c0"
+  },
+  {
+    "id": "qa-verifier",
+    "displayName": "QA Verifier",
+    "roomId": "build-room",
+    "meshProjectId": null,
+    "role": "Verification and regression gate",
+    "scope": "Runs typecheck, tests, build, doctor, browser desktop and mobile checks.",
+    "modelTier": "reviewer",
+    "skills": [
+      "test-planning",
+      "browser-qa",
+      "regression-audit"
+    ],
+    "allowedTools": [
+      "tests",
+      "build",
+      "browser",
+      "doctor"
+    ],
+    "authority": "Can block completion until validation evidence exists.",
+    "autonomyScore": 67,
+    "reliabilityScore": 84,
+    "status": "virtual",
+    "activation": "standby",
+    "currentLoad": 0,
+    "workspaceRoot": null,
+    "threadId": null
+  },
+  {
+    "id": "deployment-gatekeeper",
+    "displayName": "Deployment Gatekeeper",
+    "roomId": "build-room",
+    "meshProjectId": "blog-outsider",
+    "role": "Cloudflare and public access gate",
+    "scope": "Keeps office private, validates Cloudflare tunnel and deployment safety.",
+    "modelTier": "reviewer",
+    "skills": [
+      "cloudflare",
+      "wrangler",
+      "access-control",
+      "release-checks"
+    ],
+    "allowedTools": [
+      "cloudflare-read",
+      "doctor",
+      "deploy-review"
+    ],
+    "authority": "Can prepare deploys; public changes require verified access controls.",
+    "autonomyScore": 58,
+    "reliabilityScore": 75,
+    "status": "live-thread",
+    "activation": "active",
+    "currentLoad": 0,
+    "workspaceRoot": "/Users/victorlamenha/Documents/New project",
+    "threadId": "019db1a4-b01b-7042-9540-ef4c7fa4103e"
+  },
+  {
+    "id": "security-guardrail",
+    "displayName": "Security Guardrail",
+    "roomId": "build-room",
+    "meshProjectId": null,
+    "role": "Secrets, permissions, and unsafe action guard",
+    "scope": "Audits secret exposure, cross-project writes, destructive commands, and private data boundaries.",
+    "modelTier": "reviewer",
+    "skills": [
+      "security-review",
+      "secret-handling",
+      "approval-policy"
+    ],
+    "allowedTools": [
+      "code-review",
+      "logs",
+      "mesh-read"
+    ],
+    "authority": "Can stop autonomous execution when a boundary is unclear.",
+    "autonomyScore": 55,
+    "reliabilityScore": 86,
+    "status": "virtual",
+    "activation": "standby",
+    "currentLoad": 0,
+    "workspaceRoot": null,
+    "threadId": null
+  },
+  {
+    "id": "codex-bridge-operator",
+    "displayName": "Codex Bridge Operator",
+    "roomId": "build-room",
+    "meshProjectId": "agent-system",
+    "role": "Live thread bridge and ACK auditor",
+    "scope": "Verifies which projects have real visible thread ACKs, dispatch delivery, replies, and paused-thread repair needs.",
+    "modelTier": "codex",
+    "skills": [
+      "thread-bridge",
+      "dispatch-audit",
+      "ack-verification",
+      "mesh-cli"
+    ],
+    "allowedTools": [
+      "mesh-read",
+      "mesh-write",
+      "thread-tools"
+    ],
+    "authority": "Can inspect and route dispatches; cannot mark sent before actual thread delivery.",
+    "autonomyScore": 68,
+    "reliabilityScore": 80,
+    "status": "live-thread",
+    "activation": "active",
+    "currentLoad": 0,
+    "workspaceRoot": "/Users/victorlamenha/.codex/worktrees/1c52/New project",
+    "threadId": "019e74d0-b2d7-7ab1-b9bf-71572e46d2c0"
+  },
+  {
+    "id": "data-contract-engineer",
+    "displayName": "Data Contract Engineer",
+    "roomId": "build-room",
+    "meshProjectId": null,
+    "role": "Schemas, migrations, and contract drift",
+    "scope": "Maintains frontend/backend type contracts and persistent state compatibility.",
+    "modelTier": "codex",
+    "skills": [
+      "typescript-types",
+      "schema-design",
+      "migration-safety"
+    ],
+    "allowedTools": [
+      "code",
+      "tests"
+    ],
+    "authority": "Can create schemas and tests for control-plane changes.",
+    "autonomyScore": 64,
+    "reliabilityScore": 77,
+    "status": "virtual",
+    "activation": "standby",
+    "currentLoad": 0,
+    "workspaceRoot": null,
+    "threadId": null
+  },
+  {
+    "id": "research-room-lead",
+    "displayName": "Research Room Lead",
+    "roomId": "research-intel-room",
+    "meshProjectId": "tiger-2-0",
+    "role": "TAO/Bittensor research lead",
+    "scope": "Coordinates Tiger research, audits, ranked reports, and evidence standards.",
+    "modelTier": "frontier",
+    "skills": [
+      "bittensor-research",
+      "audit",
+      "ranking",
+      "source-triage"
+    ],
+    "allowedTools": [
+      "web-read",
+      "repo-read",
+      "mesh-read"
+    ],
+    "authority": "Read-only by default; can request analysis and reviews.",
+    "autonomyScore": 69,
+    "reliabilityScore": 80,
+    "status": "live-thread",
+    "activation": "active",
+    "currentLoad": 0,
+    "workspaceRoot": "/Users/victorlamenha/.codex/worktrees/4fe8/New project",
+    "threadId": "019e60d0-c588-7502-8db2-76b01cfeb7f2"
+  },
+  {
+    "id": "subnet-scout",
+    "displayName": "Subnet Scout",
+    "roomId": "research-intel-room",
+    "meshProjectId": "tiger-miner",
+    "role": "Mining viability scout",
+    "scope": "Screens subnet miner fit, emissions, registration cost, infra needs, and go/no-go candidates.",
+    "modelTier": "frontier",
+    "skills": [
+      "subnet-screening",
+      "mining-viability",
+      "cost-risk"
+    ],
+    "allowedTools": [
+      "web-read",
+      "repo-read",
+      "chain-read"
+    ],
+    "authority": "May research and prepare; no capital-risk execution without approval.",
+    "autonomyScore": 66,
+    "reliabilityScore": 74,
+    "status": "live-thread",
+    "activation": "active",
+    "currentLoad": 0,
+    "workspaceRoot": "/Users/victorlamenha/Documents/New project",
+    "threadId": "019c5e15-3e59-71a0-9c93-1831dfa58091"
+  },
+  {
+    "id": "wallet-safety-auditor",
+    "displayName": "Wallet Safety Auditor",
+    "roomId": "research-intel-room",
+    "meshProjectId": "tiger-bot-dtao",
+    "role": "Wallet and dTAO safety reviewer",
+    "scope": "Reviews wallet-sensitive plans, dTAO bot assumptions, and trade/transfer boundaries.",
+    "modelTier": "reviewer",
+    "skills": [
+      "wallet-safety",
+      "approval-gates",
+      "read-only-research"
+    ],
+    "allowedTools": [
+      "read-only",
+      "mesh-read"
+    ],
+    "authority": "Blocks live wallet/capital actions without fresh explicit approval.",
+    "autonomyScore": 42,
+    "reliabilityScore": 68,
+    "status": "paused",
+    "activation": "active",
+    "currentLoad": 0,
+    "workspaceRoot": "/Users/victorlamenha/Documents/New project",
+    "threadId": "019ca920-5779-7701-a2d3-dd5e0da8090d"
+  },
+  {
+    "id": "market-signal-analyst",
+    "displayName": "Market Signal Analyst",
+    "roomId": "research-intel-room",
+    "meshProjectId": null,
+    "role": "Market and catalyst monitor",
+    "scope": "Finds timely catalysts, liquidity shifts, subnet sentiment, and invalidation signals.",
+    "modelTier": "frontier",
+    "skills": [
+      "market-research",
+      "catalyst-tracking",
+      "freshness-checks"
+    ],
+    "allowedTools": [
+      "web-read",
+      "market-data"
+    ],
+    "authority": "Can publish watch notes; cannot execute positions.",
+    "autonomyScore": 60,
+    "reliabilityScore": 70,
+    "status": "virtual",
+    "activation": "standby",
+    "currentLoad": 0,
+    "workspaceRoot": null,
+    "threadId": null
+  },
+  {
+    "id": "flight-research-agent",
+    "displayName": "Flight Research Agent",
+    "roomId": "research-intel-room",
+    "meshProjectId": "pesquisa-voos",
+    "role": "Travel research specialist",
+    "scope": "Handles fare search, itinerary tradeoffs, and travel research procedures.",
+    "modelTier": "mini",
+    "skills": [
+      "flight-search",
+      "fare-comparison",
+      "travel-rules"
+    ],
+    "allowedTools": [
+      "web-read",
+      "browser"
+    ],
+    "authority": "Can research options; purchases require human action.",
+    "autonomyScore": 56,
+    "reliabilityScore": 72,
+    "status": "live-thread",
+    "activation": "active",
+    "currentLoad": 0,
+    "workspaceRoot": "/Users/victorlamenha/.codex/worktrees/f42e/New project",
+    "threadId": "019df8ad-c456-7453-b105-1122897b5888"
+  },
+  {
+    "id": "research-editor",
+    "displayName": "Research Editor",
+    "roomId": "research-intel-room",
+    "meshProjectId": null,
+    "role": "Evidence and report editor",
+    "scope": "Turns research into compact tables, objective verdicts, and cited decision reports.",
+    "modelTier": "reviewer",
+    "skills": [
+      "reporting",
+      "source-citation",
+      "editorial-review"
+    ],
+    "allowedTools": [
+      "repo-read",
+      "web-read"
+    ],
+    "authority": "Can finalize internal reports after source checks pass.",
+    "autonomyScore": 61,
+    "reliabilityScore": 79,
+    "status": "virtual",
+    "activation": "standby",
+    "currentLoad": 0,
+    "workspaceRoot": null,
+    "threadId": null
+  },
+  {
+    "id": "content-room-lead",
+    "displayName": "Content Room Lead",
+    "roomId": "content-growth-room",
+    "meshProjectId": "blog-outsider",
+    "role": "Tao Outsider and growth lead",
+    "scope": "Coordinates blog, SEO, Cloudflare publication checks, and content production flow.",
+    "modelTier": "frontier",
+    "skills": [
+      "seo",
+      "editorial-strategy",
+      "cloudflare-context"
+    ],
+    "allowedTools": [
+      "web-read",
+      "repo-read",
+      "mesh-read"
+    ],
+    "authority": "Can prepare content and publication plans; public publishing needs review.",
+    "autonomyScore": 65,
+    "reliabilityScore": 78,
+    "status": "live-thread",
+    "activation": "active",
+    "currentLoad": 0,
+    "workspaceRoot": "/Users/victorlamenha/Documents/New project",
+    "threadId": "019db1a4-b01b-7042-9540-ef4c7fa4103e"
+  },
+  {
+    "id": "taoswap-content-strategist",
+    "displayName": "TaoSwap Content Strategist",
+    "roomId": "content-growth-room",
+    "meshProjectId": "taoswap-engine",
+    "role": "TaoSwap content and positioning",
+    "scope": "Produces TaoSwap-native content without diluting identity into Tao Outsider or Tiger voice.",
+    "modelTier": "mini",
+    "skills": [
+      "crypto-copy",
+      "social-content",
+      "brand-positioning"
+    ],
+    "allowedTools": [
+      "repo-read",
+      "web-read"
+    ],
+    "authority": "Can draft and revise; final publication remains review-gated.",
+    "autonomyScore": 62,
+    "reliabilityScore": 76,
+    "status": "live-thread",
+    "activation": "active",
+    "currentLoad": 0,
+    "workspaceRoot": "/Users/victorlamenha/Documents/New project",
+    "threadId": "019dd744-fc2d-7383-8895-077ccd2f2d76"
+  },
+  {
+    "id": "tao-outsider-editor",
+    "displayName": "Tao Outsider Editor",
+    "roomId": "content-growth-room",
+    "meshProjectId": "blog-outsider",
+    "role": "Editorial voice and translation",
+    "scope": "Keeps copy direct, technically literate, crypto-native, and not hype-driven.",
+    "modelTier": "reviewer",
+    "skills": [
+      "editorial-voice",
+      "translation",
+      "crypto-native-writing"
+    ],
+    "allowedTools": [
+      "repo-read",
+      "web-read"
+    ],
+    "authority": "Can approve internal drafts for tone; publication still gated.",
+    "autonomyScore": 58,
+    "reliabilityScore": 83,
+    "status": "live-thread",
+    "activation": "active",
+    "currentLoad": 0,
+    "workspaceRoot": "/Users/victorlamenha/Documents/New project",
+    "threadId": "019db1a4-b01b-7042-9540-ef4c7fa4103e"
+  },
+  {
+    "id": "video-creative-producer",
+    "displayName": "Video Creative Producer",
+    "roomId": "content-growth-room",
+    "meshProjectId": "tiger-movie",
+    "role": "Video, covers, layout, and creative media",
+    "scope": "Creates creative plans, captions, covers, and video production assets.",
+    "modelTier": "mini",
+    "skills": [
+      "video",
+      "covers",
+      "captions",
+      "creative-layout"
+    ],
+    "allowedTools": [
+      "media-read",
+      "creative-tools"
+    ],
+    "authority": "Can draft assets and briefs; final brand/export review required.",
+    "autonomyScore": 54,
+    "reliabilityScore": 72,
+    "status": "live-thread",
+    "activation": "active",
+    "currentLoad": 0,
+    "workspaceRoot": "/Users/victorlamenha/.codex/worktrees/fea9/New project",
+    "threadId": "019df4f6-a05a-7a71-aab4-78c34f0a021e"
+  },
+  {
+    "id": "seo-distribution-operator",
+    "displayName": "SEO Distribution Operator",
+    "roomId": "content-growth-room",
+    "meshProjectId": null,
+    "role": "SEO and distribution checklist operator",
+    "scope": "Maintains publish checklist, internal links, metadata, snippets, and social distribution plan.",
+    "modelTier": "mini",
+    "skills": [
+      "seo-checklist",
+      "metadata",
+      "distribution"
+    ],
+    "allowedTools": [
+      "repo-read",
+      "web-read"
+    ],
+    "authority": "Can prepare checklists and drafts; live publication is review-gated.",
+    "autonomyScore": 57,
+    "reliabilityScore": 75,
+    "status": "virtual",
+    "activation": "standby",
+    "currentLoad": 0,
+    "workspaceRoot": null,
+    "threadId": null
+  },
+  {
+    "id": "brand-voice-reviewer",
+    "displayName": "Brand Voice Reviewer",
+    "roomId": "content-growth-room",
+    "meshProjectId": null,
+    "role": "Final voice and consistency reviewer",
+    "scope": "Catches generic copy, identity drift, false claims, and weak crypto-native phrasing.",
+    "modelTier": "reviewer",
+    "skills": [
+      "voice-review",
+      "claim-check",
+      "style-consistency"
+    ],
+    "allowedTools": [
+      "repo-read",
+      "web-read"
+    ],
+    "authority": "Can block publication until tone and factual checks pass.",
+    "autonomyScore": 52,
+    "reliabilityScore": 84,
+    "status": "virtual",
+    "activation": "standby",
+    "currentLoad": 0,
+    "workspaceRoot": null,
+    "threadId": null
+  },
+  {
+    "id": "mesh-infinite-todo-app",
+    "displayName": "Infinite Todo App",
+    "roomId": "build-room",
+    "meshProjectId": "infinite-todo-app",
+    "role": "Mesh project specialist",
+    "scope": "Local-first PWA todo app with Supabase sync and GitHub Pages deployment.",
+    "status": "backend-only",
+    "modelTier": "codex",
+    "skills": [
+      "mesh-context",
+      "project-memory",
+      "thread-bridge"
+    ],
+    "allowedTools": [
+      "mesh-read",
+      "context-request"
+    ],
+    "authority": "May answer scoped context requests; cross-project writes stay human-gated.",
+    "activation": "standby",
+    "autonomyScore": 38,
+    "reliabilityScore": 70,
+    "currentLoad": 0,
+    "workspaceRoot": "/Users/victorlamenha/.codex/worktrees/1c52/New project/infinite-todo-app",
+    "threadId": null
+  }
+]

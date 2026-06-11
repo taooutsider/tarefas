@@ -1,0 +1,14 @@
+{
+  "projectId": "tiger-bot-dtao",
+  "name": "Tiger Bot dTAO",
+  "status": "paused",
+  "last_seen": "2026-06-05T04:15:30.000Z",
+  "observed_at": "2026-06-11T03:30:58.493Z",
+  "current_task": "Codex Mesh agent protocol bootstrapped",
+  "workspace": "/Users/victorlamenha/Documents/New project",
+  "thread": "019ca920-5779-7701-a2d3-dd5e0da8090d",
+  "source": "message",
+  "open_dispatches": 0,
+  "inbox_count": 6,
+  "outbox_count": 0
+}

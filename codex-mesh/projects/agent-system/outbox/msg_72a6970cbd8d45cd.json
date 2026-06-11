@@ -1,0 +1,15 @@
+{
+  "body": "Request created by Agent Office.\n\nCan you confirm this request reached your project?\n\nOperational source: web-operator",
+  "expectedOutput": "Reply with public context, relevant files, risks, and the recommended next step to register in the Mesh.",
+  "from": "agent-system",
+  "priority": "normal",
+  "requiresReply": true,
+  "subject": "Smoke context request",
+  "to": "agente-vlmkt",
+  "type": "request_context",
+  "id": "msg_72a6970cbd8d45cd",
+  "status": "dispatched",
+  "createdAt": "2026-06-09T22:02:53.737Z",
+  "dispatchedAt": "2026-06-09T22:02:53.740Z",
+  "dispatchThreadId": "019e9326-6aa8-7d73-9ce5-19248c724ccf"
+}

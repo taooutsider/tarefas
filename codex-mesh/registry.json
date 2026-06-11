@@ -1,0 +1,177 @@
+{
+  "version": 1,
+  "createdAt": "2026-06-04T22:14:21.045Z",
+  "updatedAt": "2026-06-05T04:15:30.000Z",
+  "projects": [
+    {
+      "id": "agent-system",
+      "name": "Agent System",
+      "scope": "Telegram/Codex autonomous agent system, Agents SDK orchestration, approvals, and local Codex mesh.",
+      "status": "active",
+      "threadId": "019e74d0-b2d7-7ab1-b9bf-71572e46d2c0",
+      "workspaceRoot": "/Users/victorlamenha/.codex/worktrees/1c52/New project",
+      "allowedPeers": [
+        "*"
+      ],
+      "manifestPath": "projects/agent-system/manifest.md",
+      "publicSummaryPath": "projects/agent-system/public-summary.md",
+      "inboxPath": "projects/agent-system/inbox",
+      "outboxPath": "projects/agent-system/outbox",
+      "createdAt": "2026-06-04T22:14:36.160Z",
+      "updatedAt": "2026-06-04T22:14:36.160Z"
+    },
+    {
+      "id": "infinite-todo-app",
+      "name": "Infinite Todo App",
+      "scope": "Local-first PWA todo app with Supabase sync and GitHub Pages deployment.",
+      "status": "active",
+      "threadId": null,
+      "workspaceRoot": "/Users/victorlamenha/.codex/worktrees/1c52/New project/infinite-todo-app",
+      "allowedPeers": [
+        "*"
+      ],
+      "manifestPath": "projects/infinite-todo-app/manifest.md",
+      "publicSummaryPath": "projects/infinite-todo-app/public-summary.md",
+      "inboxPath": "projects/infinite-todo-app/inbox",
+      "outboxPath": "projects/infinite-todo-app/outbox",
+      "createdAt": "2026-06-04T22:14:42.316Z",
+      "updatedAt": "2026-06-04T22:14:42.316Z"
+    },
+    {
+      "id": "taoswap-engine",
+      "name": "TaoSwap Engine",
+      "scope": "X/social content skill and TaoSwap-related engine work from Codex thread summary.",
+      "status": "active",
+      "threadId": "019dd744-fc2d-7383-8895-077ccd2f2d76",
+      "workspaceRoot": "/Users/victorlamenha/Documents/New project",
+      "allowedPeers": [
+        "*"
+      ],
+      "manifestPath": "projects/taoswap-engine/manifest.md",
+      "publicSummaryPath": "projects/taoswap-engine/public-summary.md",
+      "inboxPath": "projects/taoswap-engine/inbox",
+      "outboxPath": "projects/taoswap-engine/outbox",
+      "createdAt": "2026-06-04T22:14:49.384Z",
+      "updatedAt": "2026-06-04T22:14:49.384Z"
+    },
+    {
+      "id": "agente-vlmkt",
+      "name": "Agente VLMKT",
+      "scope": "Autonomous agent architecture conversation in a separate Codex worktree.",
+      "status": "active",
+      "threadId": "019e9326-6aa8-7d73-9ce5-19248c724ccf",
+      "workspaceRoot": "/Users/victorlamenha/.codex/worktrees/1699/New project",
+      "allowedPeers": [
+        "*"
+      ],
+      "manifestPath": "projects/agente-vlmkt/manifest.md",
+      "publicSummaryPath": "projects/agente-vlmkt/public-summary.md",
+      "inboxPath": "projects/agente-vlmkt/inbox",
+      "outboxPath": "projects/agente-vlmkt/outbox",
+      "createdAt": "2026-06-04T22:14:55.233Z",
+      "updatedAt": "2026-06-04T22:14:55.233Z"
+    },
+    {
+      "id": "tiger-2-0",
+      "name": "Tiger 2.0",
+      "scope": "Debug and restore Tiger Research operation.",
+      "status": "active",
+      "threadId": "019e60d0-c588-7502-8db2-76b01cfeb7f2",
+      "workspaceRoot": "/Users/victorlamenha/.codex/worktrees/4fe8/New project",
+      "allowedPeers": [
+        "*"
+      ],
+      "manifestPath": "projects/tiger-2-0/manifest.md",
+      "publicSummaryPath": "projects/tiger-2-0/public-summary.md",
+      "inboxPath": "projects/tiger-2-0/inbox",
+      "outboxPath": "projects/tiger-2-0/outbox",
+      "createdAt": "2026-06-04T22:15:00.776Z",
+      "updatedAt": "2026-06-04T22:15:00.776Z"
+    },
+    {
+      "id": "blog-outsider",
+      "name": "Blog Outsider",
+      "scope": "Astro 5 outsider blog and Cloudflare deployment work.",
+      "status": "active",
+      "threadId": "019db1a4-b01b-7042-9540-ef4c7fa4103e",
+      "workspaceRoot": "/Users/victorlamenha/Documents/New project",
+      "allowedPeers": [
+        "*"
+      ],
+      "manifestPath": "projects/blog-outsider/manifest.md",
+      "publicSummaryPath": "projects/blog-outsider/public-summary.md",
+      "inboxPath": "projects/blog-outsider/inbox",
+      "outboxPath": "projects/blog-outsider/outbox",
+      "createdAt": "2026-06-04T22:15:06.090Z",
+      "updatedAt": "2026-06-04T22:15:06.090Z"
+    },
+    {
+      "id": "pesquisa-voos",
+      "name": "Pesquisa de Voos",
+      "scope": "Flight search and fare comparison workflows.",
+      "status": "active",
+      "threadId": "019df8ad-c456-7453-b105-1122897b5888",
+      "workspaceRoot": "/Users/victorlamenha/.codex/worktrees/f42e/New project",
+      "allowedPeers": [
+        "*"
+      ],
+      "manifestPath": "projects/pesquisa-voos/manifest.md",
+      "publicSummaryPath": "projects/pesquisa-voos/public-summary.md",
+      "inboxPath": "projects/pesquisa-voos/inbox",
+      "outboxPath": "projects/pesquisa-voos/outbox",
+      "createdAt": "2026-06-04T22:15:14.225Z",
+      "updatedAt": "2026-06-04T22:15:14.225Z"
+    },
+    {
+      "id": "tiger-movie",
+      "name": "Tiger Movie",
+      "scope": "Video editing, covers, layouts, captions and creative tooling inside Codex.",
+      "status": "active",
+      "threadId": "019df4f6-a05a-7a71-aab4-78c34f0a021e",
+      "workspaceRoot": "/Users/victorlamenha/.codex/worktrees/fea9/New project",
+      "allowedPeers": [
+        "*"
+      ],
+      "manifestPath": "projects/tiger-movie/manifest.md",
+      "publicSummaryPath": "projects/tiger-movie/public-summary.md",
+      "inboxPath": "projects/tiger-movie/inbox",
+      "outboxPath": "projects/tiger-movie/outbox",
+      "createdAt": "2026-06-04T22:15:20.906Z",
+      "updatedAt": "2026-06-04T22:15:20.906Z"
+    },
+    {
+      "id": "tiger-miner",
+      "name": "Tiger Miner",
+      "scope": "SN94 BitSota mining viability, wallet safety, and low-infra profitability plan.",
+      "status": "active",
+      "threadId": "019c5e15-3e59-71a0-9c93-1831dfa58091",
+      "workspaceRoot": "/Users/victorlamenha/Documents/New project",
+      "allowedPeers": [
+        "*"
+      ],
+      "manifestPath": "projects/tiger-miner/manifest.md",
+      "publicSummaryPath": "projects/tiger-miner/public-summary.md",
+      "inboxPath": "projects/tiger-miner/inbox",
+      "outboxPath": "projects/tiger-miner/outbox",
+      "createdAt": "2026-06-04T22:15:27.668Z",
+      "updatedAt": "2026-06-04T22:15:27.668Z"
+    },
+    {
+      "id": "tiger-bot-dtao",
+      "name": "Tiger Bot dTAO",
+      "scope": "API hunter workspace and dTAO bot execution planning.",
+      "status": "paused",
+      "threadId": "019ca920-5779-7701-a2d3-dd5e0da8090d",
+      "workspaceRoot": "/Users/victorlamenha/Documents/New project",
+      "allowedPeers": [
+        "*"
+      ],
+      "manifestPath": "projects/tiger-bot-dtao/manifest.md",
+      "publicSummaryPath": "projects/tiger-bot-dtao/public-summary.md",
+      "inboxPath": "projects/tiger-bot-dtao/inbox",
+      "outboxPath": "projects/tiger-bot-dtao/outbox",
+      "createdAt": "2026-06-04T22:15:32.887Z",
+      "updatedAt": "2026-06-05T04:15:30.000Z"
+    }
+  ]
+}

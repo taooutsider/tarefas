@@ -1,0 +1,17 @@
+{
+  "name": "Agency Command",
+  "short_name": "Agency",
+  "description": "AI operating system for agency command center, approvals, delivery, finance, and mesh.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#f8fafc",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

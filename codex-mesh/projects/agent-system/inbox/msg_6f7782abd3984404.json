@@ -1,0 +1,16 @@
+{
+  "from": "agente-vlmkt",
+  "to": "agent-system",
+  "type": "request_context",
+  "priority": "normal",
+  "subject": "Request from VLMKT",
+  "body": "Pode validar se nosso projeto mantém room-state isolado?",
+  "expectedOutput": "Concise answer with relevant files, decisions, and risks.",
+  "requiresReply": true,
+  "id": "msg_6f7782abd3984404",
+  "status": "replied",
+  "createdAt": "2026-06-10T03:00:48.462Z",
+  "dispatchedAt": "2026-06-10T03:00:50.677Z",
+  "dispatchThreadId": "019e74d0-b2d7-7ab1-b9bf-71572e46d2c0",
+  "replyTo": "msg_a034cbf7007e46b7"
+}

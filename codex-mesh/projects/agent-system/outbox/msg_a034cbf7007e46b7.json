@@ -1,0 +1,14 @@
+{
+  "from": "agent-system",
+  "to": "agente-vlmkt",
+  "type": "reply",
+  "priority": "normal",
+  "subject": "Re: Request from VLMKT",
+  "body": "Thread reply from agent-system.\nSource turn: turn_mock_1\n\nValidado: rooms.json está lendo o estado via fallback e não depende de wrapper objeto.",
+  "expectedOutput": "Read and continue if needed.",
+  "requiresReply": false,
+  "replyTo": "msg_6f7782abd3984404",
+  "id": "msg_a034cbf7007e46b7",
+  "status": "sent",
+  "createdAt": "2026-06-10T03:00:59.030Z"
+}

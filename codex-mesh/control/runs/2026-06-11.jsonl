@@ -1,0 +1,2 @@
+{"at":"2026-06-11T03:30:58.431Z","type":"room_autonomy_updated","roomId":"build-room","roomAutonomyMode":"execute","maxParallelClaims":5,"maxDailyAutonomousRuns":12}
+{"at":"2026-06-11T03:31:16.842Z","type":"room_autonomy_updated","roomId":"build-room","roomAutonomyMode":"execute","maxParallelClaims":5,"maxDailyAutonomousRuns":12}

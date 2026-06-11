@@ -1,0 +1,210 @@
+{
+  "generatedAt": "2026-06-10T03:02:38.715Z",
+  "summary": {
+    "totalProjects": 10,
+    "liveThread": 2,
+    "backendOnly": 1,
+    "paused": 1,
+    "repairNeeded": 6
+  },
+  "items": [
+    {
+      "projectId": "agent-system",
+      "roomId": "build-room",
+      "roomName": "Build Room",
+      "agentId": "chief-orchestrator",
+      "displayName": "Chief Orchestrator",
+      "status": "live-thread",
+      "threadId": "019e74d0-b2d7-7ab1-b9bf-71572e46d2c0",
+      "workspaceRoot": "/Users/victorlamenha/.codex/worktrees/1c52/New project",
+      "reason": "Heartbeat is active and task flow is progressing.",
+      "currentTask": "Smoke context request",
+      "lastSeen": "2026-06-10T03:00:59.032Z",
+      "observedAt": "2026-06-10T03:02:25.406Z",
+      "openDispatches": 1,
+      "failedDispatches": 0,
+      "recommendations": [
+        "Use thread-aware channels and avoid backend-only assumptions for agent-system."
+      ]
+    },
+    {
+      "projectId": "agente-vlmkt",
+      "roomId": "build-room",
+      "roomName": "Build Room",
+      "agentId": "build-room-lead",
+      "displayName": "Build Room Lead",
+      "status": "live-thread",
+      "threadId": "019e9326-6aa8-7d73-9ce5-19248c724ccf",
+      "workspaceRoot": "/Users/victorlamenha/.codex/worktrees/1699/New project",
+      "reason": "Heartbeat is active and task flow is progressing.",
+      "currentTask": "Smoke context request",
+      "lastSeen": "2026-06-10T03:00:59.032Z",
+      "observedAt": "2026-06-10T03:02:25.406Z",
+      "openDispatches": 1,
+      "failedDispatches": 0,
+      "recommendations": [
+        "Use thread-aware channels and avoid backend-only assumptions for agente-vlmkt."
+      ]
+    },
+    {
+      "projectId": "blog-outsider",
+      "roomId": "content-growth-room",
+      "roomName": "Content & Growth Room",
+      "agentId": "deployment-gatekeeper",
+      "displayName": "Deployment Gatekeeper",
+      "status": "repair-needed",
+      "threadId": "019db1a4-b01b-7042-9540-ef4c7fa4103e",
+      "workspaceRoot": "/Users/victorlamenha/Documents/New project",
+      "reason": "Heartbeat is stale for a live-thread project.",
+      "currentTask": "Reevaluate Bittensor Field College after X feedback fixes",
+      "lastSeen": "2026-06-09T04:13:05.538Z",
+      "observedAt": "2026-06-10T03:02:25.406Z",
+      "openDispatches": 1,
+      "failedDispatches": 2,
+      "recommendations": [
+        "Use thread-aware channels and avoid backend-only assumptions for blog-outsider.",
+        "Recheck failed dispatches, then re-run bridge or request explicit room repair path.",
+        "Heartbeat stale: force a new context check and run dispatch bridge once."
+      ]
+    },
+    {
+      "projectId": "infinite-todo-app",
+      "roomId": "build-room",
+      "roomName": "Build Room",
+      "agentId": "mesh-infinite-todo-app",
+      "displayName": "Infinite Todo App",
+      "status": "backend-only",
+      "threadId": null,
+      "workspaceRoot": "/Users/victorlamenha/.codex/worktrees/1c52/New project/infinite-todo-app",
+      "reason": "No threadId in registry. Can send/receive via control messages but has no Mesh thread yet.",
+      "currentTask": "Codex Mesh agent protocol bootstrapped",
+      "lastSeen": "2026-06-05T04:15:17.498Z",
+      "observedAt": "2026-06-10T03:02:25.406Z",
+      "openDispatches": 0,
+      "failedDispatches": 0,
+      "recommendations": [
+        "Create or attach a live thread to infinite-todo-app."
+      ]
+    },
+    {
+      "projectId": "pesquisa-voos",
+      "roomId": "research-intel-room",
+      "roomName": "Research & Intelligence Room",
+      "agentId": "flight-research-agent",
+      "displayName": "Flight Research Agent",
+      "status": "repair-needed",
+      "threadId": "019df8ad-c456-7453-b105-1122897b5888",
+      "workspaceRoot": "/Users/victorlamenha/.codex/worktrees/f42e/New project",
+      "reason": "Heartbeat is stale for a live-thread project.",
+      "currentTask": "Codex Mesh agent protocol bootstrapped",
+      "lastSeen": "2026-06-05T04:15:17.503Z",
+      "observedAt": "2026-06-10T03:02:25.406Z",
+      "openDispatches": 0,
+      "failedDispatches": 0,
+      "recommendations": [
+        "Use thread-aware channels and avoid backend-only assumptions for pesquisa-voos.",
+        "Heartbeat stale: force a new context check and run dispatch bridge once."
+      ]
+    },
+    {
+      "projectId": "taoswap-engine",
+      "roomId": "content-growth-room",
+      "roomName": "Content & Growth Room",
+      "agentId": "taoswap-content-strategist",
+      "displayName": "TaoSwap Content Strategist",
+      "status": "repair-needed",
+      "threadId": "019dd744-fc2d-7383-8895-077ccd2f2d76",
+      "workspaceRoot": "/Users/victorlamenha/Documents/New project",
+      "reason": "Heartbeat is stale for a live-thread project.",
+      "currentTask": "Codex Mesh agent protocol bootstrapped",
+      "lastSeen": "2026-06-05T04:15:17.500Z",
+      "observedAt": "2026-06-10T03:02:25.406Z",
+      "openDispatches": 0,
+      "failedDispatches": 0,
+      "recommendations": [
+        "Use thread-aware channels and avoid backend-only assumptions for taoswap-engine.",
+        "Heartbeat stale: force a new context check and run dispatch bridge once."
+      ]
+    },
+    {
+      "projectId": "tiger-2-0",
+      "roomId": "research-intel-room",
+      "roomName": "Research & Intelligence Room",
+      "agentId": "research-room-lead",
+      "displayName": "Research Room Lead",
+      "status": "repair-needed",
+      "threadId": "019e60d0-c588-7502-8db2-76b01cfeb7f2",
+      "workspaceRoot": "/Users/victorlamenha/.codex/worktrees/4fe8/New project",
+      "reason": "Heartbeat is stale for a live-thread project.",
+      "currentTask": "Reevaluate Bittensor Field College after X feedback fixes",
+      "lastSeen": "2026-06-09T04:13:05.538Z",
+      "observedAt": "2026-06-10T03:02:25.406Z",
+      "openDispatches": 1,
+      "failedDispatches": 2,
+      "recommendations": [
+        "Use thread-aware channels and avoid backend-only assumptions for tiger-2-0.",
+        "Recheck failed dispatches, then re-run bridge or request explicit room repair path.",
+        "Heartbeat stale: force a new context check and run dispatch bridge once."
+      ]
+    },
+    {
+      "projectId": "tiger-bot-dtao",
+      "roomId": "research-intel-room",
+      "roomName": "Research & Intelligence Room",
+      "agentId": "wallet-safety-auditor",
+      "displayName": "Wallet Safety Auditor",
+      "status": "paused",
+      "threadId": "019ca920-5779-7701-a2d3-dd5e0da8090d",
+      "workspaceRoot": "/Users/victorlamenha/Documents/New project",
+      "reason": "Project marked paused in registry.",
+      "currentTask": "Codex Mesh agent protocol bootstrapped",
+      "lastSeen": "2026-06-05T04:15:30.000Z",
+      "observedAt": "2026-06-10T03:02:25.406Z",
+      "openDispatches": 0,
+      "failedDispatches": 0,
+      "recommendations": [
+        "Use thread-aware channels and avoid backend-only assumptions for tiger-bot-dtao."
+      ]
+    },
+    {
+      "projectId": "tiger-miner",
+      "roomId": "research-intel-room",
+      "roomName": "Research & Intelligence Room",
+      "agentId": "subnet-scout",
+      "displayName": "Subnet Scout",
+      "status": "repair-needed",
+      "threadId": "019c5e15-3e59-71a0-9c93-1831dfa58091",
+      "workspaceRoot": "/Users/victorlamenha/Documents/New project",
+      "reason": "Heartbeat is stale for a live-thread project.",
+      "currentTask": "Codex Mesh agent protocol bootstrapped",
+      "lastSeen": "2026-06-05T04:15:17.504Z",
+      "observedAt": "2026-06-10T03:02:25.406Z",
+      "openDispatches": 0,
+      "failedDispatches": 0,
+      "recommendations": [
+        "Use thread-aware channels and avoid backend-only assumptions for tiger-miner.",
+        "Heartbeat stale: force a new context check and run dispatch bridge once."
+      ]
+    },
+    {
+      "projectId": "tiger-movie",
+      "roomId": "research-intel-room",
+      "roomName": "Research & Intelligence Room",
+      "agentId": "video-creative-producer",
+      "displayName": "Video Creative Producer",
+      "status": "repair-needed",
+      "threadId": "019df4f6-a05a-7a71-aab4-78c34f0a021e",
+      "workspaceRoot": "/Users/victorlamenha/.codex/worktrees/fea9/New project",
+      "reason": "Heartbeat is stale for a live-thread project.",
+      "currentTask": "Codex Mesh agent protocol bootstrapped",
+      "lastSeen": "2026-06-05T04:15:17.503Z",
+      "observedAt": "2026-06-10T03:02:25.406Z",
+      "openDispatches": 0,
+      "failedDispatches": 0,
+      "recommendations": [
+        "Use thread-aware channels and avoid backend-only assumptions for tiger-movie.",
+        "Heartbeat stale: force a new context check and run dispatch bridge once."
+      ]
+    }
+  ]
+}

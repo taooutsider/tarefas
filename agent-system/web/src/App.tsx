@@ -35,6 +35,7 @@ import {
   claimRoomTask,
   runMeshDispatch,
   runRoomAutonomy,
+  runRoomAutonomySimulation,
   seedDemo,
   updateRoomPolicy,
   releaseRoomTask,
@@ -57,8 +58,8 @@ import type {
   MeshProject,
   RoomAgent,
   RoomClaim,
+  RoomAutonomyRunEvent,
   RoomAutonomyRunResult,
-  RoomAutonomyRunRecord,
   RoomAutonomyMode,
   RoomTask,
   TomorrowPlanItem,
@@ -86,6 +87,7 @@ type RoomActionPolicyDrafts = Partial<Record<RoomAction, RoomActionPolicyDraft>>
 
 type RoomPolicyForm = {
   autonomyMode: RoomAutonomyMode | "";
+  learningInitiativesEnabled: boolean;
   capacity: {
     maxDailyAutonomousRuns: string;
     maxParallelClaims: string;
@@ -95,6 +97,7 @@ type RoomPolicyForm = {
 
 type RoomPolicyPayload = {
   autonomyMode?: RoomAutonomyMode;
+  learningInitiativesEnabled?: boolean;
   capacity?: {
     maxDailyAutonomousRuns?: number;
     maxParallelClaims?: number;
@@ -129,6 +132,7 @@ function buildRoomPolicyForm(room: AgentRoom): RoomPolicyForm {
     },
     {
       autonomyMode: room.autonomyMode,
+      learningInitiativesEnabled: room.learningInitiativesEnabled,
       capacity: {
         maxDailyAutonomousRuns: String(room.capacity.maxDailyAutonomousRuns),
         maxParallelClaims: String(room.capacity.maxParallelClaims),
@@ -154,6 +158,7 @@ function normalizePolicyPayload(form: RoomPolicyForm): RoomPolicyPayload {
 
   const payload: RoomPolicyPayload = {
     autonomyMode: normalizedAutonomyMode,
+    learningInitiativesEnabled: form.learningInitiativesEnabled,
   };
 
   if (normalizedCapacity.maxDailyAutonomousRuns !== undefined || normalizedCapacity.maxParallelClaims !== undefined) {
@@ -188,6 +193,7 @@ function normalizePolicyPayload(form: RoomPolicyForm): RoomPolicyPayload {
 type ViewKey = "command" | "office" | "clients" | "delivery" | "finance" | "approvals" | "mesh" | "agent";
 type LiveMeshStatus = "connecting" | "live" | "reconnecting" | "offline";
 type MeshPanelMode = "mailbox" | "history";
+type OfficeRouteSignalFeed = MeshEvent | RoomAutonomyRunEvent;
 
 const navItems: Array<{ icon: typeof LayoutDashboard; key: ViewKey; label: string }> = [
   { icon: LayoutDashboard, key: "command", label: "Command" },
@@ -222,13 +228,60 @@ export function App() {
   const [meshComposerRoomId, setMeshComposerRoomId] = useState<string>("");
   const [meshComposerSubject, setMeshComposerSubject] = useState("");
   const [meshComposerMessage, setMeshComposerMessage] = useState("");
+  const [officeRouteSignals, setOfficeRouteSignals] = useState<Array<OfficeRouteSignalFeed>>([]);
+
+  const ROUTE_SIGNAL_TTL_MS = 22_000;
+  const ROUTE_SIGNAL_MAX_ITEMS = 45;
+
+  function pruneRouteSignals(signals: Array<OfficeRouteSignalFeed>): Array<OfficeRouteSignalFeed> {
+    const now = Date.now();
+    return signals
+      .filter((signal) => {
+        const signalDate = Date.parse(signal.createdAt);
+        return Number.isFinite(signalDate) ? now - signalDate <= ROUTE_SIGNAL_TTL_MS : false;
+      })
+      .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
+      .slice(0, ROUTE_SIGNAL_MAX_ITEMS);
+  }
+
+  function normalizeSignalQueue(
+    current: Array<OfficeRouteSignalFeed>,
+    incoming: Array<OfficeRouteSignalFeed>,
+  ): Array<OfficeRouteSignalFeed> {
+    const seen = new Map<string, OfficeRouteSignalFeed>();
+    const now = Date.now();
+
+    for (const signal of pruneRouteSignals(current)) {
+      const parsed = Date.parse(signal.createdAt);
+      if (Number.isFinite(parsed) && now - parsed <= ROUTE_SIGNAL_TTL_MS) {
+        seen.set(signal.id, signal);
+      }
+    }
+
+    for (const signal of incoming) {
+      const parsed = Date.parse(signal.createdAt);
+      if (Number.isFinite(parsed) && now - parsed <= ROUTE_SIGNAL_TTL_MS) {
+        seen.set(signal.id, signal);
+      }
+    }
+
+    return Array.from(seen.values())
+      .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
+      .slice(0, ROUTE_SIGNAL_MAX_ITEMS);
+  }
+
+  function applyBootstrapPayload(next: BootstrapPayload) {
+    const autonomySignals = next.roomsAutonomyRun?.events ?? [];
+    setBootstrap(next);
+    setOfficeRouteSignals((current) => normalizeSignalQueue(current, [...next.mesh.events, ...autonomySignals]));
+  }
 
   async function refresh(nextToken = token) {
     setLoading(true);
     setError(null);
     try {
       const payload = await loadBootstrap(nextToken);
-      setBootstrap(payload);
+      applyBootstrapPayload(payload);
       setStoredToken(nextToken);
       setToken(nextToken);
     } catch (err) {
@@ -253,11 +306,14 @@ export function App() {
       },
       onOpen: () => setLiveStatus("live"),
       onSnapshot: (payload, generatedAt) => {
-        setBootstrap(payload);
+        applyBootstrapPayload(payload);
         setLastLiveAt(generatedAt);
         setLoading(false);
         setError(null);
         setLiveStatus("live");
+      },
+      onAutonomyEvent: (events) => {
+        setOfficeRouteSignals((current) => normalizeSignalQueue(current, events));
       },
     });
 
@@ -348,7 +404,7 @@ export function App() {
   async function handleSeed() {
     setSubmitting(true);
     try {
-      setBootstrap(await seedDemo(token));
+      applyBootstrapPayload(await seedDemo(token));
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
@@ -365,7 +421,7 @@ export function App() {
     setSubmitting(true);
     try {
       const payload = await createJob(token, goal);
-      setBootstrap(payload);
+      applyBootstrapPayload(payload);
       setTaskDraft("");
       goToView("agent");
       setError(null);
@@ -379,7 +435,7 @@ export function App() {
   async function handleApproval(approvalId: string, decision: "approve" | "deny") {
     setSubmitting(true);
     try {
-      setBootstrap(await resolveApproval(token, approvalId, decision));
+      applyBootstrapPayload(await resolveApproval(token, approvalId, decision));
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
@@ -391,7 +447,7 @@ export function App() {
   async function handleRunBridge() {
     setSubmitting(true);
     try {
-      setBootstrap(await runMeshDispatch(token));
+      applyBootstrapPayload(await runMeshDispatch(token));
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
@@ -403,7 +459,7 @@ export function App() {
   async function handleRunRoomAudit() {
     setSubmitting(true);
     try {
-      setBootstrap(await runRoomAudit(token));
+      applyBootstrapPayload(await runRoomAudit(token));
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
@@ -425,11 +481,37 @@ export function App() {
               targetRoomId,
               allowLearningInitiatives: options.allowLearningInitiatives,
             }
+              : {
+                  allowLearningInitiatives: options.allowLearningInitiatives,
+                },
+      );
+      applyBootstrapPayload(payload);
+      setError(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  async function handleRunRoomAutonomySimulation(
+    targetRoomId?: string | null,
+    options: { allowLearningInitiatives?: boolean } = {},
+  ) {
+    setSubmitting(true);
+    try {
+      const payload = await runRoomAutonomySimulation(
+        token,
+        targetRoomId?.trim()
+          ? {
+              targetRoomId,
+              allowLearningInitiatives: options.allowLearningInitiatives,
+            }
           : {
               allowLearningInitiatives: options.allowLearningInitiatives,
             },
       );
-      setBootstrap(payload);
+      applyBootstrapPayload(payload);
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
@@ -441,7 +523,7 @@ export function App() {
   async function handleUpdateRoomPolicy(roomId: string, input: RoomPolicyPayload) {
     setSubmitting(true);
     try {
-      setBootstrap(await updateRoomPolicy(token, roomId, input));
+      applyBootstrapPayload(await updateRoomPolicy(token, roomId, input));
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
@@ -478,7 +560,7 @@ export function App() {
         subject: input.subject,
         requiresReply: input.requiresReply,
       });
-      setBootstrap(bootstrapPayload);
+      applyBootstrapPayload(bootstrapPayload);
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
@@ -490,7 +572,7 @@ export function App() {
   async function handleTaskClaim(taskId: string, agentId: string) {
     setSubmitting(true);
     try {
-      setBootstrap(
+      applyBootstrapPayload(
         await claimRoomTask(token, taskId, {
           agentId,
           reason: `Manual claim from Office mission queue.`,
@@ -507,7 +589,7 @@ export function App() {
   async function handleTaskRelease(taskId: string) {
     setSubmitting(true);
     try {
-      setBootstrap(await releaseRoomTask(token, taskId, "Release from Office mission queue."));
+      applyBootstrapPayload(await releaseRoomTask(token, taskId, "Release from Office mission queue."));
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
@@ -519,7 +601,7 @@ export function App() {
   async function handleTaskSuggest(taskId: string, targetRoomId: string, title: string, objective: string) {
     setSubmitting(true);
     try {
-      setBootstrap(
+      applyBootstrapPayload(
         await suggestRoomTask(token, {
           sourceTaskId: taskId,
           targetRoomId,
@@ -610,13 +692,15 @@ export function App() {
                 data={bootstrap}
                 liveStatus={liveStatus}
                 lastLiveAt={lastLiveAt}
+                routeSignals={officeRouteSignals}
                 onAsk={handleMeshHelp}
-        onOpenMesh={openMesh}
-        onClaimTask={handleTaskClaim}
-        onReleaseTask={handleTaskRelease}
-        onSuggestTask={handleTaskSuggest}
-        onRunBridge={handleRunBridge}
+                onOpenMesh={openMesh}
+                onClaimTask={handleTaskClaim}
+                onReleaseTask={handleTaskRelease}
+                onSuggestTask={handleTaskSuggest}
+                onRunBridge={handleRunBridge}
                 onRunAutonomy={handleRunRoomAutonomy}
+                onRunAutonomySimulation={handleRunRoomAutonomySimulation}
                 onRunAudit={handleRunRoomAudit}
                 onUpdateRoomPolicy={handleUpdateRoomPolicy}
                 roomsAutonomyRun={bootstrap.roomsAutonomyRun ?? null}
@@ -731,14 +815,20 @@ type OfficeRoute = {
   d: string;
   from: string;
   id: string;
-  kind: MeshEvent["kind"];
+  kind: MeshEvent["kind"] | RoomAutonomyRunEvent["kind"];
   messageId: string;
   midX: number;
   midY: number;
   open: boolean;
+  motionSeconds: number;
   status: string;
   subject: string;
   to: string;
+  sourceLabel: string;
+};
+
+type OfficeRouteSignalMap = {
+  [roomId: string]: string;
 };
 
 const officeLayout: Record<string, { x: number; y: number }> = {
@@ -776,8 +866,9 @@ const statusUi: Record<OfficeAgentStatus, { detail: string; label: string }> = {
   working: { detail: "Running", label: "WORKING" },
 };
 
-function OfficeView({
+  function OfficeView({
   data,
+  routeSignals,
   liveStatus,
   lastLiveAt,
   onAsk,
@@ -788,12 +879,14 @@ function OfficeView({
   onRunBridge,
   onRunAudit,
   onRunAutonomy,
+  onRunAutonomySimulation,
   onUpdateRoomPolicy,
   roomsAutonomyRun,
   submitting,
   onHelpError,
 }: {
   data: BootstrapPayload;
+  routeSignals: Array<OfficeRouteSignalFeed>;
   liveStatus: LiveMeshStatus;
   lastLiveAt: string | null;
   onAsk: (project: MeshProject, message: string) => Promise<void>;
@@ -809,6 +902,7 @@ function OfficeView({
   onRunBridge: () => Promise<void>;
   onRunAudit: () => Promise<void>;
   onRunAutonomy: (targetRoomId?: string | null, options?: { allowLearningInitiatives?: boolean }) => Promise<void>;
+  onRunAutonomySimulation: (targetRoomId?: string | null, options?: { allowLearningInitiatives?: boolean }) => Promise<void>;
   onUpdateRoomPolicy: (roomId: string, input: RoomPolicyPayload) => Promise<void>;
   roomsAutonomyRun: RoomAutonomyRunResult | null;
   onHelpError: (message: string) => void;
@@ -822,8 +916,8 @@ function OfficeView({
   const [selectedId, setSelectedId] = useState("agent-system");
   const [helpDraft, setHelpDraft] = useState("");
   const selected = agents.find((agent) => agent.id === selectedId) ?? agents[0];
-  const routes = useMemo(() => buildOfficeRoutes(data, agents), [agents, data]);
-  const activityItems = useMemo(() => officeActivityItems(data), [data]);
+  const routes = useMemo(() => buildOfficeRoutes(data, agents, routeSignals), [agents, data, routeSignals]);
+  const activityItems = useMemo(() => officeActivityItems(data, routeSignals), [data, routeSignals]);
   const visibleEvents = useMemo(() => data.mesh.events.slice(0, 10), [data]);
   const meshProjectsById = useMemo(() => new Map(data.mesh.projects.map((project) => [project.id, project])), [data.mesh.projects]);
 
@@ -928,6 +1022,7 @@ Review recent decisions, risks, and current commitments.`;
         meshEvents={data.mesh.events}
         onRunAudit={onRunAudit}
         onRunAutonomy={onRunAutonomy}
+        onRunAutonomySimulation={onRunAutonomySimulation}
         onUpdateRoomPolicy={onUpdateRoomPolicy}
         roomsAutonomyRun={roomsAutonomyRun}
         submitting={submitting}
@@ -988,10 +1083,15 @@ Review recent decisions, risks, and current commitments.`;
             {routes.map((route, index) => (
               <g key={route.id}>
                 <path id={`office-route-${sanitizeDomId(route.id)}`} d={route.d} className={route.open ? "open" : ""} />
-                <circle className={route.open ? "route-packet open" : "route-packet"} r={route.open ? 1.25 : 0.95}>
-                  <animateMotion dur={route.open ? "5.6s" : "7.4s"} begin={`${index * 0.65}s`} repeatCount="indefinite">
-                    <mpath href={`#office-route-${sanitizeDomId(route.id)}`} />
-                  </animateMotion>
+                <circle
+                  className={route.open ? "route-packet open" : "route-packet"}
+                  r={route.open ? 1.25 : 0.95}
+                >
+                  {route.open ? (
+                    <animateMotion dur={`${route.motionSeconds.toFixed(1)}s`} begin={`${index * 0.2}s`} fill="freeze">
+                      <mpath href={`#office-route-${sanitizeDomId(route.id)}`} />
+                    </animateMotion>
+                  ) : null}
                 </circle>
               </g>
             ))}
@@ -1250,6 +1350,7 @@ function RoomOpsPanel({
   tasks,
   onOpenMesh,
   onRunAutonomy,
+  onRunAutonomySimulation,
   onUpdateRoomPolicy,
   roomsAutonomyRun,
   submitting,
@@ -1278,6 +1379,7 @@ function RoomOpsPanel({
     scope?: MeshMessageScope,
   ) => void;
   onRunAutonomy: (targetRoomId?: string | null, options?: { allowLearningInitiatives?: boolean }) => Promise<void>;
+  onRunAutonomySimulation: (targetRoomId?: string | null, options?: { allowLearningInitiatives?: boolean }) => Promise<void>;
   onUpdateRoomPolicy: (roomId: string, input: RoomPolicyPayload) => Promise<void>;
   roomsAutonomyRun: RoomAutonomyRunResult | null;
   submitting: boolean;
@@ -1321,7 +1423,6 @@ function RoomOpsPanel({
   const [suggestionObjective, setSuggestionObjective] = useState("");
   const [policyForm, setPolicyForm] = useState<RoomPolicyForm>(() => buildRoomPolicyForm(selectedRoom));
   const [policyDirty, setPolicyDirty] = useState(false);
-  const [allowLearningInitiatives, setAllowLearningInitiatives] = useState(true);
   const autonomySummary = roomsAutonomyRun && (roomsAutonomyRun.targetRoomId === null || roomsAutonomyRun.targetRoomId === selectedRoom.id)
     ? roomsAutonomyRun
     : null;
@@ -1329,7 +1430,6 @@ function RoomOpsPanel({
   useEffect(() => {
     setPolicyForm(buildRoomPolicyForm(selectedRoom));
     setPolicyDirty(false);
-    setAllowLearningInitiatives(true);
   }, [selectedRoom.id]);
 
   useEffect(() => {
@@ -1517,7 +1617,11 @@ function RoomOpsPanel({
   }
 
   async function handleRunAutonomyForRoom() {
-    await onRunAutonomy(selectedRoom.id, { allowLearningInitiatives });
+    await onRunAutonomy(selectedRoom.id);
+  }
+
+  async function handleRunAutonomySimulationForRoom() {
+    await onRunAutonomySimulation(selectedRoom.id, { allowLearningInitiatives: true });
   }
 
   function openSpecialistWorkspace(agent: RoomAgent) {
@@ -1632,9 +1736,13 @@ Review recent decisions and keep project context in sync.`, "project");
             <div className="room-governance-actions">
               <label className="room-autonomy-toggle">
                 <input
-                  checked={allowLearningInitiatives}
+                  checked={policyForm.learningInitiativesEnabled}
                   disabled={submitting}
-                  onChange={(event) => setAllowLearningInitiatives(event.target.checked)}
+                  onChange={(event) =>
+                    updatePolicyPatch((next) => {
+                      next.learningInitiativesEnabled = event.target.checked;
+                    })
+                  }
                   type="checkbox"
                 />
                 Allow learning initiatives
@@ -1642,6 +1750,10 @@ Review recent decisions and keep project context in sync.`, "project");
               <button type="button" onClick={() => void handleRunAutonomyForRoom()} disabled={submitting}>
                 {submitting ? <Loader2 className="spin" size={14} /> : <Zap size={14} />}
                 Run room autonomy
+              </button>
+              <button type="button" onClick={() => void handleRunAutonomySimulationForRoom()} disabled={submitting}>
+                {submitting ? <Loader2 className="spin" size={14} /> : <ClipboardList size={14} />}
+                Simulate room autonomy
               </button>
               <button type="button" onClick={() => void handleSavePolicy()} disabled={!policyDirty || submitting}>
                 {submitting ? <Loader2 className="spin" size={14} /> : <Save size={14} />}
@@ -2058,6 +2170,7 @@ function RoomKpi({ label, value }: { label: string; value: number | string }) {
 }
 
 function MessageChip({ index, route }: { index: number; route: OfficeRoute }) {
+  const sourceLabel = route.sourceLabel;
   return (
     <div
       className={route.open ? "message-chip open" : "message-chip"}
@@ -2069,7 +2182,7 @@ function MessageChip({ index, route }: { index: number; route: OfficeRoute }) {
     >
       <Mail size={15} />
       <div>
-        <strong>{route.messageId.slice(0, 10)}</strong>
+        <strong>{sourceLabel} · {route.messageId.slice(0, 8)}</strong>
         <span>{route.subject}</span>
       </div>
     </div>
@@ -2166,25 +2279,82 @@ function buildOfficeAgents(data: BootstrapPayload): OfficeAgent[] {
   });
 }
 
-function buildOfficeRoutes(data: BootstrapPayload, agents: OfficeAgent[]) {
+function buildOfficeRoutes(data: BootstrapPayload, agents: OfficeAgent[], signals: Array<OfficeRouteSignalFeed>) {
+  if (!signals.length) {
+    return [];
+  }
+
   const agentById = new Map(agents.map((agent) => [agent.id, agent]));
-  return data.mesh.events
+  const agentsByRoom = new Map<string, OfficeAgent>();
+  for (const agent of agents) {
+    if (!agent.roomId || agentsByRoom.has(agent.roomId)) {
+      continue;
+    }
+
+    agentsByRoom.set(agent.roomId, agent);
+  }
+
+  const routeSignals = signals.length ? signals : data.mesh.events;
+  return routeSignals
     .slice(0, 16)
-    .map((event, index) => routeFromEvent(event, agentById, index))
+    .map((event, index) => routeFromEvent(event, agentById, agentsByRoom, index))
     .filter((route): route is NonNullable<typeof route> => Boolean(route));
 }
 
 function routeFromEvent(
-  event: MeshEvent,
+  event: OfficeRouteSignalFeed,
   agentById: Map<string, OfficeAgent>,
+  agentsByRoom: Map<string, OfficeAgent>,
   index: number,
 ): OfficeRoute | null {
-  const from = agentById.get(event.from);
-  const to = agentById.get(event.to);
-  if (!from || !to || from.id === to.id) {
+  const now = Date.now();
+  if (isMeshSignal(event)) {
+    const from = agentById.get(event.from);
+    const to = agentById.get(event.to);
+    if (!from || !to || from.id === to.id) {
+      return null;
+    }
+
+    const midX = (from.x + to.x) / 2;
+    const midY = (from.y + to.y) / 2;
+    const eventAge = Date.parse(event.createdAt);
+    const isRecent = Number.isFinite(eventAge) ? now - eventAge <= 16000 : false;
+
+    return {
+      createdAt: event.createdAt,
+      d: routePath(from.x, from.y, to.x, to.y, index),
+      from: from.id,
+      id: event.id,
+      kind: event.kind,
+      messageId: event.messageId,
+      midX,
+      midY,
+      open: event.open || isRecent,
+      motionSeconds: isRecent ? 2.2 : 4.1,
+      status: event.status,
+      subject: compactSubject(event.subject),
+      sourceLabel: `Mesh`,
+      to: to.id,
+    };
+  }
+
+  const from = agentsByRoom.get(event.roomId);
+  const toRoomId = event.targetRoomId ?? event.roomId;
+  const matchedTo = agentsByRoom.get(toRoomId) ?? from;
+
+  if (!from || !matchedTo) {
     return null;
   }
 
+  const eventAge = Date.parse(event.createdAt);
+  const isRecent = Number.isFinite(eventAge) ? now - eventAge <= 14000 : false;
+  const to = from.id === matchedTo.id
+    ? {
+        ...matchedTo,
+        x: matchedTo.x + 2.4,
+        y: matchedTo.y + 2.6,
+      }
+    : matchedTo;
   const midX = (from.x + to.x) / 2;
   const midY = (from.y + to.y) / 2;
 
@@ -2194,23 +2364,60 @@ function routeFromEvent(
     from: from.id,
     id: event.id,
     kind: event.kind,
-    messageId: event.messageId,
+    messageId: event.taskId,
     midX,
     midY,
-    open: event.open,
+    open: isRecent,
+    motionSeconds: isRecent ? 2.4 : 4.8,
     status: event.status,
-    subject: compactSubject(event.subject),
+    subject: officeRouteSubjectSummary(event),
+    sourceLabel: `Autonomy (${event.mode})`,
     to: to.id,
   };
 }
 
-function officeActivityItems(data: BootstrapPayload) {
-  return data.mesh.events.slice(0, 12).map((event) => ({
+function isMeshSignal(signal: OfficeRouteSignalFeed): signal is MeshEvent {
+  return signal.kind === "dispatch" || signal.kind === "message" || signal.kind === "reply";
+}
+
+function officeActivityItems(data: BootstrapPayload, signals: Array<OfficeRouteSignalFeed>) {
+  const meshItems = data.mesh.events.slice(0, 8).map((event) => ({
     id: event.id,
     title: `${event.from} -> ${event.to}`,
     meta: `${event.kind} · ${event.status} · ${event.messageId}`,
     date: event.createdAt,
   }));
+
+  const autonomyItems = signals
+    .filter((event): event is RoomAutonomyRunEvent => !isMeshSignal(event))
+    .map((event) => ({
+      id: event.id,
+      title: event.targetRoomId ? `${event.roomId} -> ${event.targetRoomId}` : event.roomId,
+      meta: `${event.kind} · ${event.status} · ${event.taskId}`,
+      date: event.createdAt,
+    }));
+
+  return [...meshItems, ...autonomyItems].slice(0, 12).sort((a, b) => b.date.localeCompare(a.date));
+}
+
+function officeRouteSubjectSummary(event: RoomAutonomyRunEvent): string {
+  if (event.kind === "task.executed") {
+    return `Task executed (${event.taskId}) ${event.reason ? `· ${event.reason}` : ""}`;
+  }
+
+  if (event.kind === "task.skipped") {
+    return `Task skipped (${event.taskId}) ${event.reason ? `· ${event.reason}` : ""}`;
+  }
+
+  if (event.kind === "task.suggested") {
+    return `Task suggested (${event.taskId}) ${event.reason ? `· ${event.reason}` : ""}`;
+  }
+
+  if (event.kind === "initiative.created") {
+    return `Learning initiative (${event.taskId}) ${event.reason ? `· ${event.reason}` : ""}`;
+  }
+
+  return `Cycle completed ${event.reason ? `· ${event.reason}` : ""}`;
 }
 
 function CommandView({

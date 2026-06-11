@@ -1,0 +1,14 @@
+{
+  "from": "agente-vlmkt",
+  "to": "agent-system",
+  "type": "reply",
+  "priority": "normal",
+  "subject": "Re: Bridge smoke test",
+  "body": "Thread reply from agente-vlmkt.\nSource turn: 019e94cb-bf72-7cf1-9f2d-ae197e04b976\n\nACK recebido via dispatch do Codex Mesh pelo agente-vlmkt.",
+  "expectedOutput": "Read and continue if needed.",
+  "requiresReply": false,
+  "replyTo": "msg_272979f3e3654735",
+  "id": "msg_d2e47a82310c4706",
+  "status": "sent",
+  "createdAt": "2026-06-04T22:43:22.270Z"
+}

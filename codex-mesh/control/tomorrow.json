@@ -1,0 +1,62 @@
+[
+  {
+    "id": "tomorrow_ack_audit",
+    "sequence": 1,
+    "roomId": "build-room",
+    "ownerAgentId": "codex-bridge-operator",
+    "title": "Run true-live agent audit",
+    "outcome": "Every project classified as live-thread, backend-only, paused, or repair-needed.",
+    "risk": "medium",
+    "status": "ready"
+  },
+  {
+    "id": "tomorrow_first_room_drill",
+    "sequence": 2,
+    "roomId": "build-room",
+    "ownerAgentId": "chief-orchestrator",
+    "title": "First controlled room drill",
+    "outcome": "One task per room routed through queue, claim, Mesh request, reply, and review.",
+    "risk": "medium",
+    "status": "ready"
+  },
+  {
+    "id": "tomorrow_autonomy_policy",
+    "sequence": 3,
+    "roomId": "build-room",
+    "ownerAgentId": "security-guardrail",
+    "title": "Freeze autonomy gates",
+    "outcome": "Observe/suggest/execute permissions documented for code, content, deploys, wallet actions, and public publishing.",
+    "risk": "high",
+    "status": "ready"
+  },
+  {
+    "id": "tomorrow_research_parallel",
+    "sequence": 4,
+    "roomId": "research-intel-room",
+    "ownerAgentId": "research-room-lead",
+    "title": "Launch read-only Research Room split",
+    "outcome": "Subnet scout, wallet safety, market signal, and research editor run in separate lanes with one merged verdict.",
+    "risk": "medium",
+    "status": "ready"
+  },
+  {
+    "id": "tomorrow_content_parallel",
+    "sequence": 5,
+    "roomId": "content-growth-room",
+    "ownerAgentId": "content-room-lead",
+    "title": "Launch Content Room split",
+    "outcome": "Tao Outsider/TaoSwap work split into strategy, draft, SEO, creative, and voice review without identity drift.",
+    "risk": "low",
+    "status": "ready"
+  },
+  {
+    "id": "tomorrow_office_actions",
+    "sequence": 6,
+    "roomId": "build-room",
+    "ownerAgentId": "frontend-architect",
+    "title": "Make room actions interactive",
+    "outcome": "Create task, claim task, release lock, request context, and inspect run log directly from the Office.",
+    "risk": "low",
+    "status": "ready"
+  }
+]
