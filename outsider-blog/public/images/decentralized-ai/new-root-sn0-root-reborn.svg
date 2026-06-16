@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#020202"/>
+  <g opacity="0.14" stroke="#ffffff" stroke-width="1">
+    <path d="M100 128h1000M100 218h1000M100 308h1000M100 398h1000M100 488h1000"/>
+    <path d="M184 84v468M336 84v468M488 84v468M640 84v468M792 84v468M944 84v468"/>
+  </g>
+  <rect x="86" y="82" width="1028" height="470" rx="34" fill="#070707" stroke="#262626"/>
+  <circle cx="258" cy="314" r="128" fill="#0d0d0d" stroke="#f5f5f5" stroke-width="8"/>
+  <text x="178" y="290" fill="#f5f5f5" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="900">ROOT</text>
+  <text x="188" y="356" fill="#f5f5f5" font-family="Arial, Helvetica, sans-serif" font-size="62" font-weight="900">SN0</text>
+  <g fill="none" stroke="#f5f5f5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M420 314h116"/>
+    <path d="M536 314c55-76 122-112 216-112"/>
+    <path d="M536 314c70 0 138 0 236 0"/>
+    <path d="M536 314c55 76 122 112 216 112"/>
+  </g>
+  <g fill="#f5f5f5">
+    <rect x="760" y="168" width="210" height="70" rx="12"/>
+    <rect x="790" y="279" width="210" height="70" rx="12"/>
+    <rect x="760" y="390" width="210" height="70" rx="12"/>
+  </g>
+  <text x="806" y="212" fill="#050505" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="800">Yield</text>
+  <text x="838" y="323" fill="#050505" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="800">Baskets</text>
+  <text x="808" y="434" fill="#050505" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="800">Alpha</text>
+  <text x="108" y="595" fill="#777" font-family="Arial, Helvetica, sans-serif" font-size="22" letter-spacing="4">TAO OUTSIDER</text>
+  <text x="432" y="158" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="800">New Root SN0</text>
+  <text x="432" y="232" fill="#bdbdbd" font-family="Arial, Helvetica, sans-serif" font-size="34">Root Reborn changes the flow</text>
+  <text x="432" y="506" fill="#8f8f8f" font-family="Arial, Helvetica, sans-serif" font-size="29">Less automatic selling. More subnet reinvestment.</text>
+</svg>
