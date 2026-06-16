@@ -6,7 +6,7 @@ category: analysis
 featured: false
 author: "Tao Outsider"
 tags: ["Root Reborn", "Root", "SN0", "Bittensor", "TAO", "dTAO"]
-image: "/images/decentralized-ai/new-root-sn0-root-reborn.svg"
+image: "/images/decentralized-ai/new-root-sn0-root-reborn.png"
 imageAlt: "Root SN0 redirecting staking yield into selected Bittensor subnet baskets."
 ---
 
