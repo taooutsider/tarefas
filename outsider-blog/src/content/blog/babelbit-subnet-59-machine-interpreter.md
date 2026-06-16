@@ -145,7 +145,7 @@ That is the core of the Babelbit thesis.
 
 ## My First Conversation With Karas
 
-I spoke with Matthew Karas, founder of Babelbit, on Telegram.
+I spoke with Matthew Karas, founder of Babelbit, in a private interview.
 
 I sent him questions in our old style.
 

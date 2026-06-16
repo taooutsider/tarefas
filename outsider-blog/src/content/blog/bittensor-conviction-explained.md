@@ -181,7 +181,7 @@ Who is willing to stay locked when leaving is easier?
 
 That question matters in decentralized AI because reputation alone does not scale.
 
-Markets need proof. Builders need accountability. Investors need better fields than founder confidence and Telegram energy. Subnet communities need a way to see who is actually aligned.
+Markets need proof. Builders need accountability. Investors need better fields than founder confidence and chat-room energy. Subnet communities need a way to see who is actually aligned.
 
 It is early. The tooling is still forming. The language around it is messy. Some people will treat it like instant governance. Others will ignore it until dashboards make it impossible to ignore.
 

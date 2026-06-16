@@ -381,7 +381,7 @@ You need to know what is happening.
 
 The best way is following the top 150 closely.
 
-But also join Telegram groups like Subnet Summer and the Bitcast group.
+Also follow public updates from Subnet Summer and Bitcast.
 
 Listen before talking.
 
