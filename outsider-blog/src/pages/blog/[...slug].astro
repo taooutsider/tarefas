@@ -251,6 +251,56 @@ const feedbackOptions = [
 
     shareRoots.forEach(setupShare);
 
+    const trackOncePerSession = (eventName, payload = {}) => {
+      const key = `taooutsider_${eventName}_${window.location.pathname}`;
+      try {
+        if (sessionStorage.getItem(key)) return false;
+        sessionStorage.setItem(key, '1');
+      } catch {
+        // Storage can be unavailable in strict privacy modes; tracking should not affect reading.
+      }
+      window.taoTrackConversion?.(eventName, payload);
+      return true;
+    };
+
+    window.setTimeout(() => {
+      trackOncePerSession('article_view', {
+        event_category: 'article',
+        event_label: document.title,
+        post_slug: postSlug,
+      });
+    }, 1200);
+
+    const articleBody = document.querySelector('[itemprop="articleBody"]');
+    const readStartedAt = Date.now();
+    let readTracked = false;
+
+    const articleReadDepth = () => {
+      if (!articleBody) return 0;
+      const rect = articleBody.getBoundingClientRect();
+      const bodyHeight = Math.max(rect.height, 1);
+      const viewportBottom = window.innerHeight - rect.top;
+      return Math.max(0, Math.min(1, viewportBottom / bodyHeight));
+    };
+
+    const maybeTrackArticleRead = () => {
+      if (readTracked) return;
+      const secondsOnPage = Math.round((Date.now() - readStartedAt) / 1000);
+      const readDepth = articleReadDepth();
+      if (secondsOnPage < 45 || readDepth < 0.7) return;
+      readTracked = trackOncePerSession('article_read', {
+        event_category: 'article',
+        event_label: document.title,
+        post_slug: postSlug,
+        seconds_on_page: secondsOnPage,
+        scroll_depth: Math.round(readDepth * 100),
+      });
+    };
+
+    window.addEventListener('scroll', maybeTrackArticleRead, { passive: true });
+    window.addEventListener('resize', maybeTrackArticleRead);
+    window.setInterval(maybeTrackArticleRead, 5000);
+
     const quizBlocks = Array.from(document.querySelectorAll('[data-quiz]'));
     quizBlocks.forEach((quiz) => {
       const submit = quiz.querySelector('[data-quiz-submit]');

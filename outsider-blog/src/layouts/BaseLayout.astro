@@ -24,16 +24,26 @@ const SITE_DESCRIPTION = 'Zoomed out on TAO Bittensor. Tracking every dTAO subne
 const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 const GOOGLE_ADS_ID = import.meta.env.PUBLIC_GOOGLE_ADS_ID || 'AW-11349197626';
 const GTAG_IDS = Array.from(new Set([GA_MEASUREMENT_ID, GOOGLE_ADS_ID].filter(Boolean)));
+const DEFAULT_GOOGLE_ADS_CONVERSION_LABELS: Record<string, string> = {
+  lead_contact_click: 'JOQmCM_DvcAcELqG3KMq',
+  newsletter_signup: 'jXFdCMnDvcAcELqG3KMq',
+  field_school_start: 'vvOwCMzDvcAcELqG3KMq',
+  article_view: '9kMYCJvgvcAcELqG3KMq',
+  article_read: 'xvxLCJ7gvcAcELqG3KMq',
+  purchase: 'ETldCKrOwsAcELqG3KMq',
+};
 const GOOGLE_ADS_CONVERSION_LABELS = Object.fromEntries(Object.entries({
-  lead_contact_click: import.meta.env.PUBLIC_GOOGLE_ADS_LEAD_LABEL,
-  newsletter_signup: import.meta.env.PUBLIC_GOOGLE_ADS_NEWSLETTER_LABEL,
-  field_school_start: import.meta.env.PUBLIC_GOOGLE_ADS_FIELD_SCHOOL_START_LABEL,
+  lead_contact_click: import.meta.env.PUBLIC_GOOGLE_ADS_LEAD_LABEL || DEFAULT_GOOGLE_ADS_CONVERSION_LABELS.lead_contact_click,
+  newsletter_signup: import.meta.env.PUBLIC_GOOGLE_ADS_NEWSLETTER_LABEL || DEFAULT_GOOGLE_ADS_CONVERSION_LABELS.newsletter_signup,
+  field_school_start: import.meta.env.PUBLIC_GOOGLE_ADS_FIELD_SCHOOL_START_LABEL || DEFAULT_GOOGLE_ADS_CONVERSION_LABELS.field_school_start,
   field_school_module_click: import.meta.env.PUBLIC_GOOGLE_ADS_FIELD_SCHOOL_MODULE_LABEL,
   field_school_quiz_submit: import.meta.env.PUBLIC_GOOGLE_ADS_FIELD_SCHOOL_QUIZ_LABEL,
   field_school_module_complete: import.meta.env.PUBLIC_GOOGLE_ADS_FIELD_SCHOOL_COMPLETE_LABEL,
+  article_view: import.meta.env.PUBLIC_GOOGLE_ADS_ARTICLE_VIEW_LABEL || DEFAULT_GOOGLE_ADS_CONVERSION_LABELS.article_view,
+  article_read: import.meta.env.PUBLIC_GOOGLE_ADS_ARTICLE_READ_LABEL || DEFAULT_GOOGLE_ADS_CONVERSION_LABELS.article_read,
   article_share: import.meta.env.PUBLIC_GOOGLE_ADS_ARTICLE_SHARE_LABEL,
   article_feedback: import.meta.env.PUBLIC_GOOGLE_ADS_ARTICLE_FEEDBACK_LABEL,
-  purchase: import.meta.env.PUBLIC_GOOGLE_ADS_PURCHASE_LABEL,
+  purchase: import.meta.env.PUBLIC_GOOGLE_ADS_PURCHASE_LABEL || DEFAULT_GOOGLE_ADS_CONVERSION_LABELS.purchase,
 }).filter(([, label]) => Boolean(label)));
 const CLOUDFLARE_ANALYTICS_TOKEN = import.meta.env.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN;
 
