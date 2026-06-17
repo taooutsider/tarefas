@@ -24,6 +24,17 @@ const SITE_DESCRIPTION = 'Zoomed out on TAO Bittensor. Tracking every dTAO subne
 const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 const GOOGLE_ADS_ID = import.meta.env.PUBLIC_GOOGLE_ADS_ID || 'AW-11349197626';
 const GTAG_IDS = Array.from(new Set([GA_MEASUREMENT_ID, GOOGLE_ADS_ID].filter(Boolean)));
+const GOOGLE_ADS_CONVERSION_LABELS = Object.fromEntries(Object.entries({
+  lead_contact_click: import.meta.env.PUBLIC_GOOGLE_ADS_LEAD_LABEL,
+  newsletter_signup: import.meta.env.PUBLIC_GOOGLE_ADS_NEWSLETTER_LABEL,
+  field_school_start: import.meta.env.PUBLIC_GOOGLE_ADS_FIELD_SCHOOL_START_LABEL,
+  field_school_module_click: import.meta.env.PUBLIC_GOOGLE_ADS_FIELD_SCHOOL_MODULE_LABEL,
+  field_school_quiz_submit: import.meta.env.PUBLIC_GOOGLE_ADS_FIELD_SCHOOL_QUIZ_LABEL,
+  field_school_module_complete: import.meta.env.PUBLIC_GOOGLE_ADS_FIELD_SCHOOL_COMPLETE_LABEL,
+  article_share: import.meta.env.PUBLIC_GOOGLE_ADS_ARTICLE_SHARE_LABEL,
+  article_feedback: import.meta.env.PUBLIC_GOOGLE_ADS_ARTICLE_FEEDBACK_LABEL,
+  purchase: import.meta.env.PUBLIC_GOOGLE_ADS_PURCHASE_LABEL,
+}).filter(([, label]) => Boolean(label)));
 const CLOUDFLARE_ANALYTICS_TOKEN = import.meta.env.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN;
 
 const {
@@ -157,11 +168,79 @@ const organizationSchema = {
   {GTAG_IDS.length > 0 && (
     <>
       <script async src={`https://www.googletagmanager.com/gtag/js?id=${GTAG_IDS[0]}`}></script>
-      <script is:inline define:vars={{ gtagIds: GTAG_IDS }}>
+      <script is:inline define:vars={{ gtagIds: GTAG_IDS, googleAdsId: GOOGLE_ADS_ID, googleAdsConversionLabels: GOOGLE_ADS_CONVERSION_LABELS }}>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtagIds.forEach((id) => gtag('config', id));
+        window.gtag = window.gtag || function(){window.dataLayer.push(arguments);}
+        window.gtag('js', new Date());
+        gtagIds.forEach((id) => window.gtag('config', id));
+
+        const cleanParams = (params) => {
+          const clean = {};
+          Object.entries(params || {}).forEach(([key, value]) => {
+            if (value !== undefined && value !== null && value !== '') clean[key] = value;
+          });
+          return clean;
+        };
+
+        window.taoTrackConversion = function(eventName, params = {}) {
+          if (!eventName || typeof window.gtag !== 'function') return;
+
+          const eventParams = cleanParams({
+            event_category: 'tao_outsider',
+            page_path: window.location.pathname,
+            ...params,
+          });
+
+          window.gtag('event', eventName, eventParams);
+
+          const conversionLabel = googleAdsConversionLabels[eventName];
+          if (googleAdsId && conversionLabel) {
+            window.gtag('event', 'conversion', cleanParams({
+              send_to: `${googleAdsId}/${conversionLabel}`,
+              ...eventParams,
+            }));
+          }
+        };
+
+        const elementLabel = (element) => (
+          element.dataset.conversionLabel
+          || element.getAttribute('aria-label')
+          || element.textContent?.trim().replace(/\s+/g, ' ').slice(0, 120)
+          || document.title
+        );
+
+        const eventPayload = (element) => {
+          const url = element.href || element.action;
+          let outbound = false;
+          try {
+            outbound = Boolean(url && new URL(url, window.location.href).hostname !== window.location.hostname);
+          } catch {
+            outbound = false;
+          }
+
+          return cleanParams({
+            event_category: element.dataset.conversionCategory || 'site_interaction',
+            event_label: elementLabel(element),
+            link_url: url,
+            outbound,
+          });
+        };
+
+        document.addEventListener('click', (event) => {
+          const element = event.target instanceof Element
+            ? event.target.closest('[data-conversion-event]')
+            : null;
+          if (!element) return;
+          window.taoTrackConversion(element.dataset.conversionEvent, eventPayload(element));
+        });
+
+        document.addEventListener('submit', (event) => {
+          const element = event.target instanceof Element
+            ? event.target.closest('[data-conversion-event]')
+            : null;
+          if (!element) return;
+          window.taoTrackConversion(element.dataset.conversionEvent, eventPayload(element));
+        });
       </script>
     </>
   )}

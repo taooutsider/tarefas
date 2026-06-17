@@ -33,7 +33,12 @@ const hasPublishedModules = publishedIds.size > 0;
         <span>Module {String(index + 1).padStart(2, '0')}</span>
         <h2>
           {publishedIds.has(post.id) ? (
-            <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+            <a
+              href={`/blog/${post.id}/`}
+              data-conversion-event={index === 0 ? 'field_school_start' : 'field_school_module_click'}
+              data-conversion-category="field_school"
+              data-conversion-label={`Module ${String(index + 1).padStart(2, '0')}: ${post.data.title}`}
+            >{post.data.title}</a>
           ) : (
             <span>{post.data.title}</span>
           )}

@@ -119,9 +119,9 @@ const feedbackOptions = [
         <div class="share-tools" data-share-root data-share-title={title} data-share-url={shareUrl}>
           <button type="button" class="share-trigger" data-share-trigger>Share article</button>
           <div class="share-menu" data-share-menu hidden>
-            <button type="button" class="share-item" data-copy-link>Copy link</button>
-            <a class="share-item" target="_blank" rel="noopener" href={`https://x.com/intent/tweet?url=${encodedShareUrl}&text=${encodedShareTitle}`}>Share on X</a>
-            <a class="share-item" target="_blank" rel="noopener" href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedShareUrl}`}>Share on LinkedIn</a>
+            <button type="button" class="share-item" data-copy-link data-conversion-event="article_share" data-conversion-category="article" data-conversion-label={`Copy link: ${title}`}>Copy link</button>
+            <a class="share-item" target="_blank" rel="noopener" href={`https://x.com/intent/tweet?url=${encodedShareUrl}&text=${encodedShareTitle}`} data-conversion-event="article_share" data-conversion-category="article" data-conversion-label={`Share on X: ${title}`}>Share on X</a>
+            <a class="share-item" target="_blank" rel="noopener" href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedShareUrl}`} data-conversion-event="article_share" data-conversion-category="article" data-conversion-label={`Share on LinkedIn: ${title}`}>Share on LinkedIn</a>
           </div>
           <p class="share-status" data-share-status aria-live="polite"></p>
         </div>
@@ -154,9 +154,9 @@ const feedbackOptions = [
         <div class="share-tools share-tools-bottom" data-share-root data-share-title={title} data-share-url={shareUrl}>
           <button type="button" class="share-trigger" data-share-trigger>Share article</button>
           <div class="share-menu" data-share-menu hidden>
-            <button type="button" class="share-item" data-copy-link>Copy link</button>
-            <a class="share-item" target="_blank" rel="noopener" href={`https://x.com/intent/tweet?url=${encodedShareUrl}&text=${encodedShareTitle}`}>Share on X</a>
-            <a class="share-item" target="_blank" rel="noopener" href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedShareUrl}`}>Share on LinkedIn</a>
+            <button type="button" class="share-item" data-copy-link data-conversion-event="article_share" data-conversion-category="article" data-conversion-label={`Copy link bottom: ${title}`}>Copy link</button>
+            <a class="share-item" target="_blank" rel="noopener" href={`https://x.com/intent/tweet?url=${encodedShareUrl}&text=${encodedShareTitle}`} data-conversion-event="article_share" data-conversion-category="article" data-conversion-label={`Share on X bottom: ${title}`}>Share on X</a>
+            <a class="share-item" target="_blank" rel="noopener" href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedShareUrl}`} data-conversion-event="article_share" data-conversion-category="article" data-conversion-label={`Share on LinkedIn bottom: ${title}`}>Share on LinkedIn</a>
           </div>
           <p class="share-status" data-share-status aria-live="polite"></p>
         </div>
@@ -219,6 +219,11 @@ const feedbackOptions = [
           try {
             await navigator.share({ title: shareTitle, url: shareUrl });
             setStatus('Thanks for sharing.');
+            window.taoTrackConversion?.('article_share', {
+              event_category: 'article',
+              event_label: `Native share: ${shareTitle}`,
+              post_slug: postSlug,
+            });
           } catch {
             // User cancelled native share; no status update needed.
           }
@@ -281,6 +286,22 @@ const feedbackOptions = [
 
         result.textContent = `You scored ${score}/${questions.length}. ${score === questions.length ? 'Ready for the next module.' : 'Reread the missed section and try again.'}`;
         result.dataset.state = score === questions.length ? 'ok' : 'warn';
+        window.taoTrackConversion?.('field_school_quiz_submit', {
+          event_category: 'field_school',
+          event_label: postSlug,
+          post_slug: postSlug,
+          score,
+          total_questions: questions.length,
+        });
+        if (score === questions.length) {
+          window.taoTrackConversion?.('field_school_module_complete', {
+            event_category: 'field_school',
+            event_label: postSlug,
+            post_slug: postSlug,
+            score,
+            total_questions: questions.length,
+          });
+        }
       });
     });
 
@@ -383,6 +404,12 @@ const feedbackOptions = [
       paintCounts(counts);
       paintSelected(reaction);
       setStatus('Saved on this device.');
+      window.taoTrackConversion?.('article_feedback', {
+        event_category: 'article',
+        event_label: `${postSlug}:${reaction}`,
+        post_slug: postSlug,
+        reaction,
+      });
     };
 
     const submitVote = async (reaction) => {
@@ -408,6 +435,12 @@ const feedbackOptions = [
         paintSelected(reaction);
         localStorage.setItem(storageKey, reaction);
         setStatus('Thanks for the feedback.');
+        window.taoTrackConversion?.('article_feedback', {
+          event_category: 'article',
+          event_label: `${postSlug}:${reaction}`,
+          post_slug: postSlug,
+          reaction,
+        });
       } catch {
         usingLocalFallback = true;
         submitLocalVote(reaction);
