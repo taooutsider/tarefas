@@ -22,6 +22,8 @@ const SITE = 'https://www.taooutsider.com';
 const SITE_NAME = 'Tao Outsider';
 const SITE_DESCRIPTION = 'Zoomed out on TAO Bittensor. Tracking every dTAO subnet. Mapping the future of decentralized AI.';
 const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+const GOOGLE_ADS_ID = import.meta.env.PUBLIC_GOOGLE_ADS_ID || 'AW-11349197626';
+const GTAG_IDS = Array.from(new Set([GA_MEASUREMENT_ID, GOOGLE_ADS_ID].filter(Boolean)));
 const CLOUDFLARE_ANALYTICS_TOKEN = import.meta.env.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN;
 
 const {
@@ -152,14 +154,14 @@ const organizationSchema = {
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" href="/logo.jpg" />
 
-  {GA_MEASUREMENT_ID && (
+  {GTAG_IDS.length > 0 && (
     <>
-      <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}></script>
-      <script is:inline define:vars={{ gaMeasurementId: GA_MEASUREMENT_ID }}>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${GTAG_IDS[0]}`}></script>
+      <script is:inline define:vars={{ gtagIds: GTAG_IDS }}>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', gaMeasurementId);
+        gtagIds.forEach((id) => gtag('config', id));
       </script>
     </>
   )}
