@@ -1,12 +1,13 @@
 ---
 title: "A subnet GitHub can tell you what the website hides"
 description: "Read repos for incentive code, update cadence, miner instructions and signs of real engineering."
-pubDate: 2026-07-12T12:00:00.000Z
+pubDate: 2026-06-15T15:50:00.000Z
 category: guide
+contentType: course
 featured: false
-draft: true
+draft: false
 author: "Tao Outsider"
-tags: ["TAO", "Bittensor", "Field School", "research", "Bittensor subnet GitHub"]
+tags: ["TAO", "Bittensor", "Field College", "research", "Bittensor subnet GitHub"]
 image: "/blog/bittensor-field-school/bittensor-field-school-subnet-code-lesson.svg"
 imageAlt: "A subnet GitHub can tell you what the website hides"
 ogImage: "/blog/bittensor-field-school/bittensor-field-school-subnet-code-og.jpg"
@@ -120,45 +121,44 @@ TaoSwap API: [https://api.taoswap.org/subnets](https://api.taoswap.org/subnets)
 
 TaoFlows: [https://taoflows.app/](https://taoflows.app/)
 
-<section class="reading-stack">
-
-## Review note for Tao Outsider
-
-Primary keyword: Bittensor subnet GitHub
-
-Editorial status: draft v0.1
-
-Image status: educational image created, X card created
-
-Revision goal: make the lesson more personal, add one concrete subnet example, then tighten the ending.
-
-</section>
-
 <section class="knowledge-check" data-quiz>
   <h2>Knowledge check</h2>
+  <p>Use the lesson before answering. The goal is field judgment, not memorization.</p>
   <fieldset data-answer="b">
-    <legend>What is the main habit this module is training?</legend>
-    <label><input type="radio" name="q23a" value="a" /> Memorize the most popular explanation.</label>
-    <label><input type="radio" name="q23a" value="b" /> Translate the idea into something you can inspect.</label>
-    <label><input type="radio" name="q23a" value="c" /> Pick the subnet with the loudest story.</label>
+    <legend>A reader says A subnet GitHub can tell you what the website hides is bullish because the topic sounds important. What is the better field response?</legend>
+    <label><input type="radio" name="bittensor-field-school-subnet-code-q1" value="a" /> Accept the story if the category feels important and the market is talking about it.</label>
+    <label><input type="radio" name="bittensor-field-school-subnet-code-q1" value="b" /> Test the claim through repository activity, commits, issues, releases and incentive code, then write what would change the thesis.</label>
+    <label><input type="radio" name="bittensor-field-school-subnet-code-q1" value="c" /> Wait for a larger account to decide whether a subnet GitHub can tell you what the website hides matters.</label>
   </fieldset>
   <fieldset data-answer="a">
-    <legend>What should you do when the narrative and the data disagree?</legend>
-    <label><input type="radio" name="q23b" value="a" /> Slow down and inspect the mechanism, flows and evidence.</label>
-    <label><input type="radio" name="q23b" value="b" /> Ignore the data if the team sounds confident.</label>
-    <label><input type="radio" name="q23b" value="c" /> Wait for social media to decide.</label>
+    <legend>What evidence belongs in a serious note about A subnet GitHub can tell you what the website hides?</legend>
+    <label><input type="radio" name="bittensor-field-school-subnet-code-q2" value="a" /> A source checked, a timestamp, the metric unit, the claim tested and the failure mode.</label>
+    <label><input type="radio" name="bittensor-field-school-subnet-code-q2" value="b" /> A short bullish sentence, a logo, a price target and one confident quote.</label>
+    <label><input type="radio" name="bittensor-field-school-subnet-code-q2" value="c" /> A ranking screenshot without explaining the mechanism or what the number means.</label>
   </fieldset>
   <fieldset data-answer="c">
-    <legend>What makes a Tao Outsider reader different?</legend>
-    <label><input type="radio" name="q23c" value="a" /> They collect more tabs than everyone else.</label>
-    <label><input type="radio" name="q23c" value="b" /> They memorize ticker symbols.</label>
-    <label><input type="radio" name="q23c" value="c" /> They can explain the work, the incentive and the risk in plain English.</label>
+    <legend>The module says Read repos for incentive code, update cadence, miner instructions and signs of real engineering. What should the student avoid doing with that idea?</legend>
+    <label><input type="radio" name="bittensor-field-school-subnet-code-q3" value="a" /> Turning the idea into a field question that can be checked against live sources.</label>
+    <label><input type="radio" name="bittensor-field-school-subnet-code-q3" value="b" /> Comparing the mechanism with market data before building conviction.</label>
+    <label><input type="radio" name="bittensor-field-school-subnet-code-q3" value="c" /> Repeating the sentence as proof before inspecting the underlying behavior.</label>
+  </fieldset>
+  <fieldset data-answer="b">
+    <legend>Which short note shows real understanding of A subnet GitHub can tell you what the website hides?</legend>
+    <label><input type="radio" name="bittensor-field-school-subnet-code-q4" value="a" /> A subnet GitHub can tell you what the website hides matters because the ecosystem needs more narratives and more attention.</label>
+    <label><input type="radio" name="bittensor-field-school-subnet-code-q4" value="b" /> A subnet GitHub can tell you what the website hides matters only if repository activity, commits, issues, releases and incentive code can be verified in the field.</label>
+    <label><input type="radio" name="bittensor-field-school-subnet-code-q4" value="c" /> A subnet GitHub can tell you what the website hides matters because every subnet with attention becomes investable.</label>
+  </fieldset>
+  <fieldset data-answer="a">
+    <legend>Before moving beyond this lesson, what should the student be able to do?</legend>
+    <label><input type="radio" name="bittensor-field-school-subnet-code-q5" value="a" /> Explain a subnet GitHub can tell you what the website hides in plain English, name the source trail and state one invalidation trigger.</label>
+    <label><input type="radio" name="bittensor-field-school-subnet-code-q5" value="b" /> Remember the title, pick the most positive option and move to the next module quickly.</label>
+    <label><input type="radio" name="bittensor-field-school-subnet-code-q5" value="c" /> Use a single metric as the final answer even when other evidence disagrees.</label>
   </fieldset>
   <button type="button" data-quiz-submit>Check answers</button>
-  <p data-quiz-result aria-live="polite"></p>
+  <p class="quiz-result" data-quiz-result aria-live="polite"></p>
 </section>
 
-<nav class="course-nav" aria-label="Field School navigation">
-  <a href="/field-school/review/bittensor-field-school-hyperparameters/">Previous: Hyperparameters are the rule sheet under the scoreboard</a>
-  <a href="/field-school/review/bittensor-field-school-product-surface/">Next: A subnet without a product surface needs a harder question</a>
+<nav class="course-nav" aria-label="Field College navigation">
+  <a href="/blog/bittensor-field-school-hyperparameters/">Previous: Hyperparameters are the rule sheet under the scoreboard</a>
+  <a href="/blog/bittensor-field-school-product-surface/">Next: A subnet without a product surface needs a harder question</a>
 </nav>

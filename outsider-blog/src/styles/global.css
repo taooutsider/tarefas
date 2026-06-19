@@ -12,7 +12,7 @@
   --muted:    #606060;
   --link:     #ffffff;
 
-  --font: 'Inter', system-ui, -apple-system, sans-serif;
+  --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --mono: 'JetBrains Mono', 'Fira Code', monospace;
   --max-w: 1100px;
   --post-w: 720px;

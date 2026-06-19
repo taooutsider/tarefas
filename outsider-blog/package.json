@@ -8,7 +8,13 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "check:field-college": "node scripts/field-college-guard.mjs",
     "check:og": "node scripts/check-og-images.mjs",
+    "check:seo": "node scripts/seo-audit.mjs",
+    "generate:images": "node scripts/generate-optimized-images.mjs",
+    "generate:llms": "node scripts/generate-llms.mjs",
+    "prebuild": "npm run generate:images && npm run generate:llms",
+    "predeploy:field-college": "npm run check:field-college && npm run check:og && npm run check:seo && npm run build",
     "scan:article": "node scripts/scan-article-copy.mjs",
     "preview": "astro preview",
     "astro": "astro"
@@ -16,7 +22,8 @@
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.3",
-    "astro": "^6.4.7"
+    "astro": "^6.4.7",
+    "sharp": "^0.34.5"
   },
   "overrides": {
     "esbuild": "0.28.1"

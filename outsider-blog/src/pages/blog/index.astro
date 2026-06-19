@@ -2,9 +2,9 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
+import { isPublishedPost, sortNewestPosts } from '../../lib/posts';
 
-const allPosts = (await getCollection('blog')).filter(post => !post.data.draft);
-const sorted = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const sorted = sortNewestPosts((await getCollection('blog')).filter(isPublishedPost));
 ---
 
 <BaseLayout

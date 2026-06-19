@@ -1,0 +1,508 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import { isPublishedPost, sortNewestPosts } from '../lib/posts';
+
+const description = 'Subnet Research by Tao Outsider. Independent Bittensor subnet analysis across product, incentives, code, liquidity, emissions, flows and risk.';
+
+const posts = (await getCollection('blog')).filter(isPublishedPost);
+const subnetPosts = sortNewestPosts(posts
+  .filter(post =>
+    post.data.category === 'subnet' ||
+    post.data.tags.some(tag => {
+      const normalized = tag.toLowerCase();
+      return normalized === 'subnet' || normalized.startsWith('subnet ') || normalized.startsWith('sn');
+    })
+  ));
+
+const researchAxes = [
+  {
+    label: 'Product surface',
+    text: 'What can a real user, customer, miner, developer or institution actually touch today?',
+  },
+  {
+    label: 'Incentive design',
+    text: 'What behavior is rewarded, how is it measured and where could miners optimize the wrong thing?',
+  },
+  {
+    label: 'Market structure',
+    text: 'How deep is the pool, how painful is slippage and what does price say after flows are separated from noise?',
+  },
+  {
+    label: 'Validator quality',
+    text: 'Who is judging the work, how stable are weights and what evidence exists beyond brand names?',
+  },
+  {
+    label: 'Code and shipping',
+    text: 'What changed in GitHub, docs, releases and public infrastructure since the last story was told?',
+  },
+  {
+    label: 'Narrative risk',
+    text: 'Does the subnet have proof, or only a beautiful explanation that investors want to believe?',
+  },
+];
+
+const trackedSubnets = [
+  {
+    name: 'Bitcast',
+    sn: 'SN93',
+    category: 'Media and creator economy',
+    status: 'Published deep dive',
+    link: '/blog/how-to-mine-tao-on-bitcast-subnet-93/',
+    thesis: 'Social mining becomes interesting when creator quality, rankings and rewards form a visible loop.',
+  },
+  {
+    name: 'Babelbit',
+    sn: 'SN59',
+    category: 'Translation and speech',
+    status: 'Published interview',
+    link: '/blog/babelbit-subnet-59-machine-interpreter/',
+    thesis: 'Machine interpretation needs to be read through latency, language coverage, real users and scoring quality.',
+  },
+  {
+    name: 'NOVA',
+    sn: 'SN68',
+    category: 'Science and drug discovery',
+    status: 'Published analysis',
+    link: '/blog/metanova-nova-drug-discovery-bittensor/',
+    thesis: 'Drug discovery is one of the clearest places where competitive search can be explained outside crypto.',
+  },
+  {
+    name: 'Root',
+    sn: 'SN0',
+    category: 'Allocation layer',
+    status: 'Published analysis',
+    link: '/blog/new-root-sn0-root-reborn-dtao/',
+    thesis: 'Root becomes more important when validator allocation starts shaping where subnet yield circulates.',
+  },
+];
+
+const scorecards = [
+  'One paragraph thesis',
+  'Evidence table',
+  'Main product proof',
+  'Incentive failure mode',
+  'Liquidity and slippage read',
+  'What would change our mind',
+];
+
+const researchStats = [
+  {
+    label: 'Published files',
+    value: subnetPosts.length,
+    text: 'Subnet focused articles visible today.',
+  },
+  {
+    label: 'Desk format',
+    value: '6',
+    text: 'Evidence fields required before a thesis feels serious.',
+  },
+  {
+    label: 'Coverage mode',
+    value: 'Live',
+    text: 'Posts, GitHub, product pages, dashboards and market structure.',
+  },
+];
+
+const watchlist = [
+  {
+    name: 'Chutes',
+    sn: 'SN64',
+    angle: 'Revenue, inference demand and product traction.',
+  },
+  {
+    name: 'Quasar',
+    sn: 'SN24',
+    angle: 'Long context training and competitive model improvement.',
+  },
+  {
+    name: 'Targon',
+    sn: 'SN4',
+    angle: 'Hardware, confidential compute and real world deployment.',
+  },
+  {
+    name: 'Endure',
+    sn: 'SN30',
+    angle: 'Risk intelligence and the first steps of native finance.',
+  },
+  {
+    name: 'Root',
+    sn: 'SN0',
+    angle: 'Validator allocation, reinvestment and capital circulation.',
+  },
+];
+---
+
+<BaseLayout
+  title="Subnet Research"
+  description={description}
+  canonicalURL="https://www.taooutsider.com/subnet-research/"
+  ogImage="/og-default.jpg"
+  ogImageAlt="Tao Outsider subnet research"
+>
+  <section class="research-hero container">
+    <p class="eyebrow">Subnet Research</p>
+    <h1>Every subnet is a market, a product and a bet on useful work.</h1>
+    <p class="lede">
+      Tao Outsider researches Bittensor subnets through proof, not personality.
+      Product, incentives, code, liquidity, emissions, flows and failure modes all matter.
+    </p>
+    <div class="hero-actions">
+      <a
+        href="#latest"
+        class="primary-action"
+        data-conversion-event="subnet_research_start"
+        data-conversion-category="research"
+        data-conversion-label="Subnet research latest click"
+      >Read latest research</a>
+      <a href="#method" class="secondary-action">See the method</a>
+    </div>
+    <div class="research-stats" aria-label="Subnet Research desk summary">
+      {researchStats.map(item => (
+        <article>
+          <span>{item.label}</span>
+          <strong>{item.value}</strong>
+          <p>{item.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="method-band" id="method" aria-labelledby="method-heading">
+    <div class="container">
+      <div class="section-kicker">The method</div>
+      <h2 id="method-heading">The field lens</h2>
+      <div class="axis-grid">
+        {researchAxes.map(axis => (
+          <article class="axis-card">
+            <h3>{axis.label}</h3>
+            <p>{axis.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="watchlist container" aria-labelledby="watchlist-heading">
+    <div class="section-header">
+      <div>
+        <div class="section-kicker">Research queue</div>
+        <h2 id="watchlist-heading">What should be watched next</h2>
+      </div>
+      <a href="/blog/">Latest articles</a>
+    </div>
+    <div class="watchlist-table">
+      {watchlist.map(item => (
+        <article>
+          <span>{item.sn}</span>
+          <strong>{item.name}</strong>
+          <p>{item.angle}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="tracked container" aria-labelledby="tracked-heading">
+    <div class="section-header">
+      <div>
+        <div class="section-kicker">Tracked files</div>
+        <h2 id="tracked-heading">Subnets already on the desk</h2>
+      </div>
+      <a href="/blog/tag/subnet/">View subnet tag</a>
+    </div>
+    <div class="tracked-grid">
+      {trackedSubnets.map(subnet => (
+        <article class="subnet-card">
+          <div class="subnet-top">
+            <span>{subnet.sn}</span>
+            <small>{subnet.status}</small>
+          </div>
+          <h3>{subnet.name}</h3>
+          <p class="subnet-category">{subnet.category}</p>
+          <p>{subnet.thesis}</p>
+          <a href={subnet.link}>Open research</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="scorecard container" aria-labelledby="scorecard-heading">
+    <div>
+      <div class="section-kicker">Research artifact</div>
+      <h2 id="scorecard-heading">What a subnet note must contain</h2>
+      <p>
+        A subnet note is not a vibe check. It needs a claim, evidence, numbers and a clear invalidation path.
+      </p>
+    </div>
+    <ol class="score-list">
+      {scorecards.map(item => <li>{item}</li>)}
+    </ol>
+  </section>
+
+  <section class="latest container" id="latest" aria-labelledby="latest-heading">
+    <div class="section-header">
+      <div>
+        <div class="section-kicker">Published research</div>
+        <h2 id="latest-heading">Latest subnet intelligence</h2>
+      </div>
+      <a href="/blog/">All articles</a>
+    </div>
+    {subnetPosts.length > 0 ? (
+      <div class="posts-grid" role="list">
+        {subnetPosts.map(post => (
+          <div role="listitem">
+            <PostCard post={post} />
+          </div>
+        ))}
+      </div>
+    ) : (
+      <p class="empty">Subnet research is being organized.</p>
+    )}
+  </section>
+</BaseLayout>
+
+<style>
+  .research-hero {
+    padding: 72px 24px 56px;
+    max-width: 900px;
+  }
+  .eyebrow,
+  .section-kicker {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .research-hero h1 {
+    font-size: clamp(2rem, 6vw, 4.2rem);
+    max-width: 840px;
+    letter-spacing: -0.04em;
+    margin-bottom: 18px;
+  }
+  .lede {
+    color: var(--text2);
+    font-size: clamp(1rem, 2vw, 1.22rem);
+    line-height: 1.75;
+    max-width: 760px;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 30px;
+  }
+  .research-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 36px;
+  }
+  .research-stats article {
+    border-top: 1px solid var(--border2);
+    padding-top: 16px;
+  }
+  .research-stats span,
+  .watchlist-table span {
+    display: block;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .research-stats strong {
+    display: block;
+    color: var(--white);
+    font-size: clamp(1.55rem, 3vw, 2.45rem);
+    line-height: 1;
+    margin: 10px 0 8px;
+    letter-spacing: -0.05em;
+  }
+  .research-stats p {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .primary-action,
+  .secondary-action {
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .primary-action {
+    background: var(--white);
+    color: #000;
+  }
+  .secondary-action {
+    border: 1px solid var(--border2);
+    color: var(--text);
+    background: var(--s1);
+  }
+  .method-band {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--s1);
+    padding: 56px 0;
+  }
+  .method-band h2,
+  .tracked h2,
+  .scorecard h2,
+  .latest h2 {
+    margin-bottom: 18px;
+  }
+  .axis-grid,
+  .tracked-grid,
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .axis-card,
+  .subnet-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    padding: 20px;
+  }
+  .axis-card h3,
+  .subnet-card h3 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  .axis-card p,
+  .subnet-card p,
+  .scorecard p {
+    color: var(--text2);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .tracked,
+  .watchlist,
+  .latest {
+    padding: 64px 24px 0;
+  }
+  .section-header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+  .section-header a {
+    color: var(--text2);
+    font-size: 13px;
+  }
+  .section-header a:hover {
+    color: var(--white);
+  }
+  .subnet-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 260px;
+  }
+  .subnet-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .subnet-top span {
+    color: var(--white);
+    font-family: var(--mono);
+    font-size: 12px;
+    border: 1px solid var(--border2);
+    border-radius: 6px;
+    padding: 4px 8px;
+  }
+  .subnet-top small {
+    color: var(--muted);
+    font-size: 11px;
+  }
+  .subnet-category {
+    margin-bottom: 10px;
+  }
+  .subnet-card a {
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: auto;
+    padding-top: 18px;
+  }
+  .watchlist-table {
+    display: grid;
+    border-top: 1px solid var(--border);
+  }
+  .watchlist-table article {
+    display: grid;
+    grid-template-columns: 92px 160px minmax(0, 1fr);
+    gap: 18px;
+    align-items: baseline;
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+  }
+  .watchlist-table strong {
+    color: var(--white);
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+  }
+  .watchlist-table p {
+    color: var(--text2);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .scorecard {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 36px;
+    align-items: start;
+    padding: 64px 24px 0;
+  }
+  .score-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .score-list li {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--s1);
+    color: var(--text2);
+    font-size: 14px;
+    padding: 14px;
+  }
+  .empty {
+    color: var(--muted);
+    font-size: 14px;
+  }
+  @media (max-width: 860px) {
+    .axis-grid,
+    .research-stats,
+    .tracked-grid,
+    .posts-grid,
+    .scorecard,
+    .score-list {
+      grid-template-columns: 1fr;
+    }
+    .research-hero {
+      padding-top: 44px;
+    }
+    .section-header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+    .watchlist-table article {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+  }
+</style>

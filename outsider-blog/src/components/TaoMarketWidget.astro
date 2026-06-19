@@ -8,17 +8,17 @@ const { variant = 'compact' } = Astro.props;
 
 <a
   class:list={['tao-market', `tao-market-${variant}`]}
-  href="https://www.binance.com/en/trade/TAO_USDT"
+  href="https://taoswap.org/explore/subnets/"
   target="_blank"
   rel="noopener"
-  aria-label="TAO USDT market data on Binance"
+  aria-label="TAO USD market data on TaoSwap"
   data-tao-market
   data-conversion-event="tao_market_click"
   data-conversion-category="market_data"
-  data-conversion-label="TAO USDT Binance market click"
+  data-conversion-label="TAO USD TaoSwap market click"
 >
   <span class="market-copy">
-    <span class="market-pair">TAO/USDT</span>
+    <span class="market-pair">TAO/USD</span>
     <span class="market-price" data-market-price>Loading</span>
   </span>
   <svg class="market-chart" viewBox="0 0 72 24" aria-hidden="true" data-market-chart>
@@ -31,15 +31,15 @@ const { variant = 'compact' } = Astro.props;
       <span class="market-panel-heading">TAO Market Snapshot</span>
       <span class="market-stats" aria-hidden="true">
         <span>
-          <span class="market-stat-label">24h Volume</span>
+          <span class="market-stat-label">Latest Volume</span>
           <span class="market-stat-value" data-market-volume>...</span>
         </span>
         <span>
-          <span class="market-stat-label">High / Low</span>
+          <span class="market-stat-label">30d High / Low</span>
           <span class="market-stat-value" data-market-high-low>...</span>
         </span>
         <span>
-          <span class="market-stat-label">Open Interest</span>
+          <span class="market-stat-label">Source</span>
           <span class="market-stat-value" data-market-open-interest>...</span>
         </span>
       </span>
@@ -47,12 +47,12 @@ const { variant = 'compact' } = Astro.props;
         <span class="market-range-track">
           <span class="market-range-fill" data-market-range></span>
         </span>
-        <span class="market-range-label">Intraday range</span>
+        <span class="market-range-label">30d range</span>
       </span>
       <span class="market-timeframes" role="group" aria-label="Chart timeframe">
-        <button type="button" class="is-active" data-market-timeframe="1h">1h</button>
-        <button type="button" data-market-timeframe="4h">4h</button>
-        <button type="button" data-market-timeframe="1d">1d</button>
+        <button type="button" data-market-timeframe="7d">7d</button>
+        <button type="button" class="is-active" data-market-timeframe="30d">30d</button>
+        <button type="button" data-market-timeframe="1d">All</button>
       </span>
       <span class="market-updated" data-market-updated></span>
     </>
@@ -108,6 +108,9 @@ const { variant = 'compact' } = Astro.props;
     }).join(' ');
   };
 
+  const marketRefreshMs = 60 * 1000;
+  const marketDataByWidget = new WeakMap();
+
   const hydrateWidget = async (widget) => {
     const priceEl = widget.querySelector('[data-market-price]');
     const changeEl = widget.querySelector('[data-market-change]');
@@ -125,28 +128,34 @@ const { variant = 'compact' } = Astro.props;
       const data = await response.json();
       const price = Number(data.price);
       const change = Number(data.changePercent);
+      marketDataByWidget.set(widget, data);
+      const activeTimeframe = timeframeButtons.find((button) => button.classList.contains('is-active'))?.dataset.marketTimeframe || '30d';
 
       if (priceEl) priceEl.textContent = formatPrice(price);
       if (changeEl) changeEl.textContent = formatChange(change);
-      if (polyline) polyline.setAttribute('points', toPolyline(data.candles?.['1h'] || data.closes));
+      if (polyline) polyline.setAttribute('points', toPolyline(data.candles?.[activeTimeframe] || data.candles?.['30d'] || data.closes));
       if (volumeEl) volumeEl.textContent = `${compactNumber(Number(data.volume))} TAO / $${compactNumber(Number(data.quoteVolume))}`;
       if (highLowEl) highLowEl.textContent = `${formatPrice(Number(data.high))} / ${formatPrice(Number(data.low))}`;
-      if (openInterestEl) openInterestEl.textContent = `${compactNumber(Number(data.openInterest))} TAO`;
+      if (openInterestEl) openInterestEl.textContent = data.source || 'TaoSwap';
       if (rangeEl) rangeEl.style.width = `${Math.min(100, Math.max(0, Number(data.rangePosition) || 0))}%`;
       if (updatedEl) updatedEl.textContent = formatDateTime(data.updatedAt);
       widget.classList.toggle('is-up', change >= 0);
       widget.classList.toggle('is-down', change < 0);
       widget.setAttribute('title', `${data.pair} via ${data.source}`);
 
-      timeframeButtons.forEach((button) => {
-        button.addEventListener('click', (event) => {
-          event.preventDefault();
-          const timeframe = button.dataset.marketTimeframe;
-          const values = data.candles?.[timeframe] || data.closes;
-          if (polyline) polyline.setAttribute('points', toPolyline(values));
-          timeframeButtons.forEach((item) => item.classList.toggle('is-active', item === button));
+      if (!widget.dataset.marketTimeframesBound) {
+        timeframeButtons.forEach((button) => {
+          button.addEventListener('click', (event) => {
+            event.preventDefault();
+            const latestData = marketDataByWidget.get(widget) || data;
+            const timeframe = button.dataset.marketTimeframe;
+            const values = latestData.candles?.[timeframe] || latestData.closes;
+            if (polyline) polyline.setAttribute('points', toPolyline(values));
+            timeframeButtons.forEach((item) => item.classList.toggle('is-active', item === button));
+          });
         });
-      });
+        widget.dataset.marketTimeframesBound = 'true';
+      }
     } catch {
       if (priceEl) priceEl.textContent = 'Unavailable';
       if (changeEl) changeEl.textContent = '';
@@ -154,7 +163,25 @@ const { variant = 'compact' } = Astro.props;
     }
   };
 
-  widgets.forEach(hydrateWidget);
+  const startMarketRefresh = (widget) => {
+    hydrateWidget(widget);
+
+    window.setInterval(() => {
+      if (!document.hidden) hydrateWidget(widget);
+    }, marketRefreshMs);
+
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) hydrateWidget(widget);
+    });
+  };
+
+  const startAfterPaint = (widget) => {
+    const run = () => window.setTimeout(() => startMarketRefresh(widget), 900);
+    if (document.readyState === 'complete') run();
+    else window.addEventListener('load', run, { once: true });
+  };
+
+  widgets.forEach(startAfterPaint);
 </script>
 
 <style>

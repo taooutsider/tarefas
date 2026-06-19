@@ -1,4 +1,5 @@
 import { getCollection } from 'astro:content';
+import { sortNewestPosts } from '../lib/posts';
 
 const SITE = 'https://www.taooutsider.com';
 const PUBLICATION_NAME = 'Tao Outsider';
@@ -15,12 +16,14 @@ const escapeXml = (value: string) =>
 
 export async function GET() {
   const now = Date.now();
-  const posts = (await getCollection('blog'))
+  const posts = sortNewestPosts((await getCollection('blog'))
     .filter((post) => {
       const publishedAt = post.data.pubDate.valueOf();
-      return !post.data.draft && publishedAt <= now && now - publishedAt <= NEWS_WINDOW_MS;
-    })
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+      return !post.data.draft
+        && post.data.newsEligible
+        && publishedAt <= now
+        && now - publishedAt <= NEWS_WINDOW_MS;
+    }));
 
   const urls = posts.map((post) => {
     const loc = `${SITE}/blog/${post.id}/`;

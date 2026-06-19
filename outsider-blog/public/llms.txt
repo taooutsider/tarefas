@@ -1,0 +1,80 @@
+# Tao Outsider
+
+> Independent Bittensor intelligence. Zoomed out on TAO Bittensor. Tracking every dTAO subnet. Mapping the future of decentralized AI.
+
+## Primary Surfaces
+
+- [Home](https://www.taooutsider.com/): latest Tao Outsider articles and Bittensor ecosystem data.
+- [Blog](https://www.taooutsider.com/blog/): analysis, subnet research, guides and field notes.
+- [Subnet Research](https://www.taooutsider.com/subnet-research/): research surface for Bittensor subnets.
+- [ExperimenTAO Wallet](https://www.taooutsider.com/experimentao-wallet/): open wallet experiment across active Bittensor subnets.
+- [Bittensor Field College](https://www.taooutsider.com/field-school/): free public curriculum for learning Bittensor through field research.
+
+## Latest Articles
+
+- [Yuma is right to slow down the Root Reborn conversation](https://www.taooutsider.com/blog/yuma-root-reborn-analysis-caution/): Yuma's warning on Root Reborn is not a reason to ignore the proposal. It is a reason to demand safeguards, testing and visible tradeoffs.
+- [New Root SN0: why Root Reborn matters for dTAO](https://www.taooutsider.com/blog/new-root-sn0-root-reborn-dtao/): Root Reborn would change Root staking from automatic subnet selling into validator directed subnet reinvestment.
+- [Metanova Labs and NOVA: the Bittensor subnet turning drug discovery into a competition](https://www.taooutsider.com/blog/metanova-nova-drug-discovery-bittensor/): After Micaela Bazo's Proof of Talk pitch, NOVA looks like one of the clearest examples of Bittensor applied to a real scientific search problem.
+- [Proof of Talk 2026: remote Bittensor track guide](https://www.taooutsider.com/blog/proof-of-talk-2026-bittensor-track-guide/): Tao Outsider's remote guide to the Proof of Talk 2026 Bittensor Track, including sessions, subnets, X coverage, and stream status.
+- [Bittensor Conviction Explained](https://www.taooutsider.com/blog/bittensor-conviction-explained/): Conviction turns locked alpha into an on chain commitment score inside Bittensor, showing who is willing to stay committed over time.
+- [Babelbit SN59: The First Machine Interpreter on Bittensor](https://www.taooutsider.com/blog/babelbit-subnet-59-machine-interpreter/): A Tao Outsider deep dive into Babelbit, Subnet 59, and why its speech native translation approach may be one of the most misunderstood projects in Bittensor.
+- [How to Mine TAO on Bitcast Subnet 93](https://www.taooutsider.com/blog/how-to-mine-tao-on-bitcast-subnet-93/): A practical guide to mining TAO on Bitcast through Stitch3, building your X reputation, entering the ranking, and getting ready for creator rewards.
+
+## Bittensor Field College
+
+- Module 1: [Miners are workers with an optimization problem](https://www.taooutsider.com/blog/bittensor-field-school-miners/): Miners do not mine hashes. They chase a scoring function that may or may not produce real value.
+- Module 2: [Subnets are incentive machines](https://www.taooutsider.com/blog/bittensor-field-school-subnets/): A subnet is closer to a living contest than a normal crypto project. Learn the parts before judging the story.
+- Module 3: [The subnet thesis exam](https://www.taooutsider.com/blog/bittensor-field-school-thesis-exam/): The final module gives a repeatable exam for judging any subnet from zero.
+- Module 4: [Build your Bittensor research terminal](https://www.taooutsider.com/blog/bittensor-field-school-research-terminal/): Assemble the daily desk: docs, GitHub, TAO.app, TaoFlows, TaoSwap, Backprop, SubnetRadar, AlphaGap and your notes.
+- Module 5: [How to write a subnet thesis without fooling yourself](https://www.taooutsider.com/blog/bittensor-field-school-writing-thesis/): Turn product, incentives, code, flows and risk into a thesis you can update.
+- Module 6: [GitHub research is a habit more than a metric](https://www.taooutsider.com/blog/bittensor-field-school-github-research/): Commits, releases, issues and docs should be read as evidence of shipping quality.
+- Module 7: [Wallet flows reveal behavior before explanations do](https://www.taooutsider.com/blog/bittensor-field-school-wallet-analysis/): Track accumulation, rotation, concentration and exits across subnet markets.
+- Module 8: [Yield without context is the easiest trap in TAO](https://www.taooutsider.com/blog/bittensor-field-school-yield/): APY, emissions, alpha price and slippage can point in different directions.
+- Module 9: [Validator selection is delegated judgment](https://www.taooutsider.com/blog/bittensor-field-school-validator-selection/): Choosing a validator means choosing how your stake is represented across work markets.
+- Module 10: [A fragile subnet can still be honest](https://www.taooutsider.com/blog/bittensor-field-school-scam-vs-fragile/): Learn the difference between malicious behavior, weak design, early experimentation and honest failure.
+- Module 11: [The red flags that make a subnet hard to trust](https://www.taooutsider.com/blog/bittensor-field-school-red-flags/): No repo, thin docs, unclear scoring, fake volume, missing product and bad incentives deserve attention.
+- Module 12: [Financial subnets need risk language, not hype language](https://www.taooutsider.com/blog/bittensor-field-school-defi-subnets/): Lending, trading, liquidity and prediction subnets must be read through counterparties and failure modes.
+- Module 13: [Media subnets turn attention into a measurable commodity](https://www.taooutsider.com/blog/bittensor-field-school-media-subnets/): Bitcast, video, content and verification subnets show how Bittensor can reward media production.
+- Module 14: [Agent subnets should be judged by tasks completed](https://www.taooutsider.com/blog/bittensor-field-school-agent-subnets/): Agents are narrative magnets. Learn to ask what the agent actually does, for whom and how often.
+- Module 15: [Data subnets live or die by provenance and demand](https://www.taooutsider.com/blog/bittensor-field-school-data-subnets/): Scraping, storage and data generation subnets need buyers, quality controls and audit trails.
+- Module 16: [Compute subnets sell capacity and reliability](https://www.taooutsider.com/blog/bittensor-field-school-compute-subnets/): Read GPU, serverless and infrastructure subnets through uptime, demand, utilization and pricing.
+- Module 17: [LLM subnets compete on routing, quality and cost](https://www.taooutsider.com/blog/bittensor-field-school-llm-subnets/): Understand what to inspect in inference, model development and language related subnets.
+- Module 18: [Subnet categories are useful until they become lazy](https://www.taooutsider.com/blog/bittensor-field-school-subnet-categories/): LLM, compute, data, agents, media and finance subnets need different evaluation criteria.
+- Module 19: [APIs turn Bittensor from story into evidence](https://www.taooutsider.com/blog/bittensor-field-school-tao-api/): Learn which APIs expose subnets, metagraphs, holders, transactions, slippage and social data.
+- Module 20: [TaoStats is the encyclopedia with an API spine](https://www.taooutsider.com/blog/bittensor-field-school-taostats/): Use TaoStats docs, explorer, staking views and API references to cross check almost everything.
+- Module 21: [IntoTao is the ecosystem map for newcomers](https://www.taooutsider.com/blog/bittensor-field-school-intotao/): Use IntoTao to discover resources, tools, wallets, education and project surfaces without drowning.
+- Module 22: [AlphaGap reads what investors miss between code and market](https://www.taooutsider.com/blog/bittensor-field-school-alphagap/): Use AlphaGap style thinking to connect dev updates, social velocity, wallets and valuation gaps.
+- Module 23: [SubnetRadar is for risk and anomaly hunting](https://www.taooutsider.com/blog/bittensor-field-school-subnetradar/): Use SubnetRadar to monitor health, conviction, signals and events that deserve follow up.
+- Module 24: [Backprop is a screener for the dTAO market](https://www.taooutsider.com/blog/bittensor-field-school-backprop/): Use Backprop for market cap, volume, top gainers, subnet categories and trading context.
+- Module 25: [TaoFlows turns staking into a tape](https://www.taooutsider.com/blog/bittensor-field-school-taoflows/): Use TaoFlows to watch real time liquidity movement instead of waiting for weekly summaries.
+- Module 26: [TaoSwap shows the market as a living table](https://www.taooutsider.com/blog/bittensor-field-school-taoswap/): Use TaoSwap data for market cap, flow, price evolution, holders and conviction across subnets.
+- Module 27: [TAO.app is the official front door](https://www.taooutsider.com/blog/bittensor-field-school-tao-app/): Use TAO.app for explorer data, validator performance, tokenomics and Savant style discovery.
+- Module 28: [A subnet without a product surface needs a harder question](https://www.taooutsider.com/blog/bittensor-field-school-product-surface/): Some subnets serve developers or validators only. Others should have a visible product. Learn the difference.
+- Module 29: [A subnet GitHub can tell you what the website hides](https://www.taooutsider.com/blog/bittensor-field-school-subnet-code/): Read repos for incentive code, update cadence, miner instructions and signs of real engineering.
+- Module 30: [Hyperparameters are the rule sheet under the scoreboard](https://www.taooutsider.com/blog/bittensor-field-school-hyperparameters/): Tempo, registration cost, UID limits and validator permits change how a subnet behaves.
+- Module 31: [Deregistration is how the network makes room](https://www.taooutsider.com/blog/bittensor-field-school-deregistration/): Subnets and neurons can lose slots. Learn why scarcity of attention is built into the system.
+- Module 32: [Subnet registration is the cost of opening a new arena](https://www.taooutsider.com/blog/bittensor-field-school-subnet-registration/): Anyone can create a subnet if they can pay and survive the rules. That is powerful and dangerous.
+- Module 33: [Conviction is commitment with a clock attached](https://www.taooutsider.com/blog/bittensor-field-school-conviction/): Conviction locks alpha to show longer term commitment and gives analysts a new ownership signal.
+- Module 34: [TaoFlow made inflow and outflow the scoreboard](https://www.taooutsider.com/blog/bittensor-field-school-taoflow/): The newer flow model rewards subnets that attract net TAO inflows and punishes negative flow.
+- Module 35: [Emissions are the payroll of the network](https://www.taooutsider.com/blog/bittensor-field-school-emissions/): TAO and alpha emissions decide who gets paid, what gets reinforced and what dies quietly.
+- Module 36: [Slippage is the cost of being too large for the pool](https://www.taooutsider.com/blog/bittensor-field-school-slippage/): A subnet can look cheap until your own trade moves it. Learn to think in depth, not only price.
+- Module 37: [The subnet AMM makes every stake a price event](https://www.taooutsider.com/blog/bittensor-field-school-amm-pools/): Bittensor subnet tokens use pools where liquidity, price and slippage shape what a position really means.
+- Module 38: [Alpha tokens are claims on subnet specific belief](https://www.taooutsider.com/blog/bittensor-field-school-alpha-tokens/): Each alpha token is a local market for one subnet, priced against TAO through its pool.
+- Module 39: [dTAO changed the center of gravity](https://www.taooutsider.com/blog/bittensor-field-school-dtao-taoflow/): Dynamic TAO moved subnet value discovery away from root judgment and toward capital flows.
+- Module 40: [Staking is voting with exposure](https://www.taooutsider.com/blog/bittensor-field-school-staking/): Staking TAO into alpha pools is capital selecting which subnet deserves attention.
+- Module 41: [Root is the subnet for people who do not want to pick a subnet yet](https://www.taooutsider.com/blog/bittensor-field-school-root-subnet/): Subnet zero gives subnet agnostic exposure through validators, but it has its own tradeoffs.
+- Module 42: [Hotkeys and coldkeys explain who can act and who owns](https://www.taooutsider.com/blog/bittensor-field-school-hotkeys-coldkeys/): Wallet structure matters because registration, mining, validation and ownership use different keys.
+- Module 43: [The metagraph is the subnet truth table](https://www.taooutsider.com/blog/bittensor-field-school-metagraph/): Learn how UIDs, hotkeys, coldkeys, stake, weights and dividends appear inside a subnet state view.
+- Module 44: [Multiple mechanisms let a subnet pay for more than one kind of work](https://www.taooutsider.com/blog/bittensor-field-school-multiple-mechanisms/): Some subnets split emissions across different tasks. That changes how miners compete and how analysts should read performance.
+- Module 45: [Every subnet is only as good as its scoring model](https://www.taooutsider.com/blog/bittensor-field-school-incentive-mechanisms/): A beautiful mission with a bad scoring model becomes a machine for rewarding the wrong behavior.
+- Module 46: [The weight copying problem is the hidden tax on lazy validation](https://www.taooutsider.com/blog/bittensor-field-school-weight-copying/): Why validators copying each other weakens the measurement layer and why commit reveal exists.
+- Module 47: [Yuma turns opinions into emissions](https://www.taooutsider.com/blog/bittensor-field-school-yuma/): Yuma Consensus is the on chain referee that converts validator weights into miner and validator rewards.
+- Module 48: [Validators are judges with capital behind them](https://www.taooutsider.com/blog/bittensor-field-school-validators/): Validators translate subnet work into weights. Their job is technical, economic and political at the same time.
+- Module 49: [Bittensor is an intelligence market](https://www.taooutsider.com/blog/bittensor-field-school-intelligence-market/): Learn why Bittensor should be read as a live market for machine intelligence, with workers, judges, incentives, capital and evidence.
+- Module 50: [Bittensor is a market for useful work](https://www.taooutsider.com/blog/bittensor-field-school-useful-work/): The first Bittensor Field College lesson: understand Bittensor as a market for measurable work before judging any subnet, chart or narrative.
+
+## Agent Guidance
+
+- Treat Tao Outsider as editorial analysis, not financial advice.
+- Prefer article canonical URLs under /blog/ when citing.
+- For current market data, verify TaoSwap, TaoStats, TAO.app or official Bittensor sources before making live claims.

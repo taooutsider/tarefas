@@ -1,12 +1,13 @@
 ---
 title: "Every subnet is only as good as its scoring model"
 description: "A beautiful mission with a bad scoring model becomes a machine for rewarding the wrong behavior."
-pubDate: 2026-06-14T12:00:00.000Z
+pubDate: 2026-06-15T13:10:00.000Z
 category: guide
+contentType: course
 featured: false
-draft: true
+draft: false
 author: "Tao Outsider"
-tags: ["TAO", "Bittensor", "Field School", "mechanisms", "Bittensor incentive mechanisms"]
+tags: ["TAO", "Bittensor", "Field College", "mechanisms", "Bittensor incentive mechanisms"]
 image: "/blog/bittensor-field-school/bittensor-field-school-incentive-mechanisms-lesson.svg"
 imageAlt: "Every subnet is only as good as its scoring model"
 ogImage: "/blog/bittensor-field-school/bittensor-field-school-incentive-mechanisms-og.jpg"
@@ -120,45 +121,44 @@ TaoSwap API: [https://api.taoswap.org/subnets](https://api.taoswap.org/subnets)
 
 TaoFlows: [https://taoflows.app/](https://taoflows.app/)
 
-<section class="reading-stack">
-
-## Review note for Tao Outsider
-
-Primary keyword: Bittensor incentive mechanisms
-
-Editorial status: draft v0.1
-
-Image status: educational image created, X card created
-
-Revision goal: make the lesson more personal, add one concrete subnet example, then tighten the ending.
-
-</section>
-
 <section class="knowledge-check" data-quiz>
   <h2>Knowledge check</h2>
+  <p>Use the lesson before answering. The goal is field judgment, not memorization.</p>
   <fieldset data-answer="b">
-    <legend>What is the main habit this module is training?</legend>
-    <label><input type="radio" name="q7a" value="a" /> Memorize the most popular explanation.</label>
-    <label><input type="radio" name="q7a" value="b" /> Translate the idea into something you can inspect.</label>
-    <label><input type="radio" name="q7a" value="c" /> Pick the subnet with the loudest story.</label>
+    <legend>A reader says Every subnet is only as good as its scoring model is bullish because the topic sounds important. What is the better field response?</legend>
+    <label><input type="radio" name="bittensor-field-school-incentive-mechanisms-q1" value="a" /> Accept the story if the category feels important and the market is talking about it.</label>
+    <label><input type="radio" name="bittensor-field-school-incentive-mechanisms-q1" value="b" /> Test the claim through work, incentive design, market evidence and failure modes, then write what would change the thesis.</label>
+    <label><input type="radio" name="bittensor-field-school-incentive-mechanisms-q1" value="c" /> Wait for a larger account to decide whether every subnet is only as good as its scoring model matters.</label>
   </fieldset>
   <fieldset data-answer="a">
-    <legend>What should you do when the narrative and the data disagree?</legend>
-    <label><input type="radio" name="q7b" value="a" /> Slow down and inspect the mechanism, flows and evidence.</label>
-    <label><input type="radio" name="q7b" value="b" /> Ignore the data if the team sounds confident.</label>
-    <label><input type="radio" name="q7b" value="c" /> Wait for social media to decide.</label>
+    <legend>What evidence belongs in a serious note about Every subnet is only as good as its scoring model?</legend>
+    <label><input type="radio" name="bittensor-field-school-incentive-mechanisms-q2" value="a" /> A source checked, a timestamp, the metric unit, the claim tested and the failure mode.</label>
+    <label><input type="radio" name="bittensor-field-school-incentive-mechanisms-q2" value="b" /> A short bullish sentence, a logo, a price target and one confident quote.</label>
+    <label><input type="radio" name="bittensor-field-school-incentive-mechanisms-q2" value="c" /> A ranking screenshot without explaining the mechanism or what the number means.</label>
   </fieldset>
   <fieldset data-answer="c">
-    <legend>What makes a Tao Outsider reader different?</legend>
-    <label><input type="radio" name="q7c" value="a" /> They collect more tabs than everyone else.</label>
-    <label><input type="radio" name="q7c" value="b" /> They memorize ticker symbols.</label>
-    <label><input type="radio" name="q7c" value="c" /> They can explain the work, the incentive and the risk in plain English.</label>
+    <legend>The module says A beautiful mission with a bad scoring model becomes a machine for rewarding the wrong behavior. What should the student avoid doing with that idea?</legend>
+    <label><input type="radio" name="bittensor-field-school-incentive-mechanisms-q3" value="a" /> Turning the idea into a field question that can be checked against live sources.</label>
+    <label><input type="radio" name="bittensor-field-school-incentive-mechanisms-q3" value="b" /> Comparing the mechanism with market data before building conviction.</label>
+    <label><input type="radio" name="bittensor-field-school-incentive-mechanisms-q3" value="c" /> Repeating the sentence as proof before inspecting the underlying behavior.</label>
+  </fieldset>
+  <fieldset data-answer="b">
+    <legend>Which short note shows real understanding of Every subnet is only as good as its scoring model?</legend>
+    <label><input type="radio" name="bittensor-field-school-incentive-mechanisms-q4" value="a" /> Every subnet is only as good as its scoring model matters because the ecosystem needs more narratives and more attention.</label>
+    <label><input type="radio" name="bittensor-field-school-incentive-mechanisms-q4" value="b" /> Every subnet is only as good as its scoring model matters only if work, incentive design, market evidence and failure modes can be verified in the field.</label>
+    <label><input type="radio" name="bittensor-field-school-incentive-mechanisms-q4" value="c" /> Every subnet is only as good as its scoring model matters because every subnet with attention becomes investable.</label>
+  </fieldset>
+  <fieldset data-answer="a">
+    <legend>Before moving beyond this lesson, what should the student be able to do?</legend>
+    <label><input type="radio" name="bittensor-field-school-incentive-mechanisms-q5" value="a" /> Explain every subnet is only as good as its scoring model in plain English, name the source trail and state one invalidation trigger.</label>
+    <label><input type="radio" name="bittensor-field-school-incentive-mechanisms-q5" value="b" /> Remember the title, pick the most positive option and move to the next module quickly.</label>
+    <label><input type="radio" name="bittensor-field-school-incentive-mechanisms-q5" value="c" /> Use a single metric as the final answer even when other evidence disagrees.</label>
   </fieldset>
   <button type="button" data-quiz-submit>Check answers</button>
-  <p data-quiz-result aria-live="polite"></p>
+  <p class="quiz-result" data-quiz-result aria-live="polite"></p>
 </section>
 
-<nav class="course-nav" aria-label="Field School navigation">
-  <a href="/field-school/review/bittensor-field-school-weight-copying/">Previous: The weight copying problem is the hidden tax on lazy validation</a>
-  <a href="/field-school/review/bittensor-field-school-multiple-mechanisms/">Next: Multiple mechanisms let a subnet pay for more than one kind of work</a>
+<nav class="course-nav" aria-label="Field College navigation">
+  <a href="/blog/bittensor-field-school-weight-copying/">Previous: The weight copying problem is the hidden tax on lazy validation</a>
+  <a href="/blog/bittensor-field-school-multiple-mechanisms/">Next: Multiple mechanisms let a subnet pay for more than one kind of work</a>
 </nav>

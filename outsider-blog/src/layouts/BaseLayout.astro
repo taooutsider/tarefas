@@ -15,6 +15,7 @@ interface Props {
   tags?: string[];
   author?: string;
   reviewedBy?: string;
+  schemaType?: 'NewsArticle' | 'BlogPosting' | 'Article' | 'LearningResource';
   noindex?: boolean;
 }
 
@@ -45,8 +46,6 @@ const GOOGLE_ADS_CONVERSION_LABELS = Object.fromEntries(Object.entries({
   article_feedback: import.meta.env.PUBLIC_GOOGLE_ADS_ARTICLE_FEEDBACK_LABEL,
   purchase: import.meta.env.PUBLIC_GOOGLE_ADS_PURCHASE_LABEL || DEFAULT_GOOGLE_ADS_CONVERSION_LABELS.purchase,
 }).filter(([, label]) => Boolean(label)));
-const CLOUDFLARE_ANALYTICS_TOKEN = import.meta.env.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN;
-
 const {
   title,
   description,
@@ -59,6 +58,7 @@ const {
   tags = [],
   author = SITE_NAME,
   reviewedBy,
+  schemaType = 'Article',
   noindex = false,
 } = Astro.props;
 
@@ -71,7 +71,7 @@ const newsSitemapURL = `${SITE}/news-sitemap.xml`;
 
 const articleSchema = article ? {
   '@context': 'https://schema.org',
-  '@type': 'NewsArticle',
+  '@type': schemaType,
   headline: title,
   description,
   datePublished: pubDate?.toISOString(),
@@ -93,6 +93,16 @@ const articleSchema = article ? {
   image: ogImageURL,
   inLanguage: 'en-US',
   isAccessibleForFree: true,
+  ...(schemaType === 'LearningResource' ? {
+    learningResourceType: 'Course module',
+    educationalLevel: 'Beginner to intermediate',
+    teaches: tags.length ? tags : ['Bittensor', 'TAO', 'dTAO', 'subnet research'],
+    provider: {
+      '@type': 'Organization',
+      name: 'Bittensor Field College by Tao Outsider',
+      url: `${SITE}/field-school/`,
+    },
+  } : {}),
 } : null;
 
 const siteSchema = {
@@ -177,12 +187,38 @@ const organizationSchema = {
 
   {GTAG_IDS.length > 0 && (
     <>
-      <script async src={`https://www.googletagmanager.com/gtag/js?id=${GTAG_IDS[0]}`}></script>
       <script is:inline define:vars={{ gtagIds: GTAG_IDS, googleAdsId: GOOGLE_ADS_ID, googleAdsConversionLabels: GOOGLE_ADS_CONVERSION_LABELS }}>
         window.dataLayer = window.dataLayer || [];
         window.gtag = window.gtag || function(){window.dataLayer.push(arguments);}
-        window.gtag('js', new Date());
-        gtagIds.forEach((id) => window.gtag('config', id));
+
+        const trackingIds = new Set(gtagIds);
+        let gtagRequested = false;
+        let gtagReady = false;
+
+        const afterLoad = (callback, delay = 0) => {
+          const run = () => window.setTimeout(callback, delay);
+          if (document.readyState === 'complete') run();
+          else window.addEventListener('load', run, { once: true });
+        };
+
+        const configureTrackingIds = () => {
+          if (!gtagReady) return;
+          window.gtag('js', new Date());
+          trackingIds.forEach((id) => window.gtag('config', id));
+        };
+
+        const loadGtag = () => {
+          if (gtagRequested || !trackingIds.size) return;
+          gtagRequested = true;
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = `https://www.googletagmanager.com/gtag/js?id=${Array.from(trackingIds)[0]}`;
+          script.onload = () => {
+            gtagReady = true;
+            configureTrackingIds();
+          };
+          document.head.appendChild(script);
+        };
 
         const cleanParams = (params) => {
           const clean = {};
@@ -194,6 +230,7 @@ const organizationSchema = {
 
         window.taoTrackConversion = function(eventName, params = {}) {
           if (!eventName || typeof window.gtag !== 'function') return;
+          loadGtag();
 
           const eventParams = cleanParams({
             event_category: 'tao_outsider',
@@ -251,30 +288,95 @@ const organizationSchema = {
           if (!element) return;
           window.taoTrackConversion(element.dataset.conversionEvent, eventPayload(element));
         });
+
+        const loadCloudflareBeacon = (token) => {
+          if (!token || document.querySelector('script[data-cf-beacon]')) return;
+          const beacon = document.createElement('script');
+          beacon.defer = true;
+          beacon.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+          beacon.dataset.cfBeacon = JSON.stringify({ token });
+          document.head.appendChild(beacon);
+        };
+
+        const hydrateRuntimeTracking = () => {
+          fetch('/api/tracking-config', { cache: 'no-store' })
+            .then((response) => response.ok ? response.json() : null)
+            .then((config) => {
+            if (!config || typeof config !== 'object') return;
+
+            if (config.gaMeasurementId && !gtagIds.includes(config.gaMeasurementId)) {
+              trackingIds.add(config.gaMeasurementId);
+              configureTrackingIds();
+            }
+
+            afterLoad(() => loadCloudflareBeacon(config.cloudflareWebAnalyticsToken), 9500);
+            })
+            .catch(() => {});
+        };
+
+        ['pointerdown', 'keydown', 'touchstart'].forEach((eventName) => {
+          window.addEventListener(eventName, loadGtag, { once: true, passive: true });
+        });
+        afterLoad(hydrateRuntimeTracking, 1400);
+        afterLoad(loadGtag, 9500);
       </script>
     </>
   )}
 
-  {CLOUDFLARE_ANALYTICS_TOKEN && (
-    <script
-      defer
-      src="https://static.cloudflareinsights.com/beacon.min.js"
-      data-cf-beacon={`{"token":"${CLOUDFLARE_ANALYTICS_TOKEN}"}`}
-    ></script>
-  )}
+  <script is:inline define:vars={{ pageTitle: fullTitle, pageType: article ? 'article' : 'page' }}>
+    (() => {
+      const sendSiteEvent = (eventName) => {
+        const payload = {
+          eventName,
+          path: window.location.pathname,
+          pageTitle,
+          pageType,
+          referrer: document.referrer || '',
+        };
 
-  <!-- Preconnect for web fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
-    media="print"
-    onload="this.media='all'"
-  />
-  <noscript>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" />
-  </noscript>
+        try {
+          const body = JSON.stringify(payload);
+          if (navigator.sendBeacon) {
+            navigator.sendBeacon('/api/site-event', new Blob([body], { type: 'application/json' }));
+            return;
+          }
+
+          fetch('/api/site-event', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body,
+            keepalive: true,
+          }).catch(() => {});
+        } catch {
+          // Analytics must never block rendering.
+        }
+      };
+
+      sendSiteEvent('page_view');
+
+      if (pageType === 'article') {
+        let sentRead = false;
+        const markRead = () => {
+          if (sentRead) return;
+          const scrollDepth = window.scrollY + window.innerHeight;
+          const threshold = Math.min(document.documentElement.scrollHeight * 0.65, 1600);
+          if (scrollDepth >= threshold) {
+            sentRead = true;
+            sendSiteEvent('article_read');
+            if (typeof window.taoTrackConversion === 'function') {
+              window.taoTrackConversion('article_read', {
+                event_category: 'content',
+                event_label: pageTitle,
+              });
+            }
+          }
+        };
+
+        window.addEventListener('scroll', markRead, { passive: true });
+        window.setTimeout(markRead, 45000);
+      }
+    })();
+  </script>
 
   <slot name="head" />
 </head>

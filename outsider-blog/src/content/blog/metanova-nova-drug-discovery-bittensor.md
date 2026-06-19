@@ -3,6 +3,8 @@ title: "Metanova Labs and NOVA: the Bittensor subnet turning drug discovery into
 description: "After Micaela Bazo's Proof of Talk pitch, NOVA looks like one of the clearest examples of Bittensor applied to a real scientific search problem."
 pubDate: 2026-06-02T18:45:00.000Z
 category: subnet
+contentType: news
+newsEligible: true
 featured: false
 draft: false
 author: "Tao Outsider"

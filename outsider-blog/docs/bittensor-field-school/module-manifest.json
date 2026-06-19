@@ -1,0 +1,267 @@
+{
+  "name": "Bittensor Field College canonical state",
+  "updatedAt": "2026-06-18",
+  "expectedModuleCount": 50,
+  "deprecatedSlugs": [
+    "bittensor-field-school-bitcoin-comparison"
+  ],
+  "requiredRedirects": [
+    {
+      "from": "/blog/bittensor-field-school-bitcoin-comparison/",
+      "to": "/blog/bittensor-field-school-intelligence-market/",
+      "status": 301
+    }
+  ],
+  "modules": [
+    {
+      "order": 1,
+      "slug": "bittensor-field-school-useful-work",
+      "title": "Bittensor is a market for useful work"
+    },
+    {
+      "order": 2,
+      "slug": "bittensor-field-school-intelligence-market",
+      "title": "Bittensor is an intelligence market"
+    },
+    {
+      "order": 3,
+      "slug": "bittensor-field-school-subnets",
+      "title": "Subnets are incentive machines"
+    },
+    {
+      "order": 4,
+      "slug": "bittensor-field-school-miners",
+      "title": "Miners are workers with an optimization problem"
+    },
+    {
+      "order": 5,
+      "slug": "bittensor-field-school-validators",
+      "title": "Validators are judges with capital behind them"
+    },
+    {
+      "order": 6,
+      "slug": "bittensor-field-school-yuma",
+      "title": "Yuma turns opinions into emissions"
+    },
+    {
+      "order": 7,
+      "slug": "bittensor-field-school-weight-copying",
+      "title": "The weight copying problem is the hidden tax on lazy validation"
+    },
+    {
+      "order": 8,
+      "slug": "bittensor-field-school-incentive-mechanisms",
+      "title": "Every subnet is only as good as its scoring model"
+    },
+    {
+      "order": 9,
+      "slug": "bittensor-field-school-multiple-mechanisms",
+      "title": "Multiple mechanisms let a subnet pay for more than one kind of work"
+    },
+    {
+      "order": 10,
+      "slug": "bittensor-field-school-metagraph",
+      "title": "The metagraph is the subnet truth table"
+    },
+    {
+      "order": 11,
+      "slug": "bittensor-field-school-hotkeys-coldkeys",
+      "title": "Hotkeys and coldkeys explain who can act and who owns"
+    },
+    {
+      "order": 12,
+      "slug": "bittensor-field-school-root-subnet",
+      "title": "Root is the subnet for people who do not want to pick a subnet yet"
+    },
+    {
+      "order": 13,
+      "slug": "bittensor-field-school-staking",
+      "title": "Staking is voting with exposure"
+    },
+    {
+      "order": 14,
+      "slug": "bittensor-field-school-dtao-taoflow",
+      "title": "dTAO changed the center of gravity"
+    },
+    {
+      "order": 15,
+      "slug": "bittensor-field-school-alpha-tokens",
+      "title": "Alpha tokens are claims on subnet specific belief"
+    },
+    {
+      "order": 16,
+      "slug": "bittensor-field-school-amm-pools",
+      "title": "The subnet AMM makes every stake a price event"
+    },
+    {
+      "order": 17,
+      "slug": "bittensor-field-school-slippage",
+      "title": "Slippage is the cost of being too large for the pool"
+    },
+    {
+      "order": 18,
+      "slug": "bittensor-field-school-emissions",
+      "title": "Emissions are the payroll of the network"
+    },
+    {
+      "order": 19,
+      "slug": "bittensor-field-school-taoflow",
+      "title": "TaoFlow made inflow and outflow the scoreboard"
+    },
+    {
+      "order": 20,
+      "slug": "bittensor-field-school-conviction",
+      "title": "Conviction is commitment with a clock attached"
+    },
+    {
+      "order": 21,
+      "slug": "bittensor-field-school-subnet-registration",
+      "title": "Subnet registration is the cost of opening a new arena"
+    },
+    {
+      "order": 22,
+      "slug": "bittensor-field-school-deregistration",
+      "title": "Deregistration is how the network makes room"
+    },
+    {
+      "order": 23,
+      "slug": "bittensor-field-school-hyperparameters",
+      "title": "Hyperparameters are the rule sheet under the scoreboard"
+    },
+    {
+      "order": 24,
+      "slug": "bittensor-field-school-subnet-code",
+      "title": "A subnet GitHub can tell you what the website hides"
+    },
+    {
+      "order": 25,
+      "slug": "bittensor-field-school-product-surface",
+      "title": "A subnet without a product surface needs a harder question"
+    },
+    {
+      "order": 26,
+      "slug": "bittensor-field-school-tao-app",
+      "title": "TAO.app is the official front door"
+    },
+    {
+      "order": 27,
+      "slug": "bittensor-field-school-taoswap",
+      "title": "TaoSwap shows the market as a living table"
+    },
+    {
+      "order": 28,
+      "slug": "bittensor-field-school-taoflows",
+      "title": "TaoFlows turns staking into a tape"
+    },
+    {
+      "order": 29,
+      "slug": "bittensor-field-school-backprop",
+      "title": "Backprop is a screener for the dTAO market"
+    },
+    {
+      "order": 30,
+      "slug": "bittensor-field-school-subnetradar",
+      "title": "SubnetRadar is for risk and anomaly hunting"
+    },
+    {
+      "order": 31,
+      "slug": "bittensor-field-school-alphagap",
+      "title": "AlphaGap reads what investors miss between code and market"
+    },
+    {
+      "order": 32,
+      "slug": "bittensor-field-school-intotao",
+      "title": "IntoTao is the ecosystem map for newcomers"
+    },
+    {
+      "order": 33,
+      "slug": "bittensor-field-school-taostats",
+      "title": "TaoStats is the encyclopedia with an API spine"
+    },
+    {
+      "order": 34,
+      "slug": "bittensor-field-school-tao-api",
+      "title": "APIs turn Bittensor from story into evidence"
+    },
+    {
+      "order": 35,
+      "slug": "bittensor-field-school-subnet-categories",
+      "title": "Subnet categories are useful until they become lazy"
+    },
+    {
+      "order": 36,
+      "slug": "bittensor-field-school-llm-subnets",
+      "title": "LLM subnets compete on routing, quality and cost"
+    },
+    {
+      "order": 37,
+      "slug": "bittensor-field-school-compute-subnets",
+      "title": "Compute subnets sell capacity and reliability"
+    },
+    {
+      "order": 38,
+      "slug": "bittensor-field-school-data-subnets",
+      "title": "Data subnets live or die by provenance and demand"
+    },
+    {
+      "order": 39,
+      "slug": "bittensor-field-school-agent-subnets",
+      "title": "Agent subnets should be judged by tasks completed"
+    },
+    {
+      "order": 40,
+      "slug": "bittensor-field-school-media-subnets",
+      "title": "Media subnets turn attention into a measurable commodity"
+    },
+    {
+      "order": 41,
+      "slug": "bittensor-field-school-defi-subnets",
+      "title": "Financial subnets need risk language, not hype language"
+    },
+    {
+      "order": 42,
+      "slug": "bittensor-field-school-red-flags",
+      "title": "The red flags that make a subnet hard to trust"
+    },
+    {
+      "order": 43,
+      "slug": "bittensor-field-school-scam-vs-fragile",
+      "title": "A fragile subnet can still be honest"
+    },
+    {
+      "order": 44,
+      "slug": "bittensor-field-school-validator-selection",
+      "title": "Validator selection is delegated judgment"
+    },
+    {
+      "order": 45,
+      "slug": "bittensor-field-school-yield",
+      "title": "Yield without context is the easiest trap in TAO"
+    },
+    {
+      "order": 46,
+      "slug": "bittensor-field-school-wallet-analysis",
+      "title": "Wallet flows reveal behavior before explanations do"
+    },
+    {
+      "order": 47,
+      "slug": "bittensor-field-school-github-research",
+      "title": "GitHub research is a habit more than a metric"
+    },
+    {
+      "order": 48,
+      "slug": "bittensor-field-school-writing-thesis",
+      "title": "How to write a subnet thesis without fooling yourself"
+    },
+    {
+      "order": 49,
+      "slug": "bittensor-field-school-research-terminal",
+      "title": "Build your Bittensor research terminal"
+    },
+    {
+      "order": 50,
+      "slug": "bittensor-field-school-thesis-exam",
+      "title": "The subnet thesis exam"
+    }
+  ]
+}

@@ -1,12 +1,13 @@
 ---
 title: "Subnets are incentive machines"
 description: "A subnet is closer to a living contest than a normal crypto project. Learn the parts before judging the story."
-pubDate: 2026-06-06T12:00:00.000Z
+pubDate: 2026-06-17T21:30:00.000Z
 category: guide
+contentType: course
 featured: false
-draft: true
+draft: false
 author: "Tao Outsider"
-tags: ["TAO", "Bittensor", "Field School", "subnets", "Bittensor subnets explained"]
+tags: ["TAO", "Bittensor", "Field College", "subnets", "Bittensor subnets explained"]
 image: "/blog/bittensor-field-school/bittensor-field-school-subnets-lesson.svg"
 imageAlt: "Subnets are incentive machines"
 ogImage: "/blog/bittensor-field-school/bittensor-field-school-subnets-og.jpg"
@@ -120,45 +121,44 @@ TaoSwap API: [https://api.taoswap.org/subnets](https://api.taoswap.org/subnets)
 
 TaoFlows: [https://taoflows.app/](https://taoflows.app/)
 
-<section class="reading-stack">
-
-## Review note for Tao Outsider
-
-Primary keyword: Bittensor subnets explained
-
-Editorial status: draft v0.1
-
-Image status: educational image created, X card created
-
-Revision goal: make the lesson more personal, add one concrete subnet example, then tighten the ending.
-
-</section>
-
 <section class="knowledge-check" data-quiz>
   <h2>Knowledge check</h2>
+  <p>Use the lesson before answering. The goal is field judgment, not memorization.</p>
   <fieldset data-answer="b">
-    <legend>What is the main habit this module is training?</legend>
-    <label><input type="radio" name="q2a" value="a" /> Memorize the most popular explanation.</label>
-    <label><input type="radio" name="q2a" value="b" /> Translate the idea into something you can inspect.</label>
-    <label><input type="radio" name="q2a" value="c" /> Pick the subnet with the loudest story.</label>
+    <legend>A reader says Subnets are incentive machines is bullish because the topic sounds important. What is the better field response?</legend>
+    <label><input type="radio" name="bittensor-field-school-subnets-q1" value="a" /> Accept the story if the category feels important and the market is talking about it.</label>
+    <label><input type="radio" name="bittensor-field-school-subnets-q1" value="b" /> Test the claim through work, incentive design, market evidence and failure modes, then write what would change the thesis.</label>
+    <label><input type="radio" name="bittensor-field-school-subnets-q1" value="c" /> Wait for a larger account to decide whether subnets are incentive machines matters.</label>
   </fieldset>
   <fieldset data-answer="a">
-    <legend>What should you do when the narrative and the data disagree?</legend>
-    <label><input type="radio" name="q2b" value="a" /> Slow down and inspect the mechanism, flows and evidence.</label>
-    <label><input type="radio" name="q2b" value="b" /> Ignore the data if the team sounds confident.</label>
-    <label><input type="radio" name="q2b" value="c" /> Wait for social media to decide.</label>
+    <legend>What evidence belongs in a serious note about Subnets are incentive machines?</legend>
+    <label><input type="radio" name="bittensor-field-school-subnets-q2" value="a" /> A source checked, a timestamp, the metric unit, the claim tested and the failure mode.</label>
+    <label><input type="radio" name="bittensor-field-school-subnets-q2" value="b" /> A short bullish sentence, a logo, a price target and one confident quote.</label>
+    <label><input type="radio" name="bittensor-field-school-subnets-q2" value="c" /> A ranking screenshot without explaining the mechanism or what the number means.</label>
   </fieldset>
   <fieldset data-answer="c">
-    <legend>What makes a Tao Outsider reader different?</legend>
-    <label><input type="radio" name="q2c" value="a" /> They collect more tabs than everyone else.</label>
-    <label><input type="radio" name="q2c" value="b" /> They memorize ticker symbols.</label>
-    <label><input type="radio" name="q2c" value="c" /> They can explain the work, the incentive and the risk in plain English.</label>
+    <legend>The module says A subnet is closer to a living contest than a normal crypto project. Learn the parts before judging the story. What should the student avoid doing with that idea?</legend>
+    <label><input type="radio" name="bittensor-field-school-subnets-q3" value="a" /> Turning the idea into a field question that can be checked against live sources.</label>
+    <label><input type="radio" name="bittensor-field-school-subnets-q3" value="b" /> Comparing the mechanism with market data before building conviction.</label>
+    <label><input type="radio" name="bittensor-field-school-subnets-q3" value="c" /> Repeating the sentence as proof before inspecting the underlying behavior.</label>
+  </fieldset>
+  <fieldset data-answer="b">
+    <legend>Which short note shows real understanding of Subnets are incentive machines?</legend>
+    <label><input type="radio" name="bittensor-field-school-subnets-q4" value="a" /> Subnets are incentive machines matters because the ecosystem needs more narratives and more attention.</label>
+    <label><input type="radio" name="bittensor-field-school-subnets-q4" value="b" /> Subnets are incentive machines matters only if work, incentive design, market evidence and failure modes can be verified in the field.</label>
+    <label><input type="radio" name="bittensor-field-school-subnets-q4" value="c" /> Subnets are incentive machines matters because every subnet with attention becomes investable.</label>
+  </fieldset>
+  <fieldset data-answer="a">
+    <legend>Before moving beyond this lesson, what should the student be able to do?</legend>
+    <label><input type="radio" name="bittensor-field-school-subnets-q5" value="a" /> Explain subnets are incentive machines in plain English, name the source trail and state one invalidation trigger.</label>
+    <label><input type="radio" name="bittensor-field-school-subnets-q5" value="b" /> Remember the title, pick the most positive option and move to the next module quickly.</label>
+    <label><input type="radio" name="bittensor-field-school-subnets-q5" value="c" /> Use a single metric as the final answer even when other evidence disagrees.</label>
   </fieldset>
   <button type="button" data-quiz-submit>Check answers</button>
-  <p data-quiz-result aria-live="polite"></p>
+  <p class="quiz-result" data-quiz-result aria-live="polite"></p>
 </section>
 
-<nav class="course-nav" aria-label="Field School navigation">
-  <a href="/field-school/review/bittensor-field-school-bitcoin-comparison/">Previous: Why the Bitcoin comparison helps and then breaks</a>
-  <a href="/field-school/review/bittensor-field-school-miners/">Next: Miners are workers with an optimization problem</a>
+<nav class="course-nav" aria-label="Field College navigation">
+  <a href="/blog/bittensor-field-school-useful-work/">Previous: Bittensor is a market for measuring useful work</a>
+  <a href="/blog/bittensor-field-school-miners/">Next: Miners are workers with an optimization problem</a>
 </nav>

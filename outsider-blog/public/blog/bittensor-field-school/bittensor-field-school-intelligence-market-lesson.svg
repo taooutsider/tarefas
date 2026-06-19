@@ -1,0 +1,17 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#030303"/>
+  <rect x="96" y="92" width="1408" height="716" rx="28" fill="#080808" stroke="#242424" stroke-width="2"/>
+  <path d="M304 450H1296" stroke="#1D1D1D" stroke-width="2"/>
+  <path d="M800 172V728" stroke="#1D1D1D" stroke-width="2"/>
+  <circle cx="800" cy="450" r="132" fill="#FFFFFF"/>
+  <circle cx="800" cy="450" r="78" fill="#030303"/>
+  <circle cx="304" cy="450" r="46" fill="#FFFFFF"/>
+  <circle cx="1296" cy="450" r="46" fill="#FFFFFF"/>
+  <circle cx="800" cy="172" r="34" fill="#FFFFFF"/>
+  <circle cx="800" cy="728" r="34" fill="#FFFFFF"/>
+  <text x="128" y="170" fill="#777777" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="800" letter-spacing="8">BITTENSOR FIELD COLLEGE</text>
+  <text x="128" y="300" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="78" font-weight="900">Bittensor is an</text>
+  <text x="128" y="392" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="78" font-weight="900">intelligence market</text>
+  <text x="128" y="612" fill="#A0A0A0" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="600">Work. Judgment. Incentives. Capital. Evidence.</text>
+  <text x="128" y="700" fill="#666666" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700">TAO OUTSIDER</text>
+</svg>

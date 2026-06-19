@@ -3,11 +3,14 @@ title: "New Root SN0: why Root Reborn matters for dTAO"
 description: "Root Reborn would change Root staking from automatic subnet selling into validator directed subnet reinvestment."
 pubDate: 2026-06-16T16:00:00Z
 category: analysis
+contentType: news
+newsEligible: true
 featured: false
 author: "Tao Outsider"
 tags: ["Root Reborn", "Root", "SN0", "Bittensor", "TAO", "dTAO"]
 image: "/images/decentralized-ai/new-root-sn0-root-reborn.png"
 imageAlt: "Root SN0 redirecting staking yield into selected Bittensor subnet baskets."
+ogImage: "/images/decentralized-ai/new-root-sn0-root-reborn.png"
 ---
 
 Root Reborn is one of the most important Bittensor proposals to watch right now because it changes the direction of Root staking.

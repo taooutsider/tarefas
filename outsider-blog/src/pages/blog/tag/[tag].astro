@@ -2,9 +2,10 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PostCard from '../../../components/PostCard.astro';
+import { isPublishedPost, sortNewestPosts } from '../../../lib/posts';
 
 export async function getStaticPaths() {
-  const posts = (await getCollection('blog')).filter(post => !post.data.draft);
+  const posts = (await getCollection('blog')).filter(isPublishedPost);
 
   const tagSet = new Set<string>();
   for (const post of posts) {
@@ -24,7 +25,7 @@ export async function getStaticPaths() {
 interface Props { posts: CollectionEntry<'blog'>[]; tag: string; }
 const { posts, tag } = Astro.props;
 
-const sorted = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const sorted = sortNewestPosts(posts);
 const tagDisplay = tag.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
 
 const tagDescriptions: Record<string, string> = {
@@ -35,13 +36,14 @@ const tagDescriptions: Record<string, string> = {
 };
 const desc = tagDescriptions[tag] ??
   `All Tao Outsider articles tagged "${tagDisplay}". Bittensor intelligence for serious TAO participants.`;
+const indexableTags = new Set(['analysis', 'subnet', 'guide', 'trade', 'tao', 'bittensor', 'dtao', 'field-college']);
 ---
 
 <BaseLayout
   title={`${tagDisplay} | Bittensor ${tagDisplay} Articles`}
   description={desc}
   canonicalURL={`https://www.taooutsider.com/blog/tag/${tag}/`}
-  noindex={sorted.length < 2}
+  noindex={!indexableTags.has(tag) || sorted.length < 3}
 >
   <section class="page-header container">
     <nav class="breadcrumb" aria-label="Breadcrumb">

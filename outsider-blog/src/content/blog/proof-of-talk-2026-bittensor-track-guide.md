@@ -4,6 +4,8 @@ description: "Tao Outsider's remote guide to the Proof of Talk 2026 Bittensor Tr
 pubDate: 2026-06-01T12:00:00.000Z
 updatedDate: 2026-06-01T17:45:00.000Z
 category: guide
+contentType: news
+newsEligible: true
 featured: true
 author: "Tao Outsider"
 tags: ["TAO", "Bittensor", "Proof of Talk", "Paris", "decentralized AI"]

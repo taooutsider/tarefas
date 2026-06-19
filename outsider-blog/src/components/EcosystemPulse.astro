@@ -1,26 +1,46 @@
 <section class="taoswap-pulse container" aria-labelledby="taoswap-pulse-heading" data-taoswap-pulse>
   <div class="pulse-head">
     <div>
-      <p class="pulse-kicker">TaoSwap signal</p>
+      <p class="pulse-kicker">TaoSwap live</p>
       <h2 id="taoswap-pulse-heading">Subnet market pulse</h2>
     </div>
-    <a class="pulse-button" href="https://taoswap.org/explore/subnets/" target="_blank" rel="noopener">Open TaoSwap &rarr;</a>
+    <a
+      class="pulse-button"
+      href="https://taoswap.org/explore/subnets/"
+      target="_blank"
+      rel="noopener"
+      data-conversion-event="external_resource_click"
+      data-conversion-category="ecosystem_data"
+      data-conversion-label="Open TaoSwap subnets"
+    >Open TaoSwap</a>
   </div>
 
-  <div class="pulse-card" aria-label="TaoSwap subnet market highlights">
-    <article class="leader-card">
-      <span>24h top gainer</span>
-      <strong data-pulse="gainerName">Loading</strong>
-      <small data-pulse="gainerValue">...</small>
+  <div class="pulse-board" aria-label="TaoSwap subnet market highlights">
+    <article class="pulse-primary">
+      <span class="metric-label">Tracked subnets</span>
+      <strong data-pulse="totalSubnets">Loading</strong>
+      <small data-pulse="marketCap">Reading TaoSwap market cap.</small>
     </article>
 
-    <section class="market-cap-card" aria-labelledby="top-market-cap-heading">
-      <div class="list-head">
-        <h3 id="top-market-cap-heading">Top 5 subnets</h3>
-        <span>By market cap</span>
+    <article class="pulse-card">
+      <span class="metric-label">24h leader</span>
+      <strong data-pulse="gainerName">Loading</strong>
+      <small data-pulse="gainerValue">Waiting for price change.</small>
+    </article>
+
+    <article class="pulse-card">
+      <span class="metric-label">Net flow</span>
+      <strong data-pulse="netFlow">Loading</strong>
+      <small>Across dTAO subnet pools.</small>
+    </article>
+
+    <section class="pulse-table" aria-labelledby="top-market-cap-heading">
+      <div class="table-head">
+        <h3 id="top-market-cap-heading">Top subnets by market cap</h3>
+        <span data-pulse="updatedAt">Live source</span>
       </div>
       <ol class="market-cap-list" data-pulse-list="topMarketCaps">
-        <li><span>Loading</span><strong>...</strong></li>
+        <li><span>Loading TaoSwap data</span><strong>...</strong></li>
       </ol>
     </section>
   </div>
@@ -45,12 +65,24 @@
   const formatChange = (value) => {
     const number = Number(value);
     if (!Number.isFinite(number)) return 'Unavailable';
-    if (number > 0) return `${number.toFixed(2)}% up`;
-    if (number < 0) return `${Math.abs(number).toFixed(2)}% down`;
+    if (number > 0) return `+${number.toFixed(2)}%`;
+    if (number < 0) return `${number.toFixed(2)}%`;
     return 'Flat';
   };
 
-  const subnetLabel = (item) => item ? `SN${item.id} ${item.name}` : 'Unavailable';
+  const formatTime = (value) => {
+    const date = new Date(value);
+    if (!Number.isFinite(date.valueOf())) return 'Live source';
+    return `Updated ${date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
+  };
+
+  const subnetName = (item) => {
+    if (!item) return 'Unavailable';
+    const name = item.name && item.name.toLowerCase() !== 'unknown'
+      ? item.name
+      : 'identity pending';
+    return `SN${item.id} ${name}`;
+  };
 
   const setText = (root, key, value) => {
     const element = root.querySelector(`[data-pulse="${key}"]`);
@@ -61,13 +93,27 @@
     const list = root.querySelector('[data-pulse-list="topMarketCaps"]');
     if (!list) return;
     list.innerHTML = '';
-    items.slice(0, 5).forEach((item) => {
+    if (!items.length) {
       const li = document.createElement('li');
+      const rank = document.createElement('em');
       const name = document.createElement('span');
       const value = document.createElement('strong');
-      name.textContent = subnetLabel(item);
+      rank.textContent = '...';
+      name.textContent = 'Waiting for TaoSwap data';
+      value.textContent = 'Open source';
+      li.append(rank, name, value);
+      list.append(li);
+      return;
+    }
+    items.slice(0, 5).forEach((item, index) => {
+      const li = document.createElement('li');
+      const rank = document.createElement('em');
+      const name = document.createElement('span');
+      const value = document.createElement('strong');
+      rank.textContent = `#${String(index + 1).padStart(2, '0')}`;
+      name.textContent = subnetName(item);
       value.textContent = formatTao(item.marketCapTao, 1);
-      li.append(name, value);
+      li.append(rank, name, value);
       list.append(li);
     });
   };
@@ -79,125 +125,164 @@
 
       const data = await response.json();
       const overview = data.overview || {};
-      const gainer = data.subnets?.topGainers24h?.[0];
+      const topGainers = data.subnets?.topGainers24h || [];
+      const gainer = topGainers.find((item) => item.name && item.name.toLowerCase() !== 'unknown') || topGainers[0];
       const marketCaps = data.subnets?.topMarketCaps || [];
+      const netFlow = Number(overview.netFlowTao);
 
-      setText(root, 'gainerName', subnetLabel(gainer));
-      setText(root, 'gainerValue', formatChange(gainer?.change24h));
+      setText(root, 'totalSubnets', compactNumber(overview.totalSubnets, 0));
+      setText(root, 'marketCap', `${formatTao(overview.totalMarketCapTao, 1)} total subnet market cap.`);
+      setText(root, 'gainerName', subnetName(gainer));
+      setText(root, 'gainerValue', `24h change ${formatChange(gainer?.change24h)}.`);
+      setText(root, 'netFlow', Number.isFinite(netFlow) ? `${netFlow >= 0 ? '+' : ''}${formatTao(netFlow, 1)}` : 'Unavailable');
+      setText(root, 'updatedAt', formatTime(data.updatedAt));
       renderMarketCaps(root, marketCaps);
-      setText(
-        root,
-        'context',
-        `${compactNumber(overview.totalSubnets, 0)} subnets tracked. Data source ${data.source}.`,
-      );
+      setText(root, 'context', `Source: ${data.source}. ${compactNumber(overview.emittingSubnets, 0)} emitting subnets. ${formatTao(overview.totalRootLiquidityTao, 1)} root liquidity tracked.`);
 
       root.classList.add('is-loaded');
     } catch {
+      setText(root, 'totalSubnets', 'Paused');
+      setText(root, 'marketCap', 'Live TaoSwap read is temporarily unavailable.');
+      setText(root, 'gainerName', 'Source unavailable');
+      setText(root, 'gainerValue', 'Refresh or open TaoSwap directly.');
+      setText(root, 'netFlow', 'Unavailable');
+      setText(root, 'updatedAt', 'No live read');
+      renderMarketCaps(root, []);
       setText(root, 'context', 'TaoSwap pulse is unavailable right now.');
       root.classList.add('is-muted');
     }
   };
 
-  roots.forEach(hydratePulse);
+  const pulseRefreshMs = 2 * 60 * 1000;
+
+  const startPulseRefresh = (root) => {
+    hydratePulse(root);
+
+    window.setInterval(() => {
+      if (!document.hidden) hydratePulse(root);
+    }, pulseRefreshMs);
+
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) hydratePulse(root);
+    });
+  };
+
+  const startWhenUseful = (root) => {
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        observer.disconnect();
+        startPulseRefresh(root);
+      }, { rootMargin: '420px 0px' });
+      observer.observe(root);
+      return;
+    }
+
+    const run = () => window.setTimeout(() => startPulseRefresh(root), 2200);
+    if (document.readyState === 'complete') run();
+    else window.addEventListener('load', run, { once: true });
+  };
+
+  roots.forEach(startWhenUseful);
 </script>
 
 <style>
   .taoswap-pulse {
-    padding: 0 24px 48px;
-    max-width: 980px;
+    padding: 0 24px 52px;
+    max-width: 1100px;
   }
   .pulse-head {
     display: flex;
     align-items: end;
     justify-content: space-between;
     gap: 18px;
-    margin-bottom: 14px;
+    margin-bottom: 18px;
   }
-  .pulse-kicker {
+  .pulse-kicker,
+  .metric-label,
+  .table-head span {
     color: var(--muted);
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin-bottom: 4px;
+  }
+  .pulse-kicker {
+    margin-bottom: 5px;
   }
   .pulse-head h2 {
-    font-size: 1.1rem;
-    letter-spacing: 0;
+    font-size: clamp(1.35rem, 3vw, 2rem);
+    letter-spacing: -0.03em;
   }
   .pulse-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid var(--border2);
     background: var(--white);
     color: #000;
     font-size: 13px;
     font-weight: 800;
-    min-height: 38px;
+    min-height: 40px;
     padding: 0 16px;
     border-radius: 7px;
     white-space: nowrap;
-    transition: opacity 0.12s, transform 0.12s;
+    transition: opacity 0.12s, transform 0.12s, border-color 0.12s;
   }
   .pulse-button:hover {
-    opacity: 0.85;
+    opacity: 0.88;
     transform: translateY(-1px);
   }
-  .pulse-card {
+  .pulse-board {
     display: grid;
-    grid-template-columns: minmax(220px, 0.9fr) minmax(0, 1.5fr);
-    background: var(--s1);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
   }
-  .leader-card,
-  .market-cap-card {
+  .pulse-primary,
+  .pulse-card,
+  .pulse-table {
     min-width: 0;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--s1);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.025);
+  }
+  .pulse-primary,
+  .pulse-card {
     padding: 18px;
   }
-  .leader-card {
-    border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .leader-card span,
-  .list-head span {
-    display: block;
-    color: var(--muted);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .leader-card span {
-    margin-bottom: 10px;
-  }
-  .leader-card strong {
+  .pulse-primary strong,
+  .pulse-card strong {
     display: block;
     color: var(--white);
-    font-size: clamp(1.18rem, 2.6vw, 1.7rem);
-    line-height: 1.2;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    font-size: clamp(1.6rem, 4vw, 2.45rem);
+    line-height: 1.05;
+    margin: 12px 0 8px;
+    letter-spacing: -0.04em;
+    overflow-wrap: anywhere;
   }
-  .leader-card small {
+  .pulse-card strong {
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  }
+  .pulse-primary small,
+  .pulse-card small {
     display: block;
     color: var(--text2);
-    font-size: 14px;
-    margin-top: 8px;
+    font-size: 13px;
+    line-height: 1.55;
   }
-  .list-head {
+  .pulse-table {
+    grid-column: 1 / -1;
+    padding: 19px 20px 16px;
+  }
+  .table-head {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    gap: 12px;
+    gap: 16px;
     margin-bottom: 12px;
   }
-  .list-head h3 {
-    color: var(--white);
+  .table-head h3 {
     font-size: 1rem;
     letter-spacing: 0;
   }
@@ -206,58 +291,85 @@
     gap: 0;
     list-style: none;
   }
-  .market-cap-list li {
+  :global(.market-cap-list li) {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: 44px minmax(0, 1fr) auto;
     align-items: baseline;
-    gap: 14px;
-    padding: 8px 0;
+    gap: 18px;
+    padding: 12px 0;
     border-top: 1px solid var(--border);
-    color: var(--text2);
-    font-size: 13px;
   }
-  .market-cap-list li:first-child {
+  :global(.market-cap-list li:hover) {
+    background: rgba(255,255,255,0.018);
+  }
+  :global(.market-cap-list li:first-child) {
     border-top: none;
-    padding-top: 0;
   }
-  .market-cap-list li:last-child {
-    padding-bottom: 0;
+  :global(.market-cap-list em) {
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 12px;
+    font-style: normal;
+    min-width: 38px;
   }
-  .market-cap-list span {
+  :global(.market-cap-list span) {
+    color: var(--text);
+    min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .market-cap-list strong {
-    color: var(--text);
-    font-size: 12px;
+  :global(.market-cap-list strong) {
+    justify-self: end;
+    color: var(--white);
     white-space: nowrap;
+    font-size: 13px;
   }
   .pulse-context {
     color: var(--muted);
     font-size: 12px;
-    margin-top: 10px;
+    line-height: 1.6;
+    margin-top: 12px;
   }
   .taoswap-pulse.is-muted {
-    opacity: 0.72;
+    opacity: 0.78;
   }
-  @media (max-width: 720px) {
+  .taoswap-pulse.is-muted .pulse-primary,
+  .taoswap-pulse.is-muted .pulse-card,
+  .taoswap-pulse.is-muted .pulse-table {
+    background: #080808;
+  }
+  @media (max-width: 820px) {
     .taoswap-pulse {
-      padding: 0 16px 40px;
+      padding: 0 16px 42px;
     }
     .pulse-head {
       align-items: flex-start;
-    }
-    .pulse-card {
-      grid-template-columns: 1fr;
-    }
-    .leader-card {
-      border-right: none;
-      border-bottom: 1px solid var(--border);
+      flex-direction: column;
+      gap: 10px;
     }
     .pulse-button {
-      min-height: 36px;
-      padding: 0 13px;
+      width: 100%;
+      min-height: 38px;
+    }
+    .pulse-board {
+      grid-template-columns: 1fr;
+    }
+    .pulse-table {
+      grid-column: auto;
+    }
+    .table-head {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 6px;
+    }
+    :global(.market-cap-list li) {
+      grid-template-columns: 42px minmax(0, 1fr);
+    }
+    :global(.market-cap-list strong) {
+      grid-column: 2;
+      justify-self: start;
+      color: var(--text2);
     }
   }
 </style>

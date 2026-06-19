@@ -1,12 +1,13 @@
 ---
 title: "Bittensor is a market for useful work"
-description: "The first Bittensor Field School lesson: understand Bittensor as a market for measurable work before judging any subnet, chart or narrative."
+description: "The first Bittensor Field College lesson: understand Bittensor as a market for measurable work before judging any subnet, chart or narrative."
 pubDate: 2026-06-02T15:50:00.000Z
 category: guide
+contentType: course
 featured: true
 draft: false
 author: "Tao Outsider"
-tags: ["TAO", "Bittensor", "Field School", "protocol primitive", "why Bittensor matters"]
+tags: ["TAO", "Bittensor", "Field College", "protocol primitive", "why Bittensor matters"]
 image: "/blog/bittensor-field-school/bittensor-field-school-useful-work-lesson.svg"
 imageAlt: "Bittensor is a market for measuring useful work"
 ogImage: "/blog/bittensor-field-school/bittensor-field-school-useful-work-og.jpg"
@@ -16,7 +17,7 @@ ogImage: "/blog/bittensor-field-school/bittensor-field-school-useful-work-og.jpg
 
 <section class="field-note">
 
-## Field school lesson 1
+## Field college lesson 1
 
 Bittensor starts making sense when you stop asking one vague question.
 
@@ -28,7 +29,7 @@ Start with a narrower question:
 
 What kind of work can Bittensor pay for?
 
-This lesson is the entrance to Bittensor Field School. The goal is simple. Before you judge a subnet, a chart, a validator, an alpha token or a thread on X, you need to understand the basic machine underneath it.
+This lesson is the entrance to Bittensor Field College. The goal is simple. Before you judge a subnet, a chart, a validator, an alpha token or a thread on X, you need to understand the basic machine underneath it.
 
 Bittensor is a market for useful work that can be measured.
 
@@ -246,45 +247,44 @@ Subtensor GitHub: [https://github.com/opentensor/subtensor](https://github.com/o
 
 Bittensor SDK GitHub: [https://github.com/latent-to/bittensor](https://github.com/latent-to/bittensor)
 
-<section class="reading-stack">
-
-## The lesson
-
-If you remember one thing from this first module, remember this:
-
-Bittensor does not gain value from complicated language.
-
-It is valuable when a subnet turns useful work into measurable competition, then lets capital and consensus decide how much that work deserves to be paid.
-
-Every serious Bittensor thesis starts there.
-
-</section>
-
 <section class="knowledge-check" data-quiz>
   <h2>Knowledge check</h2>
+  <p>Use the lesson before answering. The goal is field judgment, not memorization.</p>
   <fieldset data-answer="b">
-    <legend>What is the main habit this module is training?</legend>
-    <label><input type="radio" name="q0a" value="a" /> Memorize the most popular explanation.</label>
-    <label><input type="radio" name="q0a" value="b" /> Translate the idea into something you can inspect.</label>
-    <label><input type="radio" name="q0a" value="c" /> Pick the subnet with the loudest story.</label>
+    <legend>A reader says Bittensor is a market for useful work is bullish because the topic sounds important. What is the better field response?</legend>
+    <label><input type="radio" name="bittensor-field-school-useful-work-q1" value="a" /> Accept the story if the category feels important and the market is talking about it.</label>
+    <label><input type="radio" name="bittensor-field-school-useful-work-q1" value="b" /> Test the claim through work, incentive design, market evidence and failure modes, then write what would change the thesis.</label>
+    <label><input type="radio" name="bittensor-field-school-useful-work-q1" value="c" /> Wait for a larger account to decide whether bittensor is a market for useful work matters.</label>
   </fieldset>
   <fieldset data-answer="a">
-    <legend>What should you do when the narrative and the data disagree?</legend>
-    <label><input type="radio" name="q0b" value="a" /> Slow down and inspect the mechanism, flows and evidence.</label>
-    <label><input type="radio" name="q0b" value="b" /> Ignore the data if the team sounds confident.</label>
-    <label><input type="radio" name="q0b" value="c" /> Wait for social media to decide.</label>
+    <legend>What evidence belongs in a serious note about Bittensor is a market for useful work?</legend>
+    <label><input type="radio" name="bittensor-field-school-useful-work-q2" value="a" /> A source checked, a timestamp, the metric unit, the claim tested and the failure mode.</label>
+    <label><input type="radio" name="bittensor-field-school-useful-work-q2" value="b" /> A short bullish sentence, a logo, a price target and one confident quote.</label>
+    <label><input type="radio" name="bittensor-field-school-useful-work-q2" value="c" /> A ranking screenshot without explaining the mechanism or what the number means.</label>
   </fieldset>
   <fieldset data-answer="c">
-    <legend>What makes a Tao Outsider reader different?</legend>
-    <label><input type="radio" name="q0c" value="a" /> They collect more tabs than everyone else.</label>
-    <label><input type="radio" name="q0c" value="b" /> They memorize ticker symbols.</label>
-    <label><input type="radio" name="q0c" value="c" /> They can explain the work, the incentive and the risk in plain English.</label>
+    <legend>The module says The first Bittensor Field College lesson: understand Bittensor as a market for measurable work before judging any subnet, chart or narrative. What should the student avoid doing with that idea?</legend>
+    <label><input type="radio" name="bittensor-field-school-useful-work-q3" value="a" /> Turning the idea into a field question that can be checked against live sources.</label>
+    <label><input type="radio" name="bittensor-field-school-useful-work-q3" value="b" /> Comparing the mechanism with market data before building conviction.</label>
+    <label><input type="radio" name="bittensor-field-school-useful-work-q3" value="c" /> Repeating the sentence as proof before inspecting the underlying behavior.</label>
+  </fieldset>
+  <fieldset data-answer="b">
+    <legend>Which short note shows real understanding of Bittensor is a market for useful work?</legend>
+    <label><input type="radio" name="bittensor-field-school-useful-work-q4" value="a" /> Bittensor is a market for useful work matters because the ecosystem needs more narratives and more attention.</label>
+    <label><input type="radio" name="bittensor-field-school-useful-work-q4" value="b" /> Bittensor is a market for useful work matters only if work, incentive design, market evidence and failure modes can be verified in the field.</label>
+    <label><input type="radio" name="bittensor-field-school-useful-work-q4" value="c" /> Bittensor is a market for useful work matters because every subnet with attention becomes investable.</label>
+  </fieldset>
+  <fieldset data-answer="a">
+    <legend>Before moving beyond this lesson, what should the student be able to do?</legend>
+    <label><input type="radio" name="bittensor-field-school-useful-work-q5" value="a" /> Explain bittensor is a market for useful work in plain English, name the source trail and state one invalidation trigger.</label>
+    <label><input type="radio" name="bittensor-field-school-useful-work-q5" value="b" /> Remember the title, pick the most positive option and move to the next module quickly.</label>
+    <label><input type="radio" name="bittensor-field-school-useful-work-q5" value="c" /> Use a single metric as the final answer even when other evidence disagrees.</label>
   </fieldset>
   <button type="button" data-quiz-submit>Check answers</button>
-  <p data-quiz-result aria-live="polite"></p>
+  <p class="quiz-result" data-quiz-result aria-live="polite"></p>
 </section>
 
-<nav class="course-nav" aria-label="Field School navigation">
-  <a href="/field-school/">Back to Field School</a>
-  <a href="/field-school/">Next module in review</a>
+<nav class="course-nav" aria-label="Field College navigation">
+  <a href="/field-school/">Back to Field College</a>
+  <a href="/blog/bittensor-field-school-intelligence-market/">Next: Bittensor is an intelligence market</a>
 </nav>

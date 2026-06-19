@@ -1,144 +1,703 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import fs from 'node:fs';
+import path from 'node:path';
+import { isPublishedPost } from '../lib/posts';
+
+const queuePath = path.resolve('docs/bittensor-field-school/review-queue.csv');
+const queueRows = fs.existsSync(queuePath)
+  ? fs.readFileSync(queuePath, 'utf8').trim().split('\n').slice(1)
+  : [];
+
+const orderById = new Map<string, number>();
+for (const row of queueRows) {
+  const fields = row.match(/"([^"]*)"/g)?.map(value => value.slice(1, -1)) ?? [];
+  const order = Number(fields[0]);
+  const id = fields[6]?.split('/').filter(Boolean).pop();
+  if (id && Number.isFinite(order)) orderById.set(id, order);
+}
 
 const fieldSchoolPosts = (await getCollection('blog'))
   .filter(post => post.id.startsWith('bittensor-field-school-'))
-  .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
-const publishedPosts = fieldSchoolPosts.filter(post => !post.data.draft);
+  .sort((a, b) => {
+    const orderA = orderById.get(a.id) ?? Number.MAX_SAFE_INTEGER;
+    const orderB = orderById.get(b.id) ?? Number.MAX_SAFE_INTEGER;
+    return orderA - orderB || a.data.pubDate.valueOf() - b.data.pubDate.valueOf();
+  });
+
+const publishedPosts = fieldSchoolPosts.filter(isPublishedPost);
 const publishedIds = new Set(publishedPosts.map(post => post.id));
 const hasPublishedModules = publishedIds.size > 0;
+
+const phases = [
+  {
+    id: 'protocol',
+    label: 'Protocol foundations',
+    range: '01 to 08',
+    from: 1,
+    to: 8,
+    note: 'Useful work, miners, validators, subnets and the state surface a student must learn before reading markets.',
+  },
+  {
+    id: 'mechanics',
+    label: 'Subnet mechanics',
+    range: '09 to 18',
+    from: 9,
+    to: 18,
+    note: 'Yuma, weights, metagraphs, hotkeys, alpha tokens and incentive design as operating machinery.',
+  },
+  {
+    id: 'markets',
+    label: 'dTAO market structure',
+    range: '19 to 28',
+    from: 19,
+    to: 28,
+    note: 'Pools, slippage, Taoflow, emissions, TaoSwap and the places where capital changes the field.',
+  },
+  {
+    id: 'research',
+    label: 'Research desk',
+    range: '29 to 38',
+    from: 29,
+    to: 38,
+    note: 'TaoStats, SubnetRadar, GitHub, APIs, IntoTAO and product evidence for live subnet work.',
+  },
+  {
+    id: 'judgment',
+    label: 'Field judgment',
+    range: '39 to 50',
+    from: 39,
+    to: 50,
+    note: 'Selection, red flags, yield traps, conviction, wallet analysis and the final subnet thesis.',
+  },
+];
+
+const modules = fieldSchoolPosts.map((post, index) => {
+  const number = index + 1;
+  const phase = phases.find(item => number >= item.from && number <= item.to) ?? phases[0];
+
+  return {
+    post,
+    number,
+    numberLabel: String(number).padStart(2, '0'),
+    phaseId: phase.id,
+    published: publishedIds.has(post.id),
+    href: `/blog/${post.id}/`,
+  };
+});
+
+const phaseGroups = phases.map(phase => ({
+  ...phase,
+  modules: modules.filter(module => module.phaseId === phase.id),
+}));
+
+const firstPublished = publishedPosts[0];
+
+const learningProofs = [
+  {
+    label: 'Field cards',
+    title: 'Each module opens with the operating idea',
+    text: 'The student sees the mechanism first, then moves into evidence, numbers and failure modes.',
+  },
+  {
+    label: 'Knowledge checks',
+    title: 'Every lesson ends with assessment',
+    text: 'The quizzes are designed to test judgment, not memorized slogans or obvious answers.',
+  },
+  {
+    label: 'Certificate path',
+    title: 'Completion leads to a public learning artifact',
+    text: 'The final path is built around progress, score, study hours and a subnet thesis style finish.',
+  },
+];
 ---
 
 <BaseLayout
-  title="Bittensor Field School"
-  description="A Tao Outsider learning path for understanding Bittensor from first principles, live data, subnets, dTAO, Yuma Consensus and research workflows."
+  title="Bittensor Field College"
+  description="A Tao Outsider curriculum for learning Bittensor through source work, live dashboards, subnet mechanics, dTAO markets and field judgment."
   canonicalURL="https://www.taooutsider.com/field-school/"
   ogImage="/blog/bittensor-field-school/bittensor-field-school-og.jpg"
-  ogImageAlt="Bittensor Field School by Tao Outsider"
+  ogImageAlt="Bittensor Field College by Tao Outsider"
   noindex={!hasPublishedModules}
 >
-  <section class="field-hero container">
-    <p class="eyebrow">Tao Outsider curriculum</p>
-    <h1>Bittensor Field School</h1>
-    <p>
-      A learning path for people who want to understand Bittensor without becoming passive tourists.
-      Read the protocol. Open the dashboards. Inspect the subnets. Build your own view.
-    </p>
-  </section>
-
-  <section class="field-grid container" aria-label="Bittensor Field School modules">
-    {fieldSchoolPosts.map((post, index) => (
-      <article class="module-card">
-        <span>Module {String(index + 1).padStart(2, '0')}</span>
-        <h2>
-          {publishedIds.has(post.id) ? (
+  <main class="field-college">
+    <section class="field-hero container">
+      <div class="field-copy">
+        <h1>Bittensor Field College</h1>
+        <p>
+          A practical curriculum for learning Bittensor through source work, live dashboards,
+          subnet mechanics and independent field judgment.
+        </p>
+        <div class="field-actions">
+          {firstPublished ? (
             <a
-              href={`/blog/${post.id}/`}
-              data-conversion-event={index === 0 ? 'field_school_start' : 'field_school_module_click'}
+              class="field-primary-action"
+              href={`/blog/${firstPublished.id}/`}
+              data-conversion-event="field_school_start"
               data-conversion-category="field_school"
-              data-conversion-label={`Module ${String(index + 1).padStart(2, '0')}: ${post.data.title}`}
-            >{post.data.title}</a>
+              data-conversion-label="Bittensor Field College start"
+            >Start the first module</a>
           ) : (
-            <span>{post.data.title}</span>
+            <a class="field-primary-action" href="#curriculum">View curriculum</a>
           )}
-        </h2>
-        <p>{post.data.description}</p>
-        {!publishedIds.has(post.id) && <small>In review</small>}
-      </article>
-    ))}
-  </section>
+          <a class="field-secondary-action" href="#method">See the method</a>
+        </div>
+      </div>
 
-  <section class="field-method container" aria-labelledby="method-heading">
-    <h2 id="method-heading">How to use this</h2>
-    <p>
-      Each module ends with a knowledge check. Do not race through it. The goal is to become dangerous in the useful sense:
-      able to read a subnet, question incentives, and spot when a beautiful narrative has no measurable work underneath.
-    </p>
-  </section>
+      <div class="field-signal" aria-label="Bittensor Field College protocol map">
+        <div class="signal-grid" aria-hidden="true">
+          {Array.from({ length: 36 }).map((_, index) => (
+            <span class:list={[
+              'signal-node',
+              { 'is-lit': [2, 7, 8, 13, 17, 19, 22, 27, 31].includes(index) },
+              { 'is-large': [8, 19, 27].includes(index) },
+            ]}></span>
+          ))}
+        </div>
+        <div class="signal-card">
+          <strong>{fieldSchoolPosts.length}</strong>
+          <span>modules</span>
+        </div>
+        <div class="signal-card">
+          <strong>{publishedPosts.length}</strong>
+          <span>active</span>
+        </div>
+        <div class="signal-card">
+          <strong>{phases.length}</strong>
+          <span>phases</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="field-overview container" aria-label="Bittensor Field College overview">
+      <article>
+        <span>Study mode</span>
+        <strong>Read then verify</strong>
+        <p>Every lesson points the student toward sources, dashboards and evidence trails.</p>
+      </article>
+      <article>
+        <span>Depth</span>
+        <strong>Protocol to market</strong>
+        <p>The path moves from useful work to Yuma, dTAO, emissions, slippage and thesis building.</p>
+      </article>
+      <article>
+        <span>Status</span>
+        <strong>{publishedPosts.length} active now</strong>
+        <p>{fieldSchoolPosts.length - publishedPosts.length} modules remain in editorial review before public release.</p>
+      </article>
+    </section>
+
+    <section class="proof-strip container" aria-label="Bittensor Field College learning proof">
+      {learningProofs.map(item => (
+        <article>
+          <span>{item.label}</span>
+          <h2>{item.title}</h2>
+          <p>{item.text}</p>
+        </article>
+      ))}
+    </section>
+
+    <section class="field-curriculum container" id="curriculum" aria-label="Bittensor Field College curriculum">
+      <aside class="phase-rail" aria-label="Curriculum phases">
+        <h2>Curriculum</h2>
+        <nav>
+          {phaseGroups.map(phase => (
+            <a href={`#${phase.id}`}>
+              <span>{phase.range}</span>
+              {phase.label}
+            </a>
+          ))}
+        </nav>
+      </aside>
+
+      <div class="phase-stack">
+        {phaseGroups.map(phase => (
+          <section class="phase-block" id={phase.id} aria-labelledby={`${phase.id}-heading`}>
+            <div class="phase-head">
+              <span>{phase.range}</span>
+              <h2 id={`${phase.id}-heading`}>{phase.label}</h2>
+              <p>{phase.note}</p>
+            </div>
+
+            <div class="module-list">
+              {phase.modules.map(module => (
+                <article class="module-row">
+                  <span class="module-number">{module.numberLabel}</span>
+                  <div class="module-body">
+                    <h3>
+                      {module.published ? (
+                        <a
+                          href={module.href}
+                          data-conversion-event={module.number === 1 ? 'field_school_start' : 'field_school_module_click'}
+                          data-conversion-category="field_school"
+                          data-conversion-label={`Module ${module.numberLabel}: ${module.post.data.title}`}
+                        >{module.post.data.title}</a>
+                      ) : (
+                        <span>{module.post.data.title}</span>
+                      )}
+                    </h3>
+                    <p>{module.post.data.description}</p>
+                  </div>
+                  {module.published ? (
+                    <a class="module-action" href={module.href}>Start module</a>
+                  ) : (
+                    <span class="module-status">Scheduled</span>
+                  )}
+                </article>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    </section>
+
+    <section class="field-method container" id="method" aria-labelledby="method-heading">
+      <div>
+        <h2 id="method-heading">The field method</h2>
+        <p>
+          This is not passive onboarding. The student learns to read claims, test them against source data,
+          calculate the market cost of being wrong and build a subnet thesis that can survive pressure.
+        </p>
+      </div>
+      <ol>
+        <li><strong>Read</strong><span>Understand the mechanism before judging the narrative.</span></li>
+        <li><strong>Verify</strong><span>Open the source, dashboard, repo or API behind the claim.</span></li>
+        <li><strong>Calculate</strong><span>Translate price, APY, liquidity, flow and slippage into actual risk.</span></li>
+        <li><strong>Decide</strong><span>Write the thesis, name the invalidation and keep the evidence trail.</span></li>
+      </ol>
+    </section>
+  </main>
 </BaseLayout>
 
 <style>
+  .field-college {
+    padding-bottom: 96px;
+  }
   .field-hero {
-    padding: 76px 24px 40px;
-    max-width: 860px;
-    text-align: center;
-  }
-  .eyebrow {
-    color: var(--muted);
-    font-size: 12px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-  }
-  .field-hero h1 {
-    font-size: clamp(2.4rem, 7vw, 5rem);
-    margin-bottom: 18px;
-  }
-  .field-hero p {
-    color: var(--text2);
-    font-size: 1.12rem;
-    line-height: 1.7;
-    max-width: 760px;
-    margin: 0 auto;
-  }
-  .field-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-    padding: 0 24px 64px;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 440px);
+    gap: clamp(32px, 6vw, 80px);
+    align-items: center;
+    padding: 82px 24px 52px;
   }
-  .module-card {
+  .field-copy h1 {
+    max-width: 760px;
+    font-size: clamp(2.7rem, 7vw, 6.4rem);
+    line-height: 0.9;
+    letter-spacing: -0.07em;
+    margin-bottom: 24px;
+  }
+  .field-copy p {
+    max-width: 690px;
+    color: var(--text2);
+    font-size: clamp(1.05rem, 1.5vw, 1.28rem);
+    line-height: 1.7;
+  }
+  .field-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+  }
+  .field-primary-action,
+  .field-secondary-action,
+  .module-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    border-radius: 7px;
+    padding: 0 18px;
+    font-size: 13px;
+    font-weight: 850;
+    transition: transform 0.14s ease, opacity 0.14s ease, border-color 0.14s ease;
+  }
+  .field-primary-action {
+    background: var(--white);
+    color: #000;
+  }
+  .field-secondary-action {
+    border: 1px solid var(--border2);
+    color: var(--text);
+  }
+  .field-primary-action:hover,
+  .field-secondary-action:hover,
+  .module-action:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+  }
+  .field-signal {
+    position: relative;
+    min-height: 420px;
     border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--s1);
-    padding: 22px;
+    border-radius: 12px;
+    overflow: hidden;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.012)),
+      var(--s1);
   }
-  .module-card span {
-    display: block;
+  .signal-grid {
+    position: absolute;
+    inset: 28px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+  }
+  .signal-grid::before,
+  .signal-grid::after {
+    content: "";
+    position: absolute;
+    inset: 8%;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 999px;
+  }
+  .signal-grid::after {
+    inset: 24%;
+  }
+  .signal-node {
+    width: 9px;
+    height: 9px;
+    align-self: center;
+    justify-self: center;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.18);
+  }
+  .signal-node.is-lit {
+    width: 13px;
+    height: 13px;
+    background: #fff;
+    box-shadow: 0 0 22px rgba(255,255,255,0.25);
+  }
+  .signal-node.is-large {
+    width: 34px;
+    height: 34px;
+    background: #fff;
+  }
+  .signal-card {
+    position: absolute;
+    display: grid;
+    gap: 2px;
+    min-width: 122px;
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    padding: 16px;
+    background: rgba(0,0,0,0.62);
+    backdrop-filter: blur(10px);
+  }
+  .signal-card:nth-of-type(2) {
+    left: 22px;
+    bottom: 22px;
+  }
+  .signal-card:nth-of-type(3) {
+    right: 22px;
+    top: 22px;
+  }
+  .signal-card:nth-of-type(4) {
+    right: 22px;
+    bottom: 22px;
+  }
+  .signal-card strong {
+    color: var(--white);
+    font-size: 2rem;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .signal-card span {
     color: var(--muted);
-    font-size: 12px;
+    font-size: 11px;
+    font-weight: 800;
     letter-spacing: 0.12em;
     text-transform: uppercase;
+  }
+  .field-overview {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    padding: 0 24px 62px;
+  }
+  .proof-strip {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--border);
+    padding: 0;
+    overflow: hidden;
+    margin-bottom: 72px;
+  }
+  .proof-strip article {
+    min-width: 0;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012)),
+      var(--s1);
+    padding: 24px;
+  }
+  .proof-strip span {
+    display: block;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 850;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .proof-strip h2 {
+    color: var(--white);
+    font-size: clamp(1.2rem, 2vw, 1.65rem);
+    line-height: 1.15;
+    letter-spacing: -0.04em;
     margin-bottom: 12px;
   }
-  .module-card h2 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-  }
-  .module-card p {
+  .proof-strip p {
     color: var(--text2);
-    font-size: 0.95rem;
+    font-size: 0.94rem;
     line-height: 1.65;
   }
-  .module-card small {
-    display: inline-block;
+  .field-overview article {
+    min-width: 0;
+    border-top: 1px solid var(--border2);
+    padding-top: 18px;
+  }
+  .field-overview span,
+  .phase-head span,
+  .module-number,
+  .module-status {
+    display: block;
     color: var(--muted);
-    font-size: 0.78rem;
-    margin-top: 12px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .field-overview strong {
+    display: block;
+    color: var(--white);
+    font-size: clamp(1.25rem, 2.2vw, 1.8rem);
+    line-height: 1.1;
+    margin: 10px 0 8px;
+    letter-spacing: -0.03em;
+  }
+  .field-overview p {
+    color: var(--text2);
+    font-size: 0.94rem;
+    line-height: 1.65;
+  }
+  .field-curriculum {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 52px);
+    align-items: start;
+    padding: 0 24px 72px;
+  }
+  .phase-rail {
+    position: sticky;
+    top: 88px;
+    border-top: 1px solid var(--border2);
+    padding-top: 18px;
+  }
+  .phase-rail h2 {
+    font-size: 1.35rem;
+    letter-spacing: -0.03em;
+    margin-bottom: 18px;
+  }
+  .phase-rail nav {
+    display: grid;
+    gap: 6px;
+  }
+  .phase-rail a {
+    display: grid;
+    gap: 3px;
+    border-radius: 8px;
+    padding: 10px;
+    color: var(--text);
+  }
+  .phase-rail a:hover {
+    background: var(--s1);
+  }
+  .phase-rail a span {
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 11px;
+  }
+  .phase-stack {
+    display: grid;
+    gap: 44px;
+  }
+  .phase-block {
+    scroll-margin-top: 96px;
+  }
+  .phase-head {
+    max-width: 820px;
+    margin-bottom: 16px;
+  }
+  .phase-head h2 {
+    font-size: clamp(1.75rem, 3vw, 2.6rem);
+    letter-spacing: -0.05em;
+    margin: 8px 0 10px;
+  }
+  .phase-head p {
+    color: var(--text2);
+    line-height: 1.7;
+  }
+  .module-list {
+    display: grid;
+    border-top: 1px solid var(--border);
+  }
+  .module-row {
+    display: grid;
+    grid-template-columns: 54px minmax(0, 1fr) auto;
+    gap: 18px;
+    align-items: start;
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+  }
+  .module-number {
+    font-family: var(--mono);
+  }
+  .module-body h3 {
+    font-size: clamp(1.02rem, 2vw, 1.3rem);
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+    margin-bottom: 8px;
+  }
+  .module-body a:hover {
+    color: var(--white);
+  }
+  .module-body p {
+    color: var(--text2);
+    font-size: 0.96rem;
+    line-height: 1.62;
+    max-width: 760px;
+  }
+  .module-action {
+    border: 1px solid var(--border2);
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .module-status {
+    align-self: center;
+    text-align: right;
+    white-space: nowrap;
   }
   .field-method {
-    max-width: 780px;
-    padding: 0 24px 90px;
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(300px, 1.05fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: start;
+    padding: 0 24px;
   }
   .field-method h2 {
-    margin-bottom: 12px;
+    font-size: clamp(1.9rem, 4vw, 3.2rem);
+    letter-spacing: -0.06em;
+    margin-bottom: 14px;
   }
   .field-method p {
     color: var(--text2);
+    font-size: 1.04rem;
     line-height: 1.75;
   }
-  @media (max-width: 760px) {
-    .field-hero {
-      text-align: left;
-      padding: 48px 16px 28px;
-    }
-    .field-grid {
-      grid-template-columns: 1fr;
-      padding: 0 16px 48px;
-    }
+  .field-method ol {
+    display: grid;
+    gap: 0;
+    list-style: none;
+    border-top: 1px solid var(--border);
+  }
+  .field-method li {
+    display: grid;
+    grid-template-columns: 100px minmax(0, 1fr);
+    gap: 18px;
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+  }
+  .field-method li strong {
+    color: var(--white);
+    font-size: 1rem;
+  }
+  .field-method li span {
+    color: var(--text2);
+    line-height: 1.6;
+  }
+  @media (max-width: 900px) {
+    .field-hero,
+    .field-curriculum,
     .field-method {
-      padding: 0 16px 72px;
+      grid-template-columns: 1fr;
+    }
+    .field-signal {
+      min-height: 340px;
+    }
+    .phase-rail {
+      position: static;
+    }
+    .phase-rail nav {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 680px) {
+    .field-college {
+      padding-bottom: 72px;
+    }
+    .field-hero {
+      padding: 52px 16px 38px;
+      gap: 26px;
+    }
+    .field-copy h1 {
+      font-size: clamp(3rem, 18vw, 4.8rem);
+      letter-spacing: -0.07em;
+    }
+    .field-actions {
+      display: grid;
+    }
+    .field-primary-action,
+    .field-secondary-action {
+      width: 100%;
+    }
+    .field-signal {
+      min-height: 300px;
+    }
+    .signal-grid {
+      inset: 22px;
+    }
+    .signal-card {
+      min-width: 92px;
+      padding: 12px;
+    }
+    .signal-card strong {
+      font-size: 1.55rem;
+    }
+    .field-overview {
+      grid-template-columns: 1fr;
+      padding: 0 16px 46px;
+    }
+    .proof-strip {
+      grid-template-columns: 1fr;
+      margin: 0 16px 52px;
+    }
+    .field-curriculum,
+    .field-method {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    .phase-rail nav {
+      grid-template-columns: 1fr;
+    }
+    .module-row {
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 12px;
+      padding: 18px 0;
+    }
+    .module-action,
+    .module-status {
+      grid-column: 2;
+      justify-self: start;
+      margin-top: 2px;
+      text-align: left;
+    }
+    .field-method li {
+      grid-template-columns: 1fr;
+      gap: 6px;
     }
   }
 </style>

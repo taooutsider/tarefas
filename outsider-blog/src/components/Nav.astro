@@ -10,12 +10,14 @@ const isActive = (path: string) =>
   <nav class="container nav-inner" aria-label="Main navigation">
 
     <a href="/" class="logo" aria-label="Tao Outsider Home">
-      <img src="/logo.jpg" alt="Outsider" class="logo-img" width="140" height="28" />
+      <img src="/logo.svg" alt="Outsider" class="logo-img" width="140" height="28" decoding="async" />
     </a>
 
     <ul class="nav-links" role="list">
       <li><a href="/blog/"      class:list={['nav-link', { active: isActive('/blog') }]}>Blog</a></li>
-      <li><a href="/field-school/" class:list={['nav-link', { active: isActive('/field-school') }]}>Field School</a></li>
+      <li><a href="/subnet-research/" class:list={['nav-link', { active: isActive('/subnet-research') }]}>Subnet Research</a></li>
+      <li><a href="/experimentao-wallet/" class:list={['nav-link', { active: isActive('/experimentao-wallet') }]}>ExperimenTAO</a></li>
+      <li><a href="/field-school/" class:list={['nav-link', { active: isActive('/field-school') }]}>Field College</a></li>
       <li><a href="https://www.x.com/taooutsider" class="nav-link" rel="noopener" target="_blank" data-conversion-event="outbound_x_click" data-conversion-category="social" data-conversion-label="Nav X profile click">X - Tao Outsider</a></li>
     </ul>
 
@@ -37,7 +39,7 @@ const isActive = (path: string) =>
     border-bottom: 1px solid var(--border);
   }
   .nav-inner {
-    height: 58px;
+    min-height: 58px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -61,7 +63,7 @@ const isActive = (path: string) =>
   }
   .nav-link {
     font-size: 14px;
-    color: var(--muted);
+    color: #9a9a9a;
     padding: 5px 11px;
     border-radius: 5px;
     transition: color 0.12s, background 0.12s;
@@ -75,7 +77,31 @@ const isActive = (path: string) =>
     flex-shrink: 0;
   }
 
-  @media (max-width: 640px) {
-    .nav-links { display: none; }
+  @media (max-width: 940px) {
+    .nav-inner {
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    .nav-links {
+      order: 3;
+      width: 100%;
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      padding: 4px 0 1px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .nav-links::-webkit-scrollbar {
+      display: none;
+    }
+    .nav-link {
+      white-space: nowrap;
+      font-size: 13px;
+      padding: 5px 9px;
+      color: #a8a8a8;
+    }
   }
 </style>

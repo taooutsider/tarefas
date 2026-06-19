@@ -3,9 +3,10 @@ import { getCollection, render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
 import TaoMarketWidget from '../../components/TaoMarketWidget.astro';
+import { isPublishedPost, sortNewestPosts } from '../../lib/posts';
 
 export async function getStaticPaths() {
-  const posts = (await getCollection('blog')).filter(post => !post.data.draft);
+  const posts = (await getCollection('blog')).filter(isPublishedPost);
   return posts.map(post => ({
     params: { slug: post.id },
     props: { post },
@@ -17,11 +18,18 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 
 const { title, description, pubDate, updatedDate, category, tags, author, reviewedBy, image, imageAlt, ogImage } = post.data;
+const schemaType = post.id.startsWith('bittensor-field-school-')
+  ? 'LearningResource'
+  : post.data.newsEligible || post.data.contentType === 'news'
+    ? 'NewsArticle'
+    : category === 'guide'
+      ? 'BlogPosting'
+      : 'Article';
+const itemType = `https://schema.org/${schemaType}`;
 
-const all = (await getCollection('blog')).filter(post => !post.data.draft);
-const related = all
-  .filter(p => p.id !== post.id && p.data.category === category)
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+const all = (await getCollection('blog')).filter(isPublishedPost);
+const related = sortNewestPosts(all
+  .filter(p => p.id !== post.id && p.data.category === category))
   .slice(0, 3);
 
 const pubDateStr = pubDate.toLocaleDateString('en-US', {
@@ -58,8 +66,9 @@ const feedbackOptions = [
   tags={tags}
   author={author}
   reviewedBy={reviewedBy}
+  schemaType={schemaType}
 >
-  <article class="post-wrap" itemscope itemtype="https://schema.org/NewsArticle">
+  <article class="post-wrap" itemscope itemtype={itemType}>
 
     <!-- POST HEADER -->
     <header class="post-header container">

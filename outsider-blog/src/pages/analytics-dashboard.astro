@@ -1,0 +1,469 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { isPublishedPost, sortNewestPosts } from '../lib/posts';
+
+const now = Date.now();
+const allPosts = await getCollection('blog');
+const published = sortNewestPosts(allPosts.filter(isPublishedPost));
+const scheduled = allPosts
+  .filter(post => !post.data.draft && post.data.pubDate.valueOf() > now)
+  .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+const drafts = allPosts.filter(post => post.data.draft);
+const fieldCollegePosts = allPosts.filter(post => post.id.startsWith('bittensor-field-school-'));
+const fieldPublished = fieldCollegePosts.filter(isPublishedPost);
+const fieldScheduled = fieldCollegePosts.filter(post => !post.data.draft && post.data.pubDate.valueOf() > now);
+const articlesByCategory = published.reduce<Record<string, number>>((acc, post) => {
+  acc[post.data.category] = (acc[post.data.category] || 0) + 1;
+  return acc;
+}, {});
+
+const nextScheduled = scheduled.slice(0, 14).map(post => ({
+  title: post.data.title,
+  id: post.id,
+  date: post.data.pubDate.toISOString(),
+  category: post.data.category,
+}));
+---
+
+<BaseLayout
+  title="Tao Outsider Analytics Dashboard"
+  description="Internal Tao Outsider dashboard for publication cadence, site traffic and Field College progress."
+  canonicalURL="https://www.taooutsider.com/analytics-dashboard/"
+  noindex={true}
+>
+  <section class="dashboard-shell container">
+    <div class="dash-hero">
+      <div>
+        <p>Internal dashboard</p>
+        <h1>Tao Outsider operating desk</h1>
+        <span>Publication cadence, content inventory, site traffic and Field College status.</span>
+      </div>
+      <form class="token-form" data-token-form>
+        <label for="dashboard-token">Access code</label>
+        <div>
+          <input id="dashboard-token" type="password" autocomplete="current-password" placeholder="Dashboard token" />
+          <button type="submit">Load metrics</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="kpi-grid" aria-label="Editorial KPIs">
+      <article>
+        <span>Published</span>
+        <strong>{published.length}</strong>
+        <small>Articles visible now</small>
+      </article>
+      <article>
+        <span>Scheduled</span>
+        <strong>{scheduled.length}</strong>
+        <small>Future pubDate queue</small>
+      </article>
+      <article>
+        <span>Drafts</span>
+        <strong>{drafts.length}</strong>
+        <small>Not public yet</small>
+      </article>
+      <article>
+        <span>Field College</span>
+        <strong>{fieldPublished.length}/{fieldCollegePosts.length}</strong>
+        <small>{fieldScheduled.length} scheduled modules</small>
+      </article>
+    </div>
+
+    <section class="dash-panel live-panel" aria-labelledby="traffic-heading">
+      <div class="panel-head">
+        <div>
+          <p>Live first party data</p>
+          <h2 id="traffic-heading">Traffic by page and source</h2>
+        </div>
+        <span data-live-status>Waiting for access code</span>
+      </div>
+
+      <div class="live-kpis">
+        <article><span>Pageviews</span><strong data-metric="pageviews">...</strong></article>
+        <article><span>Pages seen</span><strong data-metric="pages">...</strong></article>
+        <article><span>Top source</span><strong data-metric="topSource">...</strong></article>
+        <article><span>Top page</span><strong data-metric="topPage">...</strong></article>
+      </div>
+
+      <div class="dashboard-tables">
+        <div>
+          <h3>Top pages</h3>
+          <ol data-table="pages"><li>Enter the access code to load D1 metrics.</li></ol>
+        </div>
+        <div>
+          <h3>Sources</h3>
+          <ol data-table="sources"><li>Direct, X, Google and referral sources appear here.</li></ol>
+        </div>
+        <div>
+          <h3>Daily pageviews</h3>
+          <ol data-table="daily"><li>Daily history starts from the tracking deployment.</li></ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="dash-grid">
+      <article class="dash-panel">
+        <div class="panel-head">
+          <div>
+            <p>Next 14 posts</p>
+            <h2>Editorial queue</h2>
+          </div>
+        </div>
+        <ol class="schedule-list">
+          {nextScheduled.map(item => (
+            <li>
+              <time datetime={item.date}>
+                {new Date(item.date).toLocaleString('en-US', {
+                  month: 'short',
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                })}
+              </time>
+              <a href={`/blog/${item.id}/`}>{item.title}</a>
+              <span>{item.category}</span>
+            </li>
+          ))}
+        </ol>
+      </article>
+
+      <article class="dash-panel">
+        <div class="panel-head">
+          <div>
+            <p>Content mix</p>
+            <h2>Published categories</h2>
+          </div>
+        </div>
+        <div class="category-bars">
+          {Object.entries(articlesByCategory).map(([category, total]) => (
+            <div>
+              <span>{category}</span>
+              <strong>{total}</strong>
+              <i style={`--bar: ${Math.max(8, (total / Math.max(1, published.length)) * 100)}%`}></i>
+            </div>
+          ))}
+        </div>
+      </article>
+    </section>
+
+    <section class="dash-panel integrations">
+      <div class="panel-head">
+        <div>
+          <p>Data sources</p>
+          <h2>Tracking integrations</h2>
+        </div>
+      </div>
+      <div class="integration-grid">
+        <article>
+          <strong>D1 first party analytics</strong>
+          <span>Active after this deploy. Captures page, source, device and country without personal data.</span>
+        </article>
+        <article>
+          <strong>Google Ads events</strong>
+          <span>Installed through gtag labels already in the layout.</span>
+        </article>
+        <article>
+          <strong>GA4 reporting</strong>
+          <span>Loads from Cloudflare Pages runtime env through `/api/tracking-config`.</span>
+        </article>
+        <article>
+          <strong>Cloudflare Web Analytics</strong>
+          <span>Runtime ready when `PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN` is configured.</span>
+        </article>
+        <article>
+          <strong>Cloudflare GraphQL</strong>
+          <span>Requires a read token before importing Cloudflare analytics into this dashboard.</span>
+        </article>
+      </div>
+    </section>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.querySelector('[data-token-form]');
+  const tokenInput = document.querySelector('#dashboard-token');
+  const statusEl = document.querySelector('[data-live-status]');
+  const setMetric = (key, value) => {
+    const element = document.querySelector(`[data-metric="${key}"]`);
+    if (element) element.textContent = value;
+  };
+  const compact = (value) => Number(value || 0).toLocaleString('en-US');
+  const renderList = (name, rows, format) => {
+    const list = document.querySelector(`[data-table="${name}"]`);
+    if (!list) return;
+    list.innerHTML = '';
+    if (!rows.length) {
+      const li = document.createElement('li');
+      li.textContent = 'No data yet.';
+      list.append(li);
+      return;
+    }
+    rows.forEach((row) => {
+      const li = document.createElement('li');
+      li.innerHTML = format(row);
+      list.append(li);
+    });
+  };
+  const loadMetrics = async (token) => {
+    statusEl.textContent = 'Loading D1 metrics';
+    const response = await fetch('/api/admin/metrics', {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!response.ok) throw new Error('Invalid or missing access code.');
+    const data = await response.json();
+    const topPage = data.pages?.[0];
+    const topSource = data.sources?.[0];
+    setMetric('pageviews', compact(data.totals?.pageviews));
+    setMetric('pages', compact(data.totals?.pages));
+    setMetric('topSource', topSource ? `${topSource.source} (${compact(topSource.pageviews)})` : 'No data');
+    setMetric('topPage', topPage ? topPage.path : 'No data');
+    renderList('pages', data.pages || [], (row) => `<span>${row.path}</span><strong>${compact(row.pageviews)}</strong>`);
+    renderList('sources', data.sources || [], (row) => `<span>${row.source}</span><strong>${compact(row.pageviews)}</strong>`);
+    renderList('daily', data.daily || [], (row) => `<span>${row.day}</span><strong>${compact(row.pageviews)}</strong>`);
+    statusEl.textContent = `Updated ${new Date(data.generatedAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
+  };
+
+  const savedToken = localStorage.getItem('tao-dashboard-token') || '';
+  if (tokenInput && savedToken) tokenInput.value = savedToken;
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const token = tokenInput?.value?.trim();
+    if (!token) return;
+    localStorage.setItem('tao-dashboard-token', token);
+    try {
+      await loadMetrics(token);
+    } catch (error) {
+      statusEl.textContent = error instanceof Error ? error.message : 'Unable to load metrics.';
+    }
+  });
+</script>
+
+<style>
+  .dashboard-shell {
+    max-width: 1180px;
+    padding: 44px 24px 88px;
+  }
+  .dash-hero,
+  .panel-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .dash-hero {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 28px;
+    margin-bottom: 24px;
+  }
+  .dash-hero p,
+  .panel-head p,
+  .kpi-grid span,
+  .live-kpis span,
+  .schedule-list span {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .dash-hero h1 {
+    font-size: clamp(2.3rem, 7vw, 5.2rem);
+    line-height: 0.94;
+    letter-spacing: -0.055em;
+    margin: 8px 0 12px;
+  }
+  .dash-hero span {
+    color: var(--text2);
+  }
+  .token-form {
+    min-width: min(100%, 360px);
+  }
+  .token-form label {
+    display: block;
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  .token-form div {
+    display: flex;
+    gap: 8px;
+  }
+  .token-form input {
+    flex: 1;
+    min-width: 0;
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    background: var(--s1);
+    color: var(--text);
+    padding: 10px 12px;
+  }
+  .token-form button,
+  .panel-head > span {
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    background: var(--white);
+    color: #000;
+    font-weight: 800;
+    padding: 10px 12px;
+  }
+  .panel-head > span {
+    background: var(--s1);
+    color: var(--text2);
+    font-size: 12px;
+  }
+  .kpi-grid,
+  .live-kpis,
+  .dash-grid,
+  .dashboard-tables,
+  .integration-grid {
+    display: grid;
+    gap: 14px;
+  }
+  .kpi-grid,
+  .live-kpis {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-bottom: 14px;
+  }
+  .dash-grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  }
+  .dashboard-tables,
+  .integration-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .dashboard-tables div:first-child {
+    grid-row: span 2;
+  }
+  .kpi-grid article,
+  .live-kpis article,
+  .dash-panel,
+  .integration-grid article {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--s1);
+    padding: 18px;
+  }
+  .kpi-grid strong,
+  .live-kpis strong {
+    display: block;
+    color: var(--white);
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    line-height: 1;
+    margin: 12px 0 8px;
+    letter-spacing: -0.05em;
+    overflow-wrap: anywhere;
+  }
+  .kpi-grid small {
+    color: var(--text2);
+  }
+  .dash-panel {
+    margin-top: 14px;
+  }
+  .panel-head {
+    margin-bottom: 18px;
+  }
+  .panel-head h2 {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    letter-spacing: -0.04em;
+  }
+  .dashboard-tables h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  .dashboard-tables ol,
+  .schedule-list {
+    list-style: none;
+  }
+  .dashboard-tables li,
+  .schedule-list li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 12px;
+    border-top: 1px solid var(--border);
+    padding: 11px 0;
+    color: var(--text2);
+    font-size: 13px;
+  }
+  .dashboard-tables strong {
+    color: var(--white);
+  }
+  .schedule-list li {
+    grid-template-columns: 118px minmax(0, 1fr) auto;
+  }
+  .schedule-list time {
+    color: var(--muted);
+    font-size: 12px;
+  }
+  .schedule-list a {
+    color: var(--text);
+    font-weight: 750;
+  }
+  .category-bars {
+    display: grid;
+    gap: 12px;
+  }
+  .category-bars div {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+  }
+  .category-bars span {
+    color: var(--text2);
+    text-transform: capitalize;
+  }
+  .category-bars strong {
+    color: var(--white);
+  }
+  .category-bars i {
+    grid-column: 1 / -1;
+    width: 100%;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--s3);
+    overflow: hidden;
+  }
+  .category-bars i::before {
+    content: "";
+    display: block;
+    width: var(--bar);
+    height: 100%;
+    background: var(--white);
+  }
+  .integration-grid article {
+    background: var(--bg);
+  }
+  .integration-grid strong {
+    display: block;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .integration-grid span {
+    color: var(--text2);
+    line-height: 1.6;
+    font-size: 14px;
+  }
+  @media (max-width: 860px) {
+    .dash-hero,
+    .panel-head {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+    .kpi-grid,
+    .live-kpis,
+    .dash-grid,
+    .dashboard-tables,
+    .integration-grid {
+      grid-template-columns: 1fr;
+    }
+    .schedule-list li {
+      grid-template-columns: 1fr;
+      gap: 5px;
+    }
+    .token-form div {
+      flex-direction: column;
+    }
+  }
+</style>

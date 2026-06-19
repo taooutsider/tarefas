@@ -1,0 +1,12 @@
+name = "taooutsider-publish-scheduler"
+main = "workers/publish-scheduler.js"
+compatibility_date = "2026-06-17"
+
+[vars]
+CLOUDFLARE_ACCOUNT_ID = "915f933fbec8fec2e4871db3feb9bc43"
+
+[triggers]
+crons = ["35 0,12,15,18,21 * * *"]
+
+[observability]
+enabled = true

@@ -14,6 +14,8 @@ const blog = defineCollection({
     reviewedBy: z.string().optional(),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
+    contentType: z.enum(['news', 'analysis', 'evergreen', 'guide', 'course']).default('evergreen'),
+    newsEligible: z.boolean().default(false),
     image: z.string().optional(),
     imageAlt: z.string().optional(),
     ogImage: z.string().optional(),

@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import { optimizedImageRemark } from './src/lib/remark-optimized-images.mjs';
 
 export default defineConfig({
   site: 'https://www.taooutsider.com',
@@ -19,6 +20,7 @@ export default defineConfig({
     }),
   ],
   markdown: {
+    remarkPlugins: [optimizedImageRemark],
     shikiConfig: {
       theme: 'github-dark',
       wrap: true,
