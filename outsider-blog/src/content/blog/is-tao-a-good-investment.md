@@ -1,7 +1,7 @@
 ---
 title: "Is TAO a good investment?"
 description: "A research framework for evaluating TAO without price targets, hype or financial advice."
-pubDate: 2026-06-25T21:00:00Z
+pubDate: 2026-07-04T00:00:00Z
 category: guide
 contentType: evergreen
 newsEligible: false

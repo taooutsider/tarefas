@@ -1,7 +1,7 @@
 ---
 title: "How to mine TAO on Bittensor"
 description: "Mining TAO means competing as a miner inside a Bittensor subnet. The path depends on the subnet, hardware and scoring rules."
-pubDate: 2026-06-21T18:00:00Z
+pubDate: 2026-06-23T12:00:00Z
 category: guide
 contentType: evergreen
 newsEligible: false

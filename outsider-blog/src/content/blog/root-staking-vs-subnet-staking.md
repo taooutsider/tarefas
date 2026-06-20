@@ -1,7 +1,7 @@
 ---
 title: "Root staking vs subnet staking"
 description: "Root staking and subnet staking expose TAO holders to different reward paths, risks and market behavior."
-pubDate: 2026-06-23T15:00:00Z
+pubDate: 2026-06-28T00:00:00Z
 category: guide
 contentType: evergreen
 newsEligible: false

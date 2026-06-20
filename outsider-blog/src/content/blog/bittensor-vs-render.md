@@ -1,7 +1,7 @@
 ---
 title: "Bittensor vs Render"
 description: "Bittensor and Render both touch decentralized compute narratives, but their architecture and market design are different."
-pubDate: 2026-06-24T21:00:00Z
+pubDate: 2026-07-01T12:00:00Z
 category: guide
 contentType: evergreen
 newsEligible: false

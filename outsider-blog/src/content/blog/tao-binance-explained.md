@@ -1,7 +1,7 @@
 ---
 title: "TAO on Binance explained"
 description: "TAO trading on Binance gives many users a simple way to access Bittensor, price charts and liquidity."
-pubDate: 2026-06-24T12:00:00Z
+pubDate: 2026-06-30T00:00:00Z
 category: guide
 contentType: evergreen
 newsEligible: false

@@ -1,7 +1,7 @@
 ---
 title: "dTAO explained simply"
 description: "A simple explanation of dTAO, alpha tokens, subnet markets and why Bittensor changed how capital flows."
-pubDate: 2026-06-22T18:00:00Z
+pubDate: 2026-06-26T00:00:00Z
 category: guide
 contentType: evergreen
 newsEligible: false

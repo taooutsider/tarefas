@@ -1,7 +1,7 @@
 ---
 title: "How to research a Bittensor subnet"
 description: "A simple field checklist for researching any Bittensor subnet through work, scoring, liquidity, code, validators and risk."
-pubDate: 2026-06-20T21:00:00Z
+pubDate: 2026-06-21T12:00:00Z
 category: guide
 contentType: evergreen
 newsEligible: false

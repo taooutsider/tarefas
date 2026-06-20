@@ -1,7 +1,7 @@
 ---
 title: "How many Bittensor subnets are there?"
 description: "A practical guide to checking how many Bittensor subnets exist now and why the number changes over time."
-pubDate: 2026-06-20T15:00:00Z
+pubDate: 2026-06-21T00:00:00Z
 category: guide
 contentType: evergreen
 newsEligible: false

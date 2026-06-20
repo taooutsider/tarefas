@@ -53,13 +53,10 @@ curl -X POST https://taooutsider-publish-scheduler.<workers-subdomain>.workers.d
 
 ## Current publication cadence
 
-The basic SEO editorial cadence is five posts per day:
+The basic SEO editorial cadence is two posts per day:
 
 1. 09:00 America Recife
-2. 12:00 America Recife
-3. 15:00 America Recife
-4. 18:00 America Recife
-5. 21:00 America Recife
+2. 21:00 America Recife
 
-In UTC, that is 12:00, 15:00, 18:00, 21:00 and 00:00.
+In UTC, that is 12:00 and 00:00.
 The scheduler deploys at minute 35 after each slot so Astro can include posts whose `pubDate` has already passed.

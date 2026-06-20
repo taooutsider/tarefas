@@ -1,7 +1,7 @@
 ---
 title: "How to track Bittensor subnets"
 description: "Track Bittensor subnets with a mix of market data, flows, docs, GitHub, validators, liquidity and social context."
-pubDate: 2026-06-27T00:00:00Z
+pubDate: 2026-07-07T00:00:00Z
 category: guide
 contentType: evergreen
 newsEligible: false

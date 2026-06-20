@@ -1,7 +1,7 @@
 ---
 title: "What are miners in Bittensor?"
 description: "Bittensor miners are workers that compete inside subnets by producing outputs scored by validators."
-pubDate: 2026-06-21T12:00:00Z
+pubDate: 2026-06-22T12:00:00Z
 category: guide
 contentType: evergreen
 newsEligible: false

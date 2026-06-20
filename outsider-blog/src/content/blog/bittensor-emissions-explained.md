@@ -1,7 +1,7 @@
 ---
 title: "Bittensor emissions explained"
 description: "Bittensor emissions are the reward flow that pays miners, validators and subnet participants based on network mechanisms."
-pubDate: 2026-06-23T00:00:00Z
+pubDate: 2026-06-27T00:00:00Z
 category: guide
 contentType: evergreen
 newsEligible: false

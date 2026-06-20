@@ -1,7 +1,7 @@
 ---
 title: "Bittensor vs Akash"
 description: "Bittensor and Akash both sit near decentralized compute, but Bittensor focuses on incentive markets for machine work."
-pubDate: 2026-06-25T00:00:00Z
+pubDate: 2026-07-02T00:00:00Z
 category: guide
 contentType: evergreen
 newsEligible: false

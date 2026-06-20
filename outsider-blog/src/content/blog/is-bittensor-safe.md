@@ -1,7 +1,7 @@
 ---
 title: "Is Bittensor safe?"
 description: "Bittensor has protocol, market, custody, staking and subnet specific risks. Safety depends on what the user is doing."
-pubDate: 2026-06-25T18:00:00Z
+pubDate: 2026-07-03T12:00:00Z
 category: guide
 contentType: evergreen
 newsEligible: false

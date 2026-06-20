@@ -12,6 +12,11 @@
 
 ## Latest Articles
 
+- [How does Bittensor work?](https://www.taooutsider.com/blog/how-does-bittensor-work/): Bittensor works through subnets, miners, validators, Yuma Consensus, emissions and TAO based market incentives.
+- [Is Bittensor an AI crypto?](https://www.taooutsider.com/blog/is-bittensor-an-ai-crypto/): Bittensor is often called an AI crypto, but the better explanation is a network of incentive markets for machine work.
+- [What is Bittensor used for?](https://www.taooutsider.com/blog/what-is-bittensor-used-for/): Bittensor is used to create competitive AI and machine intelligence markets across subnets, from compute to data to agents.
+- [What is TAO crypto?](https://www.taooutsider.com/blog/what-is-tao-crypto/): TAO is the native token of Bittensor. Learn how it connects staking, subnets, emissions, validators and network access.
+- [What is Bittensor?](https://www.taooutsider.com/blog/what-is-bittensor/): A plain English guide to Bittensor, TAO, subnets, miners, validators and why the network matters for decentralized AI.
 - [Yuma is right to slow down the Root Reborn conversation](https://www.taooutsider.com/blog/yuma-root-reborn-analysis-caution/): Yuma's warning on Root Reborn is not a reason to ignore the proposal. It is a reason to demand safeguards, testing and visible tradeoffs.
 - [New Root SN0: why Root Reborn matters for dTAO](https://www.taooutsider.com/blog/new-root-sn0-root-reborn-dtao/): Root Reborn would change Root staking from automatic subnet selling into validator directed subnet reinvestment.
 - [Metanova Labs and NOVA: the Bittensor subnet turning drug discovery into a competition](https://www.taooutsider.com/blog/metanova-nova-drug-discovery-bittensor/): After Micaela Bazo's Proof of Talk pitch, NOVA looks like one of the clearest examples of Bittensor applied to a real scientific search problem.

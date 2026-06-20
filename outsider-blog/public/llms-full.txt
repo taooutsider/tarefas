@@ -12,6 +12,11 @@
 
 ## Latest Articles
 
+- [How does Bittensor work?](https://www.taooutsider.com/blog/how-does-bittensor-work/): Bittensor works through subnets, miners, validators, Yuma Consensus, emissions and TAO based market incentives.
+- [Is Bittensor an AI crypto?](https://www.taooutsider.com/blog/is-bittensor-an-ai-crypto/): Bittensor is often called an AI crypto, but the better explanation is a network of incentive markets for machine work.
+- [What is Bittensor used for?](https://www.taooutsider.com/blog/what-is-bittensor-used-for/): Bittensor is used to create competitive AI and machine intelligence markets across subnets, from compute to data to agents.
+- [What is TAO crypto?](https://www.taooutsider.com/blog/what-is-tao-crypto/): TAO is the native token of Bittensor. Learn how it connects staking, subnets, emissions, validators and network access.
+- [What is Bittensor?](https://www.taooutsider.com/blog/what-is-bittensor/): A plain English guide to Bittensor, TAO, subnets, miners, validators and why the network matters for decentralized AI.
 - [Yuma is right to slow down the Root Reborn conversation](https://www.taooutsider.com/blog/yuma-root-reborn-analysis-caution/): Yuma's warning on Root Reborn is not a reason to ignore the proposal. It is a reason to demand safeguards, testing and visible tradeoffs.
 - [New Root SN0: why Root Reborn matters for dTAO](https://www.taooutsider.com/blog/new-root-sn0-root-reborn-dtao/): Root Reborn would change Root staking from automatic subnet selling into validator directed subnet reinvestment.
 - [Metanova Labs and NOVA: the Bittensor subnet turning drug discovery into a competition](https://www.taooutsider.com/blog/metanova-nova-drug-discovery-bittensor/): After Micaela Bazo's Proof of Talk pitch, NOVA looks like one of the clearest examples of Bittensor applied to a real scientific search problem.
@@ -80,6 +85,61 @@
 - For current market data, verify TaoSwap, TaoStats, TAO.app or official Bittensor sources before making live claims.
 
 ## Article Summaries
+
+### How does Bittensor work?
+
+URL: https://www.taooutsider.com/blog/how-does-bittensor-work/
+Published: 2026-06-20T00:00:00.000Z
+Category: guide
+Content type: evergreen
+
+Bittensor works through subnets, miners, validators, Yuma Consensus, emissions and TAO based market incentives.
+
+# How does Bittensor work? ## Fast answer Bittensor works by splitting machine intelligence into subnet markets. Miners perform work, validators score that work, Yuma Consensus turns validator judgment into rewards, and TAO connects the markets economically. This article is for the reader searching "how does Bittensor work" and trying to avoid the usual shortcut explanations. The goal is a clean starting point, then a practical path for checking the claim inside the Bittensor ecosystem. ## Plain English version A subnet can define its own task. That task may be model inference, data retrieval, compute, translation, search or another measurable job. The subnet rewards miners that perform well and validators that help measure the work. Bittensor gets easier when you stop reading it as one giant object. There is TAO, the chain, Root, subnets, miners, validators, emissions, dTAO, alpha marke
+
+### Is Bittensor an AI crypto?
+
+URL: https://www.taooutsider.com/blog/is-bittensor-an-ai-crypto/
+Published: 2026-06-19T21:00:00.000Z
+Category: guide
+Content type: evergreen
+
+Bittensor is often called an AI crypto, but the better explanation is a network of incentive markets for machine work.
+
+# Is Bittensor an AI crypto? ## Fast answer Yes, Bittensor belongs in the AI crypto category. The better description is more specific: Bittensor creates token powered markets where machine intelligence work can be produced, measured and rewarded. This article is for the reader searching "Bittensor AI crypto" and trying to avoid the usual shortcut explanations. The goal is a clean starting point, then a practical path for checking the claim inside the Bittensor ecosystem. ## Plain English version The AI part comes from the work performed by miners inside subnets. The crypto part comes from the chain, token incentives, staking and emissions that coordinate those participants. Bittensor gets easier when you stop reading it as one giant object. There is TAO, the chain, Root, subnets, miners, validators, emissions, dTAO, alpha markets, wallets, liquidity and tools. A beginner does not need al
+
+### What is Bittensor used for?
+
+URL: https://www.taooutsider.com/blog/what-is-bittensor-used-for/
+Published: 2026-06-19T18:00:00.000Z
+Category: guide
+Content type: evergreen
+
+Bittensor is used to create competitive AI and machine intelligence markets across subnets, from compute to data to agents.
+
+# What is Bittensor used for? ## Fast answer Bittensor is used to coordinate competitive markets for machine work. That can include inference, compute, data, search, translation, finance, agents, drug discovery and other subnet specific tasks. This article is for the reader searching "what is Bittensor used for" and trying to avoid the usual shortcut explanations. The goal is a clean starting point, then a practical path for checking the claim inside the Bittensor ecosystem. ## Plain English version Each subnet chooses its own task and scoring system. The network does not need every subnet to do the same thing. It needs each subnet to define measurable work and reward the participants that produce it. Bittensor gets easier when you stop reading it as one giant object. There is TAO, the chain, Root, subnets, miners, validators, emissions, dTAO, alpha markets, wallets, liquidity and tools.
+
+### What is TAO crypto?
+
+URL: https://www.taooutsider.com/blog/what-is-tao-crypto/
+Published: 2026-06-19T15:00:00.000Z
+Category: guide
+Content type: evergreen
+
+TAO is the native token of Bittensor. Learn how it connects staking, subnets, emissions, validators and network access.
+
+# What is TAO crypto? ## Fast answer TAO is the native asset of Bittensor. It is used for staking, subnet registration, validator influence, market pricing and incentives across the network. This article is for the reader searching "what is TAO crypto" and trying to avoid the usual shortcut explanations. The goal is a clean starting point, then a practical path for checking the claim inside the Bittensor ecosystem. ## Plain English version TAO does more than sit beside the protocol. It coordinates who can participate, where emissions flow, how subnet markets are priced and how users express trust in validators or subnet tokens. Bittensor gets easier when you stop reading it as one giant object. There is TAO, the chain, Root, subnets, miners, validators, emissions, dTAO, alpha markets, wallets, liquidity and tools. A beginner does not need all of that on day one. A beginner needs the corr
+
+### What is Bittensor?
+
+URL: https://www.taooutsider.com/blog/what-is-bittensor/
+Published: 2026-06-19T12:00:00.000Z
+Category: guide
+Content type: evergreen
+
+A plain English guide to Bittensor, TAO, subnets, miners, validators and why the network matters for decentralized AI.
+
+# What is Bittensor? ## Fast answer Bittensor is a decentralized network for creating markets around machine intelligence. Instead of one company owning the model, Bittensor lets many subnet markets compete to produce useful machine work and rewards participants through TAO. This article is for the reader searching "what is Bittensor" and trying to avoid the usual shortcut explanations. The goal is a clean starting point, then a practical path for checking the claim inside the Bittensor ecosystem. ## Plain English version The network runs through subnets. Each subnet defines a task, miners compete to perform that task, validators evaluate the work, and emissions reward the participants that score well. TAO ties those markets together. Bittensor gets easier when you stop reading it as one giant object. There is TAO, the chain, Root, subnets, miners, validators, emissions, dTAO, alpha mark
 
 ### Yuma is right to slow down the Root Reborn conversation
 

@@ -1,7 +1,7 @@
 ---
 title: "Bittensor scams and red flags"
 description: "Learn the common red flags around Bittensor subnets, fake tools, weak projects, wallet risk and social hype."
-pubDate: 2026-06-26T15:00:00Z
+pubDate: 2026-07-05T12:00:00Z
 category: guide
 contentType: evergreen
 newsEligible: false

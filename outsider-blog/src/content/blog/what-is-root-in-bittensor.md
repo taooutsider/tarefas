@@ -1,7 +1,7 @@
 ---
 title: "What is Root in Bittensor?"
 description: "Root is Bittensor subnet zero, the staking and validator layer that sits above subnet markets."
-pubDate: 2026-06-23T12:00:00Z
+pubDate: 2026-06-27T12:00:00Z
 category: guide
 contentType: evergreen
 newsEligible: false

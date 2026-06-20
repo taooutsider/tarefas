@@ -1,7 +1,7 @@
 ---
 title: "Bittensor subnet tokens explained"
 description: "Subnet tokens, also called alpha, are the market layer created by dTAO for individual Bittensor subnets."
-pubDate: 2026-06-21T00:00:00Z
+pubDate: 2026-06-22T00:00:00Z
 category: guide
 contentType: evergreen
 newsEligible: false

@@ -1,7 +1,7 @@
 ---
 title: "Bittensor vs Bitcoin"
 description: "Bitcoin and Bittensor both use scarce digital assets, but Bittensor adds subnet markets for machine intelligence work."
-pubDate: 2026-06-25T15:00:00Z
+pubDate: 2026-07-03T00:00:00Z
 category: guide
 contentType: evergreen
 newsEligible: false

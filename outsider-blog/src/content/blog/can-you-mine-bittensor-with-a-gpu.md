@@ -1,7 +1,7 @@
 ---
 title: "Can you mine Bittensor with a GPU?"
 description: "Some Bittensor subnets may need GPUs, but GPU mining depends on the subnet task, competition and scoring method."
-pubDate: 2026-06-21T21:00:00Z
+pubDate: 2026-06-24T00:00:00Z
 category: guide
 contentType: evergreen
 newsEligible: false

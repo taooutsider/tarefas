@@ -6,7 +6,7 @@ category: guide
 contentType: evergreen
 newsEligible: false
 featured: false
-draft: false
+draft: true
 author: "Tao Outsider"
 tags: ["TAO", "Bittensor", "subnets", "subnet research"]
 image: "/blog/basic-seo/best-bittensor-subnets-to-watch-og.jpg"

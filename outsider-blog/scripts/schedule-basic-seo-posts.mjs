@@ -7,7 +7,7 @@ const manifestPath = path.join(root, 'docs/basic-seo-article-map.json');
 const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
 
 const startDate = '2026-06-19';
-const localHours = [9, 12, 15, 18, 21];
+const localHours = [9, 21];
 const [startYear, startMonth, startDay] = startDate.split('-').map(Number);
 
 function scheduledIso(index) {
@@ -56,6 +56,6 @@ writeFileSync(
   'utf8',
 );
 
-console.log(`Scheduled ${scheduled.length} basic SEO posts at 5 per day.`);
+console.log(`Scheduled ${scheduled.length} basic SEO posts at 2 per day.`);
 console.log(`First: ${scheduled[0].slug} ${scheduled[0].pubDate}`);
 console.log(`Last: ${scheduled.at(-1).slug} ${scheduled.at(-1).pubDate}`);
