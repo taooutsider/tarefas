@@ -1,7 +1,7 @@
 ---
 title: "How to follow Bittensor news"
 description: "A practical guide to following Bittensor news through official accounts, docs, GitHub, subnets, dashboards and X."
-pubDate: 2026-07-08T00:00:00Z
+pubDate: 2026-06-22T19:59:23.330Z
 category: guide
 contentType: evergreen
 newsEligible: false

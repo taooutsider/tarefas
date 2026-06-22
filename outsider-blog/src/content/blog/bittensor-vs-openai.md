@@ -1,7 +1,7 @@
 ---
 title: "Bittensor vs OpenAI"
 description: "Bittensor and OpenAI represent very different approaches to AI: open incentive markets versus centralized model companies."
-pubDate: 2026-07-01T00:00:00Z
+pubDate: 2026-06-22T19:45:23.330Z
 category: guide
 contentType: evergreen
 newsEligible: false

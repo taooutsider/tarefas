@@ -1,7 +1,7 @@
 ---
 title: "What is dTAO in Bittensor?"
 description: "dTAO is Dynamic TAO, the Bittensor market structure that lets subnet alpha markets influence emissions and capital flow."
-pubDate: 2026-06-25T12:00:00Z
+pubDate: 2026-06-22T19:34:23.330Z
 category: guide
 contentType: evergreen
 newsEligible: false

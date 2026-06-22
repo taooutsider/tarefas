@@ -1,7 +1,7 @@
 ---
 title: "Bittensor vs Filecoin"
 description: "Bittensor and Filecoin both use crypto incentives, but Filecoin focuses on storage while Bittensor focuses on machine work markets."
-pubDate: 2026-07-02T12:00:00Z
+pubDate: 2026-06-22T19:48:23.330Z
 category: guide
 contentType: evergreen
 newsEligible: false

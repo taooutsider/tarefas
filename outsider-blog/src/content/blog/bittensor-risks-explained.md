@@ -1,7 +1,7 @@
 ---
 title: "Bittensor risks explained"
 description: "The main Bittensor risks include market volatility, subnet quality, validator behavior, liquidity, custody and protocol changes."
-pubDate: 2026-07-04T12:00:00Z
+pubDate: 2026-06-22T19:52:23.330Z
 category: guide
 contentType: evergreen
 newsEligible: false

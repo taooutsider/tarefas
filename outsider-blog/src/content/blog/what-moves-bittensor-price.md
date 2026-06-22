@@ -1,7 +1,7 @@
 ---
 title: "Bittensor price: what moves TAO?"
 description: "TAO price can move with crypto liquidity, Bittensor subnets, dTAO flows, exchange demand, staking and decentralized AI narratives."
-pubDate: 2026-06-28T12:00:00Z
+pubDate: 2026-06-22T19:40:23.330Z
 category: guide
 contentType: evergreen
 newsEligible: false

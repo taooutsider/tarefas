@@ -1,7 +1,7 @@
 ---
 title: "What are validators in Bittensor?"
 description: "Bittensor validators score miners, set weights and help turn subnet work into rewards."
-pubDate: 2026-06-23T00:00:00Z
+pubDate: 2026-06-22T19:29:23.330Z
 category: guide
 contentType: evergreen
 newsEligible: false

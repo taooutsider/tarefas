@@ -1,7 +1,7 @@
 ---
 title: "TAO market cap explained"
 description: "TAO market cap measures the value of circulating TAO, but it should be read beside FDV, staking, emissions and subnet markets."
-pubDate: 2026-06-30T12:00:00Z
+pubDate: 2026-06-22T19:44:23.330Z
 category: guide
 contentType: evergreen
 newsEligible: false

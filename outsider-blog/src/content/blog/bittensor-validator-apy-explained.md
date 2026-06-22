@@ -1,7 +1,7 @@
 ---
 title: "Bittensor validator APY explained"
 description: "Validator APY in Bittensor can be useful, misleading or temporary. Learn how to read it with context."
-pubDate: 2026-06-25T00:00:00Z
+pubDate: 2026-06-22T19:33:23.330Z
 category: guide
 contentType: evergreen
 newsEligible: false

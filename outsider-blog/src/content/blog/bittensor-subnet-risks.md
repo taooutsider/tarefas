@@ -1,7 +1,7 @@
 ---
 title: "What can go wrong with Bittensor subnets?"
 description: "Bittensor subnets can fail through weak scoring, thin liquidity, poor docs, no product, bad incentives or validator problems."
-pubDate: 2026-07-05T00:00:00Z
+pubDate: 2026-06-22T19:53:23.330Z
 category: guide
 contentType: evergreen
 newsEligible: false

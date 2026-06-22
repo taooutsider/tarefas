@@ -1,7 +1,7 @@
 ---
 title: "How to use TaoSwap"
 description: "TaoSwap helps users inspect and trade Bittensor subnet alpha markets, with liquidity and slippage checks before action."
-pubDate: 2026-07-06T12:00:00Z
+pubDate: 2026-06-22T19:56:23.330Z
 category: guide
 contentType: evergreen
 newsEligible: false

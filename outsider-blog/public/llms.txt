@@ -12,18 +12,26 @@
 
 ## Latest Articles
 
-- [How does Bittensor work?](https://www.taooutsider.com/blog/how-does-bittensor-work/): Bittensor works through subnets, miners, validators, Yuma Consensus, emissions and TAO based market incentives.
-- [Is Bittensor an AI crypto?](https://www.taooutsider.com/blog/is-bittensor-an-ai-crypto/): Bittensor is often called an AI crypto, but the better explanation is a network of incentive markets for machine work.
-- [What is Bittensor used for?](https://www.taooutsider.com/blog/what-is-bittensor-used-for/): Bittensor is used to create competitive AI and machine intelligence markets across subnets, from compute to data to agents.
-- [What is TAO crypto?](https://www.taooutsider.com/blog/what-is-tao-crypto/): TAO is the native token of Bittensor. Learn how it connects staking, subnets, emissions, validators and network access.
-- [What is Bittensor?](https://www.taooutsider.com/blog/what-is-bittensor/): A plain English guide to Bittensor, TAO, subnets, miners, validators and why the network matters for decentralized AI.
-- [Yuma is right to slow down the Root Reborn conversation](https://www.taooutsider.com/blog/yuma-root-reborn-analysis-caution/): Yuma's warning on Root Reborn is not a reason to ignore the proposal. It is a reason to demand safeguards, testing and visible tradeoffs.
-- [New Root SN0: why Root Reborn matters for dTAO](https://www.taooutsider.com/blog/new-root-sn0-root-reborn-dtao/): Root Reborn would change Root staking from automatic subnet selling into validator directed subnet reinvestment.
-- [Metanova Labs and NOVA: the Bittensor subnet turning drug discovery into a competition](https://www.taooutsider.com/blog/metanova-nova-drug-discovery-bittensor/): After Micaela Bazo's Proof of Talk pitch, NOVA looks like one of the clearest examples of Bittensor applied to a real scientific search problem.
-- [Proof of Talk 2026: remote Bittensor track guide](https://www.taooutsider.com/blog/proof-of-talk-2026-bittensor-track-guide/): Tao Outsider's remote guide to the Proof of Talk 2026 Bittensor Track, including sessions, subnets, X coverage, and stream status.
-- [Bittensor Conviction Explained](https://www.taooutsider.com/blog/bittensor-conviction-explained/): Conviction turns locked alpha into an on chain commitment score inside Bittensor, showing who is willing to stay committed over time.
-- [Babelbit SN59: The First Machine Interpreter on Bittensor](https://www.taooutsider.com/blog/babelbit-subnet-59-machine-interpreter/): A Tao Outsider deep dive into Babelbit, Subnet 59, and why its speech native translation approach may be one of the most misunderstood projects in Bittensor.
-- [How to Mine TAO on Bitcast Subnet 93](https://www.taooutsider.com/blog/how-to-mine-tao-on-bitcast-subnet-93/): A practical guide to mining TAO on Bitcast through Stitch3, building your X reputation, entering the ranking, and getting ready for creator rewards.
+- [How to follow Bittensor news](https://www.taooutsider.com/blog/how-to-follow-bittensor-news/): A practical guide to following Bittensor news through official accounts, docs, GitHub, subnets, dashboards and X.
+- [How to read TaoStats](https://www.taooutsider.com/blog/how-to-read-taostats/): TaoStats is a core Bittensor explorer for subnets, validators, staking, yield, portfolios and chain data.
+- [How to track Bittensor subnets](https://www.taooutsider.com/blog/how-to-track-bittensor-subnets/): Track Bittensor subnets with a mix of market data, flows, docs, GitHub, validators, liquidity and social context.
+- [How to use TaoSwap](https://www.taooutsider.com/blog/how-to-use-taoswap/): TaoSwap helps users inspect and trade Bittensor subnet alpha markets, with liquidity and slippage checks before action.
+- [Best Bittensor tools](https://www.taooutsider.com/blog/best-bittensor-tools/): A beginner friendly map of Bittensor tools for subnets, staking, prices, flows, research, wallets and market tracking.
+- [Bittensor scams and red flags](https://www.taooutsider.com/blog/bittensor-scams-red-flags/): Learn the common red flags around Bittensor subnets, fake tools, weak projects, wallet risk and social hype.
+- [What can go wrong with Bittensor subnets?](https://www.taooutsider.com/blog/bittensor-subnet-risks/): Bittensor subnets can fail through weak scoring, thin liquidity, poor docs, no product, bad incentives or validator problems.
+- [Bittensor risks explained](https://www.taooutsider.com/blog/bittensor-risks-explained/): The main Bittensor risks include market volatility, subnet quality, validator behavior, liquidity, custody and protocol changes.
+- [Is TAO a good investment?](https://www.taooutsider.com/blog/is-tao-a-good-investment/): A research framework for evaluating TAO without price targets, hype or financial advice.
+- [Is Bittensor safe?](https://www.taooutsider.com/blog/is-bittensor-safe/): Bittensor has protocol, market, custody, staking and subnet specific risks. Safety depends on what the user is doing.
+- [Bittensor vs Bitcoin](https://www.taooutsider.com/blog/bittensor-vs-bitcoin/): Bitcoin and Bittensor both use scarce digital assets, but Bittensor adds subnet markets for machine intelligence work.
+- [Bittensor vs Filecoin](https://www.taooutsider.com/blog/bittensor-vs-filecoin/): Bittensor and Filecoin both use crypto incentives, but Filecoin focuses on storage while Bittensor focuses on machine work markets.
+- [Bittensor vs Akash](https://www.taooutsider.com/blog/bittensor-vs-akash/): Bittensor and Akash both sit near decentralized compute, but Bittensor focuses on incentive markets for machine work.
+- [Bittensor vs Render](https://www.taooutsider.com/blog/bittensor-vs-render/): Bittensor and Render both touch decentralized compute narratives, but their architecture and market design are different.
+- [Bittensor vs OpenAI](https://www.taooutsider.com/blog/bittensor-vs-openai/): Bittensor and OpenAI represent very different approaches to AI: open incentive markets versus centralized model companies.
+- [TAO market cap explained](https://www.taooutsider.com/blog/tao-market-cap-explained/): TAO market cap measures the value of circulating TAO, but it should be read beside FDV, staking, emissions and subnet markets.
+- [TAO on Binance explained](https://www.taooutsider.com/blog/tao-binance-explained/): TAO trading on Binance gives many users a simple way to access Bittensor, price charts and liquidity.
+- [Where to buy TAO safely](https://www.taooutsider.com/blog/where-to-buy-tao/): TAO is listed on major exchanges and can also be accessed through Bittensor ecosystem tools depending on region and custody needs.
+- [Why is TAO going up or down?](https://www.taooutsider.com/blog/why-is-tao-going-up-or-down/): A practical framework for reading TAO price moves through liquidity, news, subnets, dTAO, staking and market context.
+- [Bittensor price: what moves TAO?](https://www.taooutsider.com/blog/what-moves-bittensor-price/): TAO price can move with crypto liquidity, Bittensor subnets, dTAO flows, exchange demand, staking and decentralized AI narratives.
 
 ## Bittensor Field College
 

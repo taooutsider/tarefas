@@ -1,7 +1,7 @@
 ---
 title: "What is alpha in Bittensor?"
 description: "Alpha in Bittensor refers to subnet specific token exposure created by dTAO markets."
-pubDate: 2026-06-26T12:00:00Z
+pubDate: 2026-06-22T19:36:23.330Z
 category: guide
 contentType: evergreen
 newsEligible: false

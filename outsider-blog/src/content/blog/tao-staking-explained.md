@@ -1,7 +1,7 @@
 ---
 title: "How does TAO staking work?"
 description: "TAO staking lets users delegate economic weight through Root or subnet exposure, with different risks and rewards."
-pubDate: 2026-06-24T12:00:00Z
+pubDate: 2026-06-22T19:32:23.330Z
 category: guide
 contentType: evergreen
 newsEligible: false

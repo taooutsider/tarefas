@@ -1,7 +1,7 @@
 ---
 title: "Where to buy TAO safely"
 description: "TAO is listed on major exchanges and can also be accessed through Bittensor ecosystem tools depending on region and custody needs."
-pubDate: 2026-06-29T12:00:00Z
+pubDate: 2026-06-22T19:42:23.330Z
 category: guide
 contentType: evergreen
 newsEligible: false
